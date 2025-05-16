@@ -1,6 +1,17 @@
+cmake_minimum_required(VERSION 3.26)
+project(WellLogVisualizer)
 
-add_executable(Simulador-nome
-CSimulador-nome.cpp
-Simulador-nome.cpp
+set(CMAKE_CXX_STANDARD 20)
+
+# Diretórios
+include_directories(src)
+include_directories(src/core)
+include_directories(src/plotting)
+include_directories(src/interpretation)
+
+# Arquivos-fonte
+file(GLOB_RECURSE SOURCES
+    src/*.cpp
 )
 
+add_executable(${PROJECT_NAME} ${SOURCES})

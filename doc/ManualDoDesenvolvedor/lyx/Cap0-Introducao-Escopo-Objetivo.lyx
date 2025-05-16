@@ -1,0 +1,348 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extbook
+\begin_preamble
+\usepackage {graphicx}
+\usepackage {longtable}
+\usepackage {indentfirst}
+\renewenvironment{center}{\par\centering}{\par}
+
+% Comentar linhas abaixo se não estiver usando pacote abntex
+% ou se o pacote ainda não foi instalado.
+% neste caso sugere-se usar citações no padrão apalike (lembra o da anbt).
+%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
+%\usepackage {helvet}
+%\renewcommand {\familydefault}{\sfdefault}
+
+% Para uso de listagens de código
+\usepackage{color}
+\definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
+% Informa que vai usar o pacote listings, 
+% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
+\usepackage{listings}
+\end_preamble
+\use_default_options false
+\master DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
+\maintain_unincluded_children no
+\language brazilian
+\language_package auto
+\inputencoding utf8
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement h
+\float_alignment class
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize a4
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style apalike
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 210mm
+\paperheight 297mm
+\leftmargin 30mm
+\topmargin 25mm
+\rightmargin 20mm
+\bottommargin 20mm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle fancy
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Introdução
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Introdução"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lhead{
+\backslash
+thechapter
+\backslash
+space - Introdução}
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lfoot{Pedro Daneluci Cardozo,
+ Rafael Moreira da Silva} 
+\backslash
+rfoot{
+\backslash
+today}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Substitua "SeuNomeAqui" por seu nome e sobrenome
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Jamais retire o 
+\backslash
+today ele vai colocar data no material impresso
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Este projeto de engenharia propõe o desenvolvimento do GeoLogViewer,
+ um software educacional voltado à leitura e visualização de dados geofísicos contidos em arquivos LAS,
+ amplamente utilizados na análise de perfis de poços na indústria do petróleo.
+ A ferramenta foi concebida para atender às necessidades de estudantes de Engenharia de Petróleo,
+ oferecendo uma interface intuitiva e recursos que facilitam a interpretação de curvas como GR,
+ RHOB e NPHI,
+ promovendo assim a integração entre teoria,
+ dados reais e aplicações práticas na formação técnica em geociências e engenharia de poço.
+\end_layout
+
+\begin_layout Section
+Escopo do problema
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Escopo-do-Problema"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A Engenharia de Petróleo e as Geociências dependem da interpretação de dados de subsuperfície registrados em arquivos LAS para decisões em exploração,
+ produção e caracterização de reservatórios.
+ No entanto,
+ as ferramentas comerciais existentes,
+ como Techlog,
+ Petra e WellCAD,
+ são onerosas,
+ complexas e voltadas a profissionais experientes,
+ criando barreiras ao uso acadêmico e limitando o acesso de estudantes a experiências práticas essenciais.
+\end_layout
+
+\begin_layout Standard
+O GeoLogViewer preenche essa lacuna ao oferecer um software leve,
+ gratuito e de código aberto que lê e visualiza graficamente perfis de poço (e.g.,
+ GR,
+ RHOB e NPHI) por meio de uma interface intuitiva.
+ Além de modernizar o ensino de engenharia ao alinhar teoria e prática,
+ a ferramenta estimula o desenvolvimento de competências técnicas em geofísica e programação,
+ servindo tanto como recurso didático para alunos e professores quanto como projeto formativo para seus desenvolvedores.
+\end_layout
+
+\begin_layout Section
+Objetivos
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Objetivos"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Os objetivos deste projeto de engenharia são:
+\end_layout
+
+\begin_layout Itemize
+Objetivo geral:
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Desenvolver um projeto de engenharia de software para a criação de uma aplicação educacional de código aberto,
+ capaz de realizar a leitura,
+ interpretação e visualização de dados geofísicos armazenados em arquivos LAS (Log ASCII Standard),
+ com foco no apoio ao ensino e à formação prática em Engenharia de Petróleo.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Objetivos específicos:
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Desenvolver rotinas para leitura e validação das seções padrão de arquivos LAS.
+\end_layout
+
+\begin_layout Itemize
+Identificar,
+ interpretar e armazenar valores de radiação gama (GR),
+ densidade (RHOB),
+ porosidade neutrônica (NPHI) e outros perfis comuns.
+\end_layout
+
+\begin_layout Itemize
+Projetar módulos que permitam o traçado de curvas logarítmicas em escala vertical,
+ com funcionalidades de zoom,
+ deslocamento e sobreposição de múltiplas curvas.
+\end_layout
+
+\begin_layout Itemize
+Executar testes funcionais e de usabilidade com amostras de arquivos reais e com perfis de usuários para validar desempenho e ergonomia.
+\end_layout
+
+\begin_layout Itemize
+Implementar manual simplificado de uso do software.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Metodologia utilizada
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Metodologia-utilizada"
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Metodologia utilizada
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O desenvolvimento do GeoLogViewer seguirá seis etapas integradas:
+ inicialmente,
+ são levantadas as necessidades de estudantes e professores para definir funcionalidades e tipos de dados;
+ em seguida,
+ analisa-se o formato LAS e os principais parâmetros geofísicos;
+ depois,
+ projeta-se a aplicação em módulos para leitura,
+ cálculos básicos e geração de gráficos;
+ a quarta fase é a implementação em C++ realizada de forma incremental,
+ com testes regulares para garantir o funcionamento correto;
+ então,
+ valida-se a ferramenta por meio de avaliações de usabilidade junto ao público-alvo;
+ por fim,
+ elabora-se a documentação de uso e publica-se o código em repositório aberto,
+ assegurando sua adoção e continuidade em ambientes acadêmicos.
+ 
+\end_layout
+
+\end_body
+\end_document

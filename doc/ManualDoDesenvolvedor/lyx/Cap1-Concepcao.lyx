@@ -356,7 +356,7 @@ O software permite ao usuário a interação com gráficos e a armazenagem de in
 A Tabela 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "tab:Características-básicas-do"
+reference "tab:Características-básicas-do-programa"
 plural "false"
 caps "false"
 noprefix "false"
@@ -383,7 +383,7 @@ status open
 Características básicas do programa
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:Características-básicas-do"
+name "tab:Características-básicas-do-programa"
 
 \end_inset
 
@@ -1102,7 +1102,7 @@ Diagrama de caso de uso geral
 O diagrama de caso de uso geral da Figura 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Diagrama-caso-uso-geral-1"
+reference "fig:Diagrama-caso-uso-geral"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1280,7 +1280,7 @@ status open
 Diagrama de caso de uso – caso de uso geral
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Diagrama-caso-uso-geral-1"
+name "fig:Diagrama-caso-uso-geral"
 
 \end_inset
 

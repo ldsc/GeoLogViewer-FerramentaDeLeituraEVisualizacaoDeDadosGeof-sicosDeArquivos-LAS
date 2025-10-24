@@ -12,8 +12,8 @@ private:
     
 public:
     void AddDepth(float fDepth);
-    void AddCurveValue(const std::string& sCurveName, float Val);
-    void RegisterCurve(const std::string& sCurveName, const std::string& Unit);
+    void AddCurveValue(const std::string& CurveName, float Val);
+    void RegisterCurve(const std::string& CurveName, const std::string& Unit);
 
     const std::vector<float>& GetDepths() const;
     const std::map<std::string, CLogCurve>& GetCurves() const;

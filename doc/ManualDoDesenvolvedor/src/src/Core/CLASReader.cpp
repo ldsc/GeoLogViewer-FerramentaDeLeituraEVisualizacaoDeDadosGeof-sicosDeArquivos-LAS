@@ -4,6 +4,8 @@
 #include <iostream>
 #include <algorithm>
 
+using namespace std;
+
 bool CLASReader::LoadFromFile(const std::string& FilePath, CWellLog& WellLog) {
     std::ifstream file(FilePath);
     if (!file.is_open()) {
@@ -60,7 +62,7 @@ bool CLASReader::LoadFromFile(const std::string& FilePath, CWellLog& WellLog) {
                 continue;
             }
 
-            for (size_t i = 0; i < values.size(); ++i) {
+            for (size_t i = 0; i < values.size(); i++) {
                 std::string name = curveNames[i];
                 std::string clean = name;
                 clean.erase(std::remove_if(clean.begin(), clean.end(), ::isspace), clean.end());

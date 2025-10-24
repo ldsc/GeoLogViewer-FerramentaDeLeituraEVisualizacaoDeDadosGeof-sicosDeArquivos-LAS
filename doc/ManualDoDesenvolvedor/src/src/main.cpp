@@ -1,5 +1,6 @@
 #include "Core/CLASReader.h"
 #include "Core/CWellLog.h"
+#include "Plotting/CPlotter.h"
 #include <iostream>
 
 int main() {
@@ -12,6 +13,22 @@ int main() {
     }
 
     std::cout << "Arquivo lido com sucesso!" << std::endl;
+
+    CPlotter oPlotter;
+
+    
+
+    oPlotter.PlotSelectedTracks(oWell, {"GR","AP","RPD2","ROP"});
+
+    
+    oPlotter.PlotCurve(oWell, "GR");
+
+
+    oPlotter.PlotMultiple(oWell, {"GR","AP"});
+
+
+    oPlotter.PlotCompositeTracks(oWell, {});
+
 
 
     return 0;

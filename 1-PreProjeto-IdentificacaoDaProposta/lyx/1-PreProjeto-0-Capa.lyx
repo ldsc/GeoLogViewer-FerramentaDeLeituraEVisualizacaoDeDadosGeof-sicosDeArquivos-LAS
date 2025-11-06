@@ -165,16 +165,16 @@ DESENVOLVIMENTO DO SOFTWARE
 \begin_inset Newline newline
 \end_inset
 
-XXX
+GeoLogViewer - Ferramenta de Leitura e Visualizacao de Dados Geofísicos de Arquivos - LAS
 \begin_inset Newline newline
 \end_inset
 
-DISCIPLINA LEP - 0XXXX:
+DISCIPLINA LEP - LEP01348 :
  Introdução ao Projeto de Engenharia
 \begin_inset Newline newline
 \end_inset
 
-Setor de Modelagem Matemática Computacional
+Setor de Modelagem Matemática e Computacional
 \end_layout
 
 \begin_layout Standard
@@ -188,19 +188,11 @@ Setor de Modelagem Matemática Computacional
 \align center
 
 \size large
-Versão 1:
+Pedro Daneluci Cardozo
 \begin_inset Newline newline
 \end_inset
 
-AUTORES
-\begin_inset Newline newline
-\end_inset
-
-Versão 2:
-\begin_inset Newline newline
-\end_inset
-
-AUTORES
+Rafael Moreira Silva
 \begin_inset Newline newline
 \end_inset
 
@@ -247,9 +239,9 @@ MACAÉ - RJ
 \begin_inset Newline newline
 \end_inset
 
-Janeiro - 2023
+Novembro - 2025
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 

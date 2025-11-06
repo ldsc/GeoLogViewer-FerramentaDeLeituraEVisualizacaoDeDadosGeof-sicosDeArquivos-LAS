@@ -1,5 +1,5 @@
-#LyX 2.3 created this file. For more info see http://www.lyx.org/
-\lyxformat 544
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -26,11 +26,11 @@
 \usepackage{listings}
 \end_preamble
 \use_default_options false
-\maintain_unincluded_children false
+\maintain_unincluded_children no
 \language brazilian
 \language_package auto
-\inputencoding auto
-\fontencoding global
+\inputencoding auto-legacy
+\fontencoding auto
 \font_roman "default" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
@@ -38,7 +38,9 @@
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
-\font_osf false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
 \use_microtype false
@@ -52,7 +54,7 @@
 \paperfontsize 12
 \spacing onehalf
 \use_hyperref false
-\papersize a4paper
+\papersize a4
 \use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
@@ -73,7 +75,9 @@
 \suppress_date false
 \justification true
 \use_refstyle 0
+\use_formatted_ref 0
 \use_minted 0
+\use_lineno 0
 \index Índice
 \shortcut idx
 \color #008000
@@ -95,11 +99,16 @@
 \papercolumns 1
 \papersides 2
 \paperpagestyle fancy
+\tablestyle default
 \tracking_changes false
 \output_changes false
+\change_bars false
+\postpone_fragile_content false
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
 \end_header
 
 \begin_body
@@ -137,39 +146,43 @@ space - Introdução}
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
-mantenha esta seção como esta, não modifique
+mantenha esta seção como esta,
+ não modifique
 \end_layout
 
 \end_inset
 
-Segundo o CREA/CONFEA um dos quesitos fundamentais que diferenciam a atuação
- de um tecnólogo da atuação de um engenheiro é a capacidade de desenvolver
- um projeto de engenharia; Neste trabalho, apresenta-se a pré-proposta de
- um projeto em engenharia de software aplicado a solução de um problema
- específico da engenharia de petróleo.
+Segundo o CREA/CONFEA um dos quesitos fundamentais que diferenciam a atuação de um tecnólogo da atuação de um engenheiro é a capacidade de desenvolver um projeto de engenharia;
+ Neste trabalho,
+ apresenta-se a pré-proposta de um projeto em engenharia de software aplicado a solução de um problema específico da engenharia de petróleo.
  
 \end_layout
 
 \begin_layout Standard
-Apresenta-se aqui a proposta de desenvolvimento do software XX_nome_XX.
- Um software aplicado a engenharia de petróleo e que visa ...descrever.
- em um parágrafo super resumido..
+Apresenta-se aqui a proposta de desenvolvimento do software 
+\size large
+GeoLogViewer - Ferramenta de Leitura e Visualizacao de Dados Geofísicos de Arquivos - LAS
+\size default
+.
 \end_layout
 
 \begin_layout Itemize
-O primeiro parágrafo pode ser um super resumo da proposta de projeto.
- A ideia é fazer um resumo do resumo.
- Foque no problema que pretende resolver e não em como irá resolvê-lo!
-\end_layout
-
-\begin_layout Itemize
-PS: Observe que ESTE MODELO TEM TEXTOS EXPLICATIVOS QUE DEVEM SER ELIMINADOS
- DA VERSÃO FINAL.
- O OBJETIVO DE COLOCAR AS EXPLICAÇÕES É FACILITAR O ENTENDIMENTO DO QUE
- DEVE ENTRAR EM CADA SEÇÃO.
+O GeoLogViewer insere-se no contexto da digitalização do ensino em Engenharia de Petróleo e Geociências,
+ oferecendo uma solução educacional gratuita e acessível para leitura e visualização de dados geofísicos em arquivos LAS,
+ amplamente utilizados na indústria do petróleo.
+ Do ponto de vista científico,
+ o projeto contribui para o aprendizado de conceitos fundamentais de petrofísica e geologia aplicada,
+ permitindo a análise prática de parâmetros como densidade,
+ porosidade e radiação gama.
+ Sob o aspecto tecnológico,
+ propõe o desenvolvimento de um software leve,
+ modular e multiplataforma em C++,
+ capaz de representar graficamente dados reais de perfis de poço.
+ O produto final esperado é uma ferramenta didática intuitiva,
+ que aproxima teoria e prática e apoia a formação técnica de futuros engenheiros e geocientistas.
 \end_layout
 
 \begin_layout Section
@@ -177,12 +190,12 @@ Identificação da Proposta
 \end_layout
 
 \begin_layout Subsubsection
-Tipo de investimento /divulgação: 
+Tipo de investimento /divulgação:
+ 
 \end_layout
 
 \begin_layout Itemize
-PROJETO DE PESQUISA E DESENVOLVIMENTO / DESENVOLVIMENTO DE SOFTWARE - Versão
- 2 
+PROJETO DE PESQUISA E DESENVOLVIMENTO / DESENVOLVIMENTO DE SOFTWARE - Versão 1
 \end_layout
 
 \begin_layout Subsubsection
@@ -204,28 +217,28 @@ André Duarte Bueno
 \end_layout
 
 \begin_layout Subsubsection
-Gerência técnica: 
+Gerência técnica:
+ 
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-Nota: caso o projeto tenha algum tipo de vínculo com empresa ou instituição
- externa (como um projeto de extensão), coloque aqui o nome da empresa e
- do engenheiro que irá acompanhar o projeto.
- Caso o acompanhamento venha a ser feito por outro professor da UENF coloque
- aqui o nome do professor e seu laboratório/setor.
+Nota:
+ caso o projeto tenha algum tipo de vínculo com empresa ou instituição externa (como um projeto de extensão),
+ coloque aqui o nome da empresa e do engenheiro que irá acompanhar o projeto.
+ Caso o acompanhamento venha a ser feito por outro professor da UENF coloque aqui o nome do professor e seu laboratório/setor.
 \end_layout
 
 \begin_layout Plain Layout
-Nota: A gerência técnica é responsável pelo apoio técnico, responsável pela
- parte de equações e modelos da área em que o software será desenvolvido.
+Nota:
+ A gerência técnica é responsável pelo apoio técnico,
+ responsável pela parte de equações e modelos da área em que o software será desenvolvido.
  
 \end_layout
 
 \begin_layout Plain Layout
-Por exemplo, se o software é da área de reservatório a gerência técnica
- será de um professor de reservatório ou gerente de empresa que atua na
- área e tem o conhecimento técnico para auxiliar no esclarecimento de dúvidas.
+Por exemplo,
+ se o software é da área de reservatório a gerência técnica será de um professor de reservatório ou gerente de empresa que atua na área e tem o conhecimento técnico para auxiliar no esclarecimento de dúvidas.
 \end_layout
 
 \end_inset
@@ -235,48 +248,22 @@ Por exemplo, se o software é da área de reservatório a gerência técnica
 
 \begin_layout Itemize
 Nome Empresa/Instituição:
+ Coordenação do Curso de Graduação em Engenharia de Petróleo
 \end_layout
 
 \begin_layout Itemize
-Nome Gerente
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-pode ser um professor(a)
-\end_layout
-
-\end_inset
-
-: 
+Nome Gerente:
+ André Duarte Bueno
 \end_layout
 
 \begin_layout Itemize
 E-mail:
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-coloque o email da empresa; institucional
-\end_layout
-
-\end_inset
-
-
+ bueno@lenep.uenf.br
 \end_layout
 
 \begin_layout Itemize
 Telefone:
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-celular
-\end_layout
-
-\end_inset
-
-
+ 22-999542635
 \end_layout
 
 \begin_layout Subsubsection
@@ -284,14 +271,14 @@ Equipe:
 \end_layout
 
 \begin_layout Itemize
-Nome (gerente-equipe) [email/telefone]
+Pedro Daneluci Cardozo [pedrocardozo@lenep.uenf.br/(18)981160414]
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
-o gerente da equipe é o aluno que faz a comunicação da equipe com a gerência
- técnica e coordenação.
- Todos se comunicam, mas o projeto deve ter um canal principal de comunicação.
+o gerente da equipe é o aluno que faz a comunicação da equipe com a gerência técnica e coordenação.
+ Todos se comunicam,
+ mas o projeto deve ter um canal principal de comunicação.
 \end_layout
 
 \end_inset
@@ -300,9 +287,9 @@ o gerente da equipe é o aluno que faz a comunicação da equipe com a gerência
 \end_layout
 
 \begin_layout Itemize
-Nome [email/telefone] 
+Rafael Moreira Silva [rafaelsilva@lenep.uenf.br/(21)983750772] 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 membros da equipe (até 3 pessoas)
@@ -314,7 +301,8 @@ membros da equipe (até 3 pessoas)
 \end_layout
 
 \begin_layout Subsubsection
-Vínculo institucional do processo: 
+Vínculo institucional do processo:
+ 
 \end_layout
 
 \begin_layout Itemize
@@ -344,11 +332,12 @@ ADICIONE O Nome dos demais setores envolvidos
 \end_layout
 
 \begin_layout Subsubsection
-Duração: 
+Duração:
+ 
 \end_layout
 
 \begin_layout Itemize
-18-24 mês(es) 
+08 meses 
 \begin_inset Note Note
 status open
 
@@ -362,25 +351,33 @@ Considere 3 semestres(5/6/7) ou 4 semestres.
 \end_layout
 
 \begin_layout Subsubsection
-Data de submissão: 
+Data de submissão:
+ 
 \end_layout
 
 \begin_layout Itemize
-Coloque aqui a data de entrega do pré-projeto ao professor coordenador
+31/10/2025
 \end_layout
 
 \begin_layout Subsubsection
-Número da proposta: 
+Número da proposta:
+ 
 \end_layout
 
 \begin_layout Itemize
-LDSC-2023-1-P50
+LDSC-2025-1-P62
+\end_layout
+
+\begin_layout Itemize
+Link no github:
+ https://github.com/ldsc/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS.git
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
-Numero informado pelo professor, leva em conta o número de projetos desenvolvido
-s no LDSC, ano e semestre
+Numero informado pelo professor,
+ leva em conta o número de projetos desenvolvidos no LDSC,
+ ano e semestre
 \end_layout
 
 \end_inset
@@ -389,16 +386,28 @@ s no LDSC, ano e semestre
 \end_layout
 
 \begin_layout Subsubsection
-Tipo de instrumento contratual: 
+Tipo de instrumento contratual:
+ 
 \end_layout
 
 \begin_layout Itemize
-Trabalho de disciplina
+Trabalho de disciplina:
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "Projeto de Software Aplicado à Engenharia"
+target "https://sites.google.com/view/professorandreduartebueno/ensino/projeto-de-software-aplicado"
+literal "false"
+
+\end_inset
+
+
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
-ex: Termo de Cooperação / Convênio
+ex:
+ Termo de Cooperação / Convênio
 \end_layout
 
 \end_inset
@@ -411,15 +420,32 @@ Título do projeto:
 \end_layout
 
 \begin_layout Itemize
-"Título do projeto aqui"
+GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS
 \end_layout
 
 \begin_layout Subsubsection
-Palavras-chave: 
+Palavras-chave:
+ 
 \end_layout
 
 \begin_layout Itemize
-...coloque aqui lista de palavras chaves - até 5...
+Ploter de gráficos
+\end_layout
+
+\begin_layout Itemize
+Perfis de poços
+\end_layout
+
+\begin_layout Itemize
+Engenharia de petróleo
+\end_layout
+
+\begin_layout Itemize
+Análise de dados de poços
+\end_layout
+
+\begin_layout Itemize
+Interpretação Geofísica
 \end_layout
 
 \begin_layout Section
@@ -434,11 +460,40 @@ name "sec:Resumo"
 \end_layout
 
 \begin_layout Itemize
-Limite de 500 palavras, então seja bem direto!
+O presente projeto de engenharia tem como finalidade o desenvolvimento do GeoLogViewer,
+ um software educacional voltado à leitura,
+ interpretação e visualização de dados geofísicos armazenados em arquivos LAS (Log ASCII Standard),
+ amplamente utilizados na indústria do petróleo e gás.
+ O projeto surgiu a partir da necessidade identificada entre estudantes e professores dos cursos de Engenharia de Exploração e Produção de Petróleo,
+ que enfrentam limitações no acesso a ferramentas adequadas para o estudo de perfis de poço e análise de parâmetros petrofísicos em ambiente acadêmico.
+ 
 \end_layout
 
 \begin_layout Itemize
-Escreva no final, depois de escrever todo o resto.
+O sistema tem como objetivo principal possibilitar a leitura estruturada de arquivos LAS e a exibição gráfica de suas curvas logarítmicas,
+ representando parâmetros como radiação gama (GR),
+ densidade (RHOB) e porosidade neutrônica (NPHI).
+ Além disso,
+ o software busca integrar ferramentas auxiliares que permitam o cálculo de propriedades básicas,
+ como pressão hidrostática,
+ densidade média e viscosidade média,
+ reforçando a conexão entre teoria e prática nas disciplinas de Engenharia de Poço e Petrofísica Aplicada.
+\end_layout
+
+\begin_layout Itemize
+Metodologicamente,
+ o desenvolvimento do GeoLogViewer segue um processo iterativo baseado nas boas práticas da engenharia de software.
+ As etapas envolvem:
+ levantamento de requisitos junto ao público-alvo;
+ análise detalhada da estrutura dos arquivos LAS;
+ projeto modular da aplicação;
+ implementação incremental em linguagem C++;
+ e realização de testes de funcionalidade,
+ desempenho e usabilidade.
+ A arquitetura modular adotada permite que o sistema seja facilmente expandido,
+ possibilitando futuras implementações,
+ como novos tipos de curvas,
+ integração com bancos de dados e personalização de gráficos.
 \end_layout
 
 \begin_layout Section
@@ -452,15 +507,67 @@ name "sec:Escopo-do-Problema"
 
 \end_layout
 
-\begin_layout Itemize
-Definir o escopo do projeto de engenharia, a ideia geral do software, acentuar
- sua importância, usos e aplicações em engenharia [de petróleo].
+\begin_layout Standard
+O GeoLogViewer é um software acadêmico desenvolvido para auxiliar estudantes e professores de Engenharia de Petróleo na análise e visualização de dados geofísicos provenientes de arquivos LAS (Log ASCII Standard).
+ O sistema foi concebido com o objetivo de tornar acessível o estudo de perfis de poços,
+ promovendo o entendimento de parâmetros petrofísicos e geológicos essenciais à caracterização de reservatórios e à formação técnica dos futuros engenheiros.
 \end_layout
 
-\begin_layout Itemize
-Delimitar o assunto.
- Situá-lo no tempo e no espaço.
- Situá-lo em relação a outros softwares.
+\begin_layout Standard
+Diferentemente de softwares comerciais complexos e de alto custo,
+ o GeoLogViewer oferece uma solução gratuita,
+ leve e didática,
+ especialmente voltada para o ambiente acadêmico.
+ Sua interface intuitiva e suas funcionalidades permitem que o usuário compreenda e interprete dados de forma prática e interativa,
+ fortalecendo o vínculo entre teoria e aplicação profissional.
+\end_layout
+
+\begin_layout Standard
+Entre suas principais funcionalidades,
+ destacam-se:
+\end_layout
+
+\begin_layout Standard
+• Leitura estruturada de arquivos LAS,
+ com identificação automática de seções e parâmetros geofísicos;
+\end_layout
+
+\begin_layout Standard
+• Visualização gráfica interativa de curvas logarítmicas,
+ como radiação gama (GR),
+ densidade (RHOB) e porosidade neutrônica (NPHI);
+\end_layout
+
+\begin_layout Standard
+• Ferramentas de cálculo básico,
+ incluindo pressão hidrostática,
+ densidade média e viscosidade média;
+\end_layout
+
+\begin_layout Standard
+• Interface de uso simples,
+ voltada para o aprendizado em disciplinas como Engenharia de Poço e Petrofísica;
+\end_layout
+
+\begin_layout Standard
+• Exportação de gráficos e relatórios para uso em trabalhos e atividades acadêmicas;
+\end_layout
+
+\begin_layout Standard
+• Arquitetura modular e de código aberto,
+ permitindo futuras expansões e adaptações por outras instituições.
+\end_layout
+
+\begin_layout Standard
+O escopo do sistema abrange,
+ portanto,
+ a leitura,
+ interpretação,
+ cálculo e visualização de dados de poços,
+ proporcionando um ambiente integrado de aprendizado técnico e computacional.
+ O GeoLogViewer visa democratizar o acesso a ferramentas de análise geofísica,
+ tornando o ensino de Engenharia de Petróleo mais interativo,
+ prático e alinhado às tecnologias utilizadas na indústria.
 \end_layout
 
 \begin_layout Section
@@ -488,14 +595,12 @@ Objetivo geral:
 
 \begin_deeper
 \begin_layout Itemize
-Descreva aqui o objetivo geral do projeto de engenharia, incluindo vínculos
- com engenharia de petróleo e com modelagem matemática computacional (ideia
- de lógica, algoritmos,...).
-\end_layout
-
-\begin_layout Itemize
-Desenvolver um projeto de engenharia de software para ...[.....descrever de forma
- clara, direta, objetiva, o objetivo geral do software].
+Desenvolver um software educacional interativo voltado à leitura,
+ interpretação e visualização de dados geofísicos provenientes de arquivos LAS (Log ASCII Standard),
+ com foco na aplicação acadêmica em cursos de Engenharia de Petróleo,
+ promovendo o aprendizado prático de conceitos de petrofísica,
+ geologia e engenharia de poço de forma acessível,
+ intuitiva e didática.
 \end_layout
 
 \end_deeper
@@ -509,35 +614,31 @@ Objetivos específicos:
 
 \begin_deeper
 \begin_layout Itemize
-Modelar física e matematicamente o problema.
+Implementar a leitura estruturada de arquivos LAS.
 \end_layout
 
 \begin_layout Itemize
-Modelagem estática do software (diagramas de caso de uso, de pacotes, de
- classes).
+Garantir a plotagem de curvas de diferentes perfis de poços de petróleo.
 \end_layout
 
 \begin_layout Itemize
-Modelagem dinâmica do software (desenvolver algoritmos e diagramas exemplificand
-o os fluxos de processamento).
+Interpretar as curvas dos perfis de poços,
+ indicando possíveis regiões de interesse.
 \end_layout
 
 \begin_layout Itemize
-Calcular XXX[.....descrever de forma clara, direta, objetiva, cada objetivo específic
-o, cada parte do software].
+Ser capaz de exportar as imagens geradas dos perfis.
 \end_layout
 
 \begin_layout Itemize
-Calcular XXX[.....descrever de forma clara, direta, objetiva, cada objetivo específic
-o, cada parte do software].
+Garantir o entendimento do estudante sobre a leitura e interpretação de perfis de poços de petróleo.
 \end_layout
 
 \begin_layout Itemize
-Simular (realizar simulações para teste do software desenvolvido).
-\end_layout
-
-\begin_layout Itemize
-Implementar manual simplificado de uso do software.
+Elaborar documentação técnica e manual de uso simplificado,
+ com foco didático,
+ explicando o funcionamento,
+ a instalação e as principais funcionalidades do software.
 \end_layout
 
 \end_deeper
@@ -557,11 +658,14 @@ A Figura
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig: Metodologia utilizada no desenvolvimento do sistema"
+nolink "false"
 
 \end_inset
 
  apresenta a metodologia a ser utilizada no desenvolvimento do sistema.
 \begin_inset Float figure
+placement document
+alignment document
 wide false
 sideways false
 status open
@@ -572,8 +676,8 @@ status open
 	filename ../../imagens/ProjetoEngenharia-Etapas-Geral-wide.png
 	lyxscale 50
 	width 100text%
-	height 80theight%
 	keepAspectRatio
+	special height=0.8\textheight
 
 \end_inset
 
@@ -616,17 +720,19 @@ name "sec:Informações-Adicionais-Específicas"
 \end_layout
 
 \begin_layout Itemize
-Coloque aqui informações adicionais, importantes, relevantes e que não se
- encaixaram nos demais tópicos deste documento.
+Coloque aqui informações adicionais,
+ importantes,
+ relevantes e que não se encaixaram nos demais tópicos deste documento.
 \end_layout
 
 \begin_layout Itemize
-Entre as referências utilizadas podemos em sala de aula podemos citar:
+Entre as referências utilizadas em sala de aula podemos citar:
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-UML: 
+UML:
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "prog-UML-blaha,prog-UML-Rumbaugh"
@@ -638,7 +744,8 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-Projetos: 
+Projetos:
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "projetos-introducao,projetos-pmi,projetos-projetoeletrico1,projetos-Woiler"
@@ -650,7 +757,8 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-Gestão de Projetos: 
+Gestão de Projetos:
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "projetos-Abrantes,projetos-gestao,projetos-Heldman,projetos-Menezes,projetos-Pahl,projetos-Valeriano,projetos-Rosa"
@@ -662,7 +770,8 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-Produtos: 
+Produtos:
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "projetos-Abrantes"
@@ -674,7 +783,8 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-C++: 
+C++:
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "adb-prog-livroCpp"

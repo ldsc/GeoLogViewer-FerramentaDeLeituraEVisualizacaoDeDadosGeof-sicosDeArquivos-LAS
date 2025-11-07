@@ -277,6 +277,13 @@ Com base no diagnóstico da realidade acadêmica,
  prática e tecnologia.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Identificação da Proposta
 \end_layout
@@ -364,6 +371,13 @@ Arquivos LAS
 
 \begin_layout Itemize
 Interpretação
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -462,6 +476,13 @@ Rafael Moreira Silva [rafaelsilva@lenep.uenf.br/(21)983750772]
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Resumo
 \begin_inset CommandInset label
@@ -508,6 +529,13 @@ Metodologicamente,
  possibilitando futuras implementações,
  como novos tipos de curvas,
  integração com bancos de dados e personalização de gráficos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -582,6 +610,13 @@ O escopo do sistema abrange,
  O GeoLogViewer visa democratizar o acesso a ferramentas de análise geofísica,
  tornando o ensino de Engenharia de Petróleo mais interativo,
  prático e alinhado às tecnologias utilizadas na indústria.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

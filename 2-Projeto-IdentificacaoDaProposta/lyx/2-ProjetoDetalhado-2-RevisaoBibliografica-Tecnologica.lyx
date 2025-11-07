@@ -255,6 +255,13 @@ Nesse sentido,
  proporcionando à formação do estudante uma experiência mais próxima da realidade técnica da cadeia produtiva do petróleo e gás.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Resultados Esperados
 \begin_inset CommandInset label
@@ -294,6 +301,13 @@ Código-fonte organizado,
 \begin_layout Itemize
 Apresentação ou demonstração pública (seminário/defesa) que mostre as capacidades do software,
  estudos de caso e comparações qualitativas com abordagens comerciais do ponto de vista didático.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -448,6 +462,13 @@ name "fig: Metodologia utilizada no desenvolvimento do sistema"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Mecanismos de Acompanhamento da Execução
 \begin_inset CommandInset label
@@ -537,6 +558,13 @@ Ao final do semestre,
  relatórios de testes com usuários reais e manuais —
  tanto técnico quanto de uso —
  garantindo condições para manutenção e continuidade do projeto.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

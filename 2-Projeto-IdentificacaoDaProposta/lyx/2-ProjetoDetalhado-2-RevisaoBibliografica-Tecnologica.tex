@@ -1,21 +1,121 @@
 
 \section{Justificativas\label{sec:Justificativas}}
 \begin{itemize}
-\item Colocar as justificativas para o desenvolvimento da solução de engenharia
-(produto, processo, softwares ou sistema a ser desenvolvido).
-\item Apresentar usos e aplicações em engenharia.
+\item A análise de perfis de poços é uma atividade indispensável na Engenharia
+de Petróleo, especialmente nas etapas de caracterização de reservatórios,
+avaliação de formações e tomada de decisões para exploração e produção.
+Contudo, embora arquivos LAS (Log ASCII Standard) sejam o formato
+mais amplamente utilizado para armazenar esses registros, o acesso
+a ferramentas que permitam sua interpretação prática no ambiente acadêmico
+é limitado. Os softwares disponíveis no mercado, como Techlog, Petra
+e WellCAD, são proprietários, de custo elevado e com interfaces complexas,
+voltadas principalmente para uso corporativo. Isso restringe sua utilização
+em cursos de graduação, onde a formação técnica ainda está em construção
+e a disponibilidade de licenças é, muitas vezes, reduzida. Dessa forma,
+justifica-se o desenvolvimento do GeoLogViewer como uma solução educacional,
+gratuita e de código aberto, capaz de oferecer aos estudantes a possibilidade
+de interagir diretamente com dados reais de perfis de poços, sem dependência
+de softwares comerciais. O projeto atende à necessidade de aproximar
+teoria e prática, favorecendo um processo de aprendizagem ativo e
+contextualizado. Além disso, o desenvolvimento do software também
+contribui para a formação do próprio engenheiro desenvolvedor, que
+aplica conhecimentos de programação, visualização de dados, modelagem
+matemática e interpretação geológica de forma integrada
+\item O GeoLogViewer pode ser utilizado em diversas situações acadêmicas
+e profissionais, destacando-se:
+\item Ensino de petrofísica e geofísica de poços: permitindo que estudantes
+visualizem e interpretem curvas como GR, RHOB e NPHI durante aulas
+teóricas e laboratoriais.
+\item Análise preliminar de formações geológicas: possibilitando a identificação
+de zonas potenciais de reservatório ou camadas selantes a partir da
+variação dos parâmetros petrofísicos.
+\item Apoio a projetos integradores, TCCs e atividades de iniciação científica,
+oferecendo uma ferramenta prática para manipulação e tratamento de
+dados reais.
+\item Treinamento introdutório para futuros engenheiros de petróleo, familiarizando-os
+com rotinas que serão encontradas no ambiente profissional.
+\item Demonstrações didáticas em disciplinas como: Engenharia de Poço, Geologia
+de Reservatórios, Perfilagem de Poços, Petrofísica e Avaliação de
+Formações.
+\item Nesse sentido, o GeoLogViewer atua como um elo entre o ambiente acadêmico
+e o contexto industrial, proporcionando à formação do estudante uma
+experiência mais próxima da realidade técnica da cadeia produtiva
+do petróleo e gás.
 \end{itemize}
 
 \section{Resultados Esperados\label{sec:Resultados-Esperados}}
+
+O projeto espera entregar:
 \begin{itemize}
-\item Um simulador de engenharia com interface amigável, com manuais técnico
-cientíticos, aplicado á .
+\item Um software completo e funcional, com interface gráfica desenvolvida
+em C++, capaz de ler, interpretar e visualizar curvas geofísicas provenientes
+de arquivos LAS, atendendo às necessidades de ensino e prática em
+Engenharia de Petróleo.
+\item Ferramentas testadas com dados reais de perfis de poços, validadas
+por meio de aplicações práticas em atividades de laboratório, projetos
+acadêmicos e exercícios supervisionados por professores.
+\item Código-fonte organizado, comentado e disponibilizado em repositório
+GitHub, acompanhado de guia de compilação e orientações para contribuições
+futuras, incentivando a continuidade e evolução comunitária do software.
+\item Apresentação ou demonstração pública (seminário/defesa) que mostre
+as capacidades do software, estudos de caso e comparações qualitativas
+com abordagens comerciais do ponto de vista didático.
 \end{itemize}
 
 \section{Metodologia\label{sec:Metodologia}}
+
+A metodologia adotada para o desenvolvimento do GeoLogViewer foi estruturada
+com o objetivo de solucionar o problema central identificado: a falta
+de ferramentas acessíveis e didáticas para leitura e interpretação
+de perfis de poços em ambiente acadêmico. Assim, o processo metodológico
+articulou fundamentos conceituais da Engenharia de Petróleo com práticas
+de engenharia de software, de modo a garantir tanto rigor técnico
+quanto usabilidade.
+
+Inicialmente, realizou-se uma análise conceitual do problema, identificando
+quais parâmetros geofísicos são mais relevantes no ensino de petrofísica
+e perfilagem de poços (como GR, RHOB e NPHI) e como eles se relacionam
+com processos físicos reais no interior do reservatório. Essa etapa
+incluiu o estudo da estrutura dos arquivos LAS e das interpretações
+geológicas associadas aos perfis, assegurando que a ferramenta desenvolvida
+refletisse corretamente o significado técnico das curvas representadas.
+
+Em seguida, passou-se à modelagem da solução, definindo uma arquitetura
+modular capaz de separar claramente três dimensões essenciais:
+\begin{enumerate}
+\item Entrada e leitura dos dados (parser do arquivo LAS),
+\item Visualização gráfica (representação interativa e intuitiva das informações),
+\item Interpretação quantitativa e qualitativa das curvas.
+\end{enumerate}
+Essa modelagem permitiu isolar responsabilidades, facilitando futuras
+melhorias e garantindo a clareza estrutural do código. A visualização
+das curvas foi planejada de modo a reforçar a compreensão dos conceitos
+subjacentes, permitindo ao usuário observar tendências, contrastes
+e variações geológicas a partir das representações gráficas. A fase
+de implementação seguiu um ciclo incremental, no qual funcionalidades
+eram adicionadas gradualmente, testadas e ajustadas conforme objetivos
+pedagógicos. Essa estratégia garantiu que decisões de desenvolvimento
+fossem guiadas não apenas por viabilidade técnica, mas também pela
+clareza didática --- ou seja, por como o aluno interage com os dados
+e compreende o fenômeno físico representado.
+
+Por fim, a metodologia incorporou etapas de validação prática, envolvendo
+testes com estudantes em exercícios supervisionados, permitindo observar
+como a ferramenta era utilizada e quais elementos poderiam dificultar
+ou facilitar o aprendizado. A partir desse retorno, ajustes foram
+feitos tanto na interface quanto na forma de apresentação dos dados.
+
+Em síntese, a metodologia combinou:
 \begin{itemize}
-\item Descrever a metodologia da solução do problema teórico/conceitual..
-ou seja, metodologia para solução do problema de engenharia...
+\item Entendimento conceitual do fenômeno geofísico,
+\item Modelagem computacional clara e modular,
+\item Desenvolvimento incremental orientado ao usuário, e
+\item Validação pedagógica e prática,
+\end{itemize}
+garantindo que o software não apenas funcionasse tecnicamente, mas
+servisse efetivamente como instrumento de aprendizado e formação em
+Engenharia de Petróleo.
+\begin{itemize}
 \item A Figura \ref{fig: Metodologia utilizada no desenvolvimento do sistema}
 apresenta a metodologia a ser utilizada no desenvolvimento do sistema.
 \begin{figure}[h]
@@ -27,12 +127,50 @@ apresenta a metodologia a ser utilizada no desenvolvimento do sistema.
 \end{itemize}
 
 \section{Mecanismos de Acompanhamento da Execução\label{sec:Mecanismos-de-Acompanhamento}}
+
+\textbf{Organização dos Ciclos de Desenvolvimento}
 \begin{itemize}
-\item Para o acompanhamento da execução do projeto iremos usar a metodologia
-SCRUM com as atividades do projeto hospedadas no site \emph{github/projects
-}(ou equivalente como o trello).
-\item Reuniões mensais com os clientes.
-\item Relatórios no final do semestre, com apresentação oral.
+\item O desenvolvimento do projeto foi dividido em ciclos curtos, com duração
+média entre duas e quatro semanas. Cada ciclo teve como objetivo a
+implementação de funcionalidades específicas do sistema, permitindo
+evolução contínua e controlada. Ao final de cada etapa, uma versão
+mínima funcional do software era disponibilizada, testada internamente
+e revisada com o apoio de usuários participantes.
+\end{itemize}
+\textbf{Gestão do Backlog e das Atividades}
+\begin{itemize}
+\item O acompanhamento das tarefas foi realizado por meio de um quadro de
+gerenciamento no GitHub Projects (com uso pontual do Trello quando
+necessário). Esse painel permitiu classificar e visualizar facilmente
+atividades pendentes, em execução e concluídas, bem como registrar
+erros identificados, demandas de teste e tarefas de documentação.
+O backlog foi sendo ampliado e reorganizado ao longo do projeto, incluindo
+sugestões provenientes de estudantes e professores envolvidos.
+\end{itemize}
+\textbf{Reuniões de Validação e Coleta de Feedback}
+\begin{itemize}
+\item Reuniões periódicas foram realizadas com os usuários finais --- estudantes
+do curso --- e com professores orientadores. Nessas sessões, o grupo
+apresentava o estado do software, discutia a utilidade das funcionalidades
+implementadas e coletava sugestões de melhoria. O feedback contínuo
+foi essencial para ajustar a interface, otimizar fluxos de uso e garantir
+relevância didática.
+\end{itemize}
+\textbf{Relatórios Contínuos de Desenvolvimento}
+\begin{itemize}
+\item Durante o andamento do projeto, foram elaborados relatórios semanais
+de progresso, contendo um resumo das tarefas finalizadas, dificuldades
+encontradas, decisões técnicas tomadas e planejamento para a semana
+seguinte. Esses registros facilitaram a comunicação entre os membros
+da equipe e o acompanhamento do ritmo de desenvolvimento.
+\end{itemize}
+\textbf{Avaliação Final do Projeto}
+\begin{itemize}
+\item Ao final do semestre, o software foi apresentado em sessão pública,
+com demonstração prática e discussão dos resultados. A entrega final
+incluiu o código-fonte documentado, relatórios de testes com usuários
+reais e manuais --- tanto técnico quanto de uso --- garantindo condições
+para manutenção e continuidade do projeto.
 \end{itemize}
 
 \section{Informações Adicionais Específicas\label{sec:Informa=0000E7=0000F5es-Adicionais-Espec=0000EDficas}}

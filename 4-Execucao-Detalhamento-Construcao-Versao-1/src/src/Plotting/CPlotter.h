@@ -2,6 +2,7 @@
 #define CPLOTTER_H
 
 #include "../Core/CWellLog.h"
+#include "../Interpretation/CInterpreter.h"
 #include "CGnuplot.h"
 #include <vector>
 #include <string>
@@ -16,6 +17,14 @@ public:
                            const std::vector<std::string>& curves,
                            bool overlay = true,
                            bool normalize = true);
+
+    void PlotInterpretationBasic(const CWellLog& wl,
+                             const VshParams& vp = {},
+                             const SepParams& sp = {});
+    
+    void PlotWithIntervals(const CWellLog& rWell,
+                       const std::vector<std::string>& curvesToPlot,
+                       const std::vector<Interval>& ivals);
 
 };
 

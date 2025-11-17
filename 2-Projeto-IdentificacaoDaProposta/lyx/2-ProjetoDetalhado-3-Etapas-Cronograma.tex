@@ -3,78 +3,63 @@
 
 \lhead{\thechapter\space - Atividades, Cronograma e Orçamento}\pagenumbering{arabic}
 
-Neste capítulo temos a lista das etapas, das atividades o cronograma
-e orçamento.
+Este capítulo apresenta as etapas, o cronograma de execução e uma
+previsão de orçamento preliminar para o desenvolvimento do sistema
+GeoLogViewer, um software de apoio acadêmico para estudantes de engenharia.
 
 \section{Etapas\label{sec: Etapas}}
-
-Esta proposta, caso aprovada, será desenvolvida seguindo as etapas
-abaixo descritas. Um detalhamento das etapas esta disponível \href{https://github.com/ldsc/ProjetoEngenharia-0-Metodologia-Instrucoes-Etapas-ModeloProfessorBueno}{aqui}:
 \begin{itemize}
 \item Etapa 0 - Definição do desafio tecnológico
 \begin{itemize}
-\item Identificação do problema, descrição do desafio tecnológico, objetivo
-geral e solução esperada (TRL/CRL).
+\item Identificação do problema: dificuldade de acesso a ferramentas didáticas
+que leiam, interpretem e visualizem arquivos LAS; barreiras pedagógicas
+para estudantes e professores na análise de perfis de poço.
+\item Definição da solução esperada: software educacional leve, gratuito
+e de código aberto, capaz de ler arquivos LAS, exibir curvas (GR,
+RHOB, NPHI), realizar cálculos básicos (pressão hidrostática, densidade
+média) e exportar gráficos/relatórios.
+\item Estimativa de maturidade tecnológica (TRL): TRL 2 ao iniciar o projeto
+(conceito formulado).
 \end{itemize}
 \item Etapa 1 - Elaboração do pré-projeto
 \begin{itemize}
-\item Elaboração da primeira versão do projeto, rascunho inicial.
+\item Produção da versão inicial do documento, contendo: escopo detalhado;
+levantamento preliminar de requisitos (fundamentais e desejáveis);
+estudo de viabilidade técnica (ferramentas, bibliotecas gráficas,
+compatibilidade); e protótipos iniciais da interface.
+\item Definição de critérios de sucesso: formatos de entrada suportados,
+tipos de curva, formatos de exportação e metas de desempenho em máquinas
+de média capacidade.
 \end{itemize}
-\item Etapa 2 - Elaboração do projeto - detalhamento e contrato (este documento)
+\item Etapa 2 - Elaboração do projeto - detalhamento e contrato
 \begin{itemize}
-\item Após aprovação do pré-projeto os alunos detalham o mesmo gerando o
-projeto. Os dados do pré-projeto podem ser copiados para o projeto,
-a seguir tudo deve ser detalhado. As etapas associadas devem ser bem
-definidas e suas atividades (note que para cada etapa teremos diversas
-atividades). O cronograma simplificado deve ter as etapas e prazos,
-deve ser realista. O orçamento deve ser bem realizado.
+\item Definição das funcionalidades completas
+\item Detalhamento das classes
+\item Divisão de responsabilidades na equipe: backend (parsing e cálculos),
+frontend (interface e renderização), testes e documentação.
 \end{itemize}
-\item Etapa 3 - Modelagem de engenharia: 
+\item Etapa 3 - MModelagem de engenharia: 
 \begin{itemize}
-\item Concepção; Elaboração; Análise Orientada a Objeto; Projeto do Sistema;
-Projeto Orientado a Objeto.
-\item Realização de testes lógicos; Documentação (geração dos documentos
-de modelagem e diagramas associados).
-\item Você encontra diagramas associados a esta etapa nos apêndices e \href{https://sites.google.com/view/professorandreduartebueno/ensino/introdu\%25C3\%25A7\%25C3\%25A3o-ao-projeto-de-engenharia?authuser=0\#h.jzh3wtardi2q}{no site da disciplina (etapa modelagem)}.
+\item Modelagem orientada a componentes, produzindo: diagramas de casos
+de uso, diagrama de pacotes e diagrama de classes.
+\item Definição da arquitetura modular (camadas: entrada de dados, processamento/ciência,
+apresentação) para garantir reuso e extensibilidade.
+\item Validação dos modelos com revisões de projeto e testes de protótipo
+rápido (proof-of-concept) para os parsers LAS.
 \end{itemize}
-\item Etapa 4 - Ciclos de planejamento, detalhamento e construção/implementação:
-
+\item Etapa 4 - Ciclos de planejamento, detalhamento e construção/implementação: 
 \begin{itemize}
-\item Esta etapa é dividida em ciclos de planejamento, detalhamento e construção/implementação,
-pense nisso como uma divisão temporal do trabalho e das entregas dos
-sub-produtos (partes do produto final).
-\item Nesta etapa, a mais demorada do projeto, temos:
-\begin{itemize}
-\item Reunião no início do ciclo:
-\begin{itemize}
-\item A equipe faz uma reunião onde selecionam as \emph{features/funcionalidades
-}a serem implementadas.
+\item O projeto foi dividido em ciclos incrementais:
+\item v0.1 -- Núcleo de dados e leitura de arquivo
+\item v0.3 -- Plotagem de curvas de diferentes perfis
+\item v0.7 -- Interpretação de áreas de interesse
 \end{itemize}
-\item Reuniões diárias:
+\item Etapa 5 - Entrega do produto:
 \begin{itemize}
-\item Fazem reuniões diárias, de 15 minutos, onde falam o que fizeram no
-dia anterior e o que irão fazer no dia.
-\item Na sexta-feira fazem um balanço do que foi feito.
-\end{itemize}
-\item Reunião no final do ciclo
-\begin{itemize}
-\item No final do ciclo entregam o sub-produto que deve estar funcional.
-\end{itemize}
-\end{itemize}
-\item O último ciclo é o ciclo de fechamento, o mesmo inclui:
-\begin{itemize}
-\item Realização de testes de integração e confecção dos manuais do desenvolvedor
-e do usuário.
-\item Os manuais devem ter vários testes do sistema rodando (com todas as
-informaç\~{e}os para executar/testar o produto desenvolvido).
-\end{itemize}
-\item Você encontra diagramas associados a esta etapa nos apêndices e \href{https://sites.google.com/view/professorandreduartebueno/ensino/introdu\%25C3\%25A7\%25C3\%25A3o-ao-projeto-de-engenharia?authuser=0\#h.mwce3hjuxu1n}{no site da disciplina (etapa planejamento/detalhamento/construção)}.
-\end{itemize}
-\item Etapa 5 - Entrega do produto: 
-\begin{itemize}
-\item Verificações finais na documentação e testes.
-\item Apresentação do produto.
-\item Entrega do produto.
+\item Testes finais de uso com diferentes perfis de poços.
+\item Geração dos manuais de uso.
+\item Entrega do executável e dos arquivos-fonte com instruções de compilação
+no GitHub.
 \end{itemize}
 \end{itemize}
 
@@ -84,114 +69,40 @@ Apresenta-se a seguir o cronograma de execução do projeto.
 \begin{itemize}
 \item Exemplo considerando produto desenvolvido em 4-6 meses:
 \end{itemize}
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|}
 \hline 
-Mês & 1 & 2 & 3 & 4 & 5 & 6\tabularnewline
-\hline 
-\hline 
-Etapa 0 - Definição do desafio tecnológico & X &  &  &  &  & \tabularnewline
-\hline 
-Etapa 1 - Elaboração do pré-projeto & X & X &  &  &  & \tabularnewline
-\hline 
-Etapa 2 - Elaboração do projeto - detalhamento e contrato &  & X & X &  &  & \tabularnewline
-\hline 
-Etapa 3 - Modelagem de engenharia &  &  & X &  &  & \tabularnewline
-\hline 
-Etapa 4 - Ciclos de planejamento, detalhamento e construção/implementação &  &  & c1 & c2 & c3 & F\tabularnewline
-\hline 
-Etapa 5 - Entrega do produto (defesa) &  &  &  &  &  & D\tabularnewline
-\hline 
-\end{tabular}
-\begin{itemize}
-\item Exemplo considerando produto desenvolvido em 12 meses:
-\begin{itemize}
-\item Note que estamos considerando 3 ciclos de desenvolvimento e para versão
-final um prazo para finalizar detalhes e manuais.
-\end{itemize}
-\end{itemize}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline 
-Mês & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\tabularnewline
+Mês & Atividades\tabularnewline
 \hline 
 \hline 
-Etapa 0 - Desafio tecnológico & X &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+Mês 1 & Definição do desafio, levantamento de requisitos, protótipos de interface\tabularnewline
 \hline 
-Etapa 1 - Pré-projeto & X &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+Mês 2 & Implementação das classes e leitura de arquivos; testes de leitura
+e plotagem\tabularnewline
 \hline 
-Etapa 2 - Projeto  & X & X &  &  &  &  &  &  &  &  &  & \tabularnewline
+Mês 3 & Desenvolvimento de diferentes métodos de plotagem gráfica\tabularnewline
 \hline 
-Etapa 3 - Modelagem  &  & X & X &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 4 - Ciclos  &  &  & c1 & c1 & c1 & c2 & c2 & c2 & c3 & c3 & c3 & F\tabularnewline
-\hline 
-Etapa 5 - Entrega do produto (defesa) &  &  &  & c1 &  &  & c2 &  &  & c3 &  & D\tabularnewline
-\hline 
-\end{tabular}
-\begin{itemize}
-\item Exemplo considerando produto desenvolvido em 18 meses:
-\begin{itemize}
-\item Note que estamos considerando 3 ciclos de desenvolvimento e para versão
-final um prazo para finalizar detalhes e manuais.
-\end{itemize}
-\end{itemize}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline 
-Mês corrido &  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16\tabularnewline
-\hline 
-Mês do ano & 2 & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & 7 & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & 1 & 2 & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6}\tabularnewline
-\hline 
-\hline 
-Etapa 0 - Desafio & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 1 - Pré-projeto &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 2 - Projeto &  & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 3 - Modelagem &  &  & X & X &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 4 - Ciclos &  &  &  &  & c1 & f & c1 & c1 & c2 & c2 & c2 & f & c3 & c3 & c3 & c3 & F\tabularnewline
-\hline 
-Etapa 5 - Entrega &  &  &  & M &  &  &  & e1 &  &  & e2 &  &  &  &  & e3 & D\tabularnewline
-\hline 
-\end{tabular}
-\begin{itemize}
-\item Exemplo considerando produto desenvolvido em 24 meses:
-\item Note que estamos considerando 4 ciclos de desenvolvimento e para versão
-final um prazo para finalizar detalhes e manuais.
-\end{itemize}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline 
-Mês corrido & 1 & 3 & 5 & 7 & 9 & 11 & 13 & 15 & 17 & 19 & 21 & 23 & 24\tabularnewline
-\hline 
-Mês do ano & 3 & 5 & 7 & 9 & 11 & 1 & 3 & 5 & 7 & 9 & 11 &  & \tabularnewline
-\hline 
-\hline 
-Etapa 0 - Desafio & X &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 1 - Pré-projeto & X &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 2 - Projeto & X & X &  &  &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 3 - Modelagem &  & X & X &  &  &  &  &  &  &  &  &  & \tabularnewline
-\hline 
-Etapa 4 - Ciclos &  &  & c1 & c1 & c1 & c2 & c2 & c2 & c3 & c3 & c3 & F & c3\tabularnewline
-\hline 
-Etapa 5 - Entrega &  &  &  & c1 &  &  & c2 &  &  & c3 &  & D & \tabularnewline
+Mês 4 & Interpretação de áreas de interesse em curvas de perfis\tabularnewline
 \hline 
 \end{tabular}
 
 \section{Orçamento\label{sec:Or=0000E7amento} }
 
-Colocar aqui as informações sobre o orçamento do projeto.
-\begin{itemize}
-\item Considerar os equipamentos (custo e depreciação associada);
-\item Considerar a mão de obra;
-\item Considerar outros custos (pessoal, infraestrutura, administrativos,
-judiciários, etc);
-\end{itemize}
+O projeto foi desenvolvido utilizando ferramentas gratuitas e de código
+aberto, com baixo custo financeiro direto, porém com alta demanda
+de horas de trabalho da equipe. A seguir, apresenta-se uma estimativa
+simplificada:
 
-\section{Informações Extras Mecanismos Gestão\label{sec:  Informa=0000E7=0000F5es Extras Mecanismos Gest=0000E3o}}
-\begin{itemize}
-\item Coloque aqui informações extras pertinentes.
-\end{itemize}
-
+\begin{tabular}{|c|c|}
+\hline 
+Recurso & Custo Estimado\tabularnewline
+\hline 
+\hline 
+Ferramentas (Gnuplot, GitHub, VSCode, G++) & Gratuito\tabularnewline
+\hline 
+Computadores e ambiente de desenvolvimento & Próprio\tabularnewline
+\hline 
+Horas de desenvolvimento (voluntárias) & Não monetizadas\tabularnewline
+\hline 
+Estimativa de esforço total & \textasciitilde 200 horas\tabularnewline
+\hline 
+\end{tabular}

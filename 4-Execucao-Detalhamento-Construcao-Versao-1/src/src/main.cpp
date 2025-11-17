@@ -1,6 +1,7 @@
 #include "Core/CLASReader.h"
 #include "Core/CWellLog.h"
 #include "Plotting/CPlotter.h"
+#include "Interpretation/CInterpreter.h"
 #include <iostream>
 
 int main() {
@@ -16,21 +17,32 @@ int main() {
 
     CPlotter oPlotter;
 
-    oPlotter.PlotCurve(oWell, "GR");
+    VshParams vp;              // (padrões ok: Larionov Tertiary, P5/P95)
+    SepParams sp;              // usa RPD2/RPM2/RPS2
+    PayParams pp;              // VSH<0.40; RR>1.4 ou dR>P90; Rt>5; merge 0.5m; min 1.0m
 
-    oPlotter.PlotMultiple(oWell, {});
+    auto D     = CInterpreter::ComputeDerived(oWell, vp, sp);
+    auto picks = CInterpreter::PickReservoirs(D, pp);
+
+    // (opcional) CSV
+    CInterpreter::WriteCSV("../out/intervalos.csv", picks);
+
+    // 2) Lista de curvas que você já usa (as “14 tracks” ou qualquer subconjunto)
+    std::vector<std::string> curves = {
+        "GR","RPD2","RPM2","RPS2"
+    };
+
+    oPlotter.PlotWithIntervals(oWell, curves, picks);
 
     oPlotter.PlotSelectedTracks(oWell, {});
-
-
     //normalized
-    oPlotter.PlotCompareCurves(oWell, {"GR","RPD2","RPM2","RPS2"}, /*overlay=*/true, /*normalize=*/true);
+    oPlotter.PlotCompareCurves(oWell, curves, /*overlay=*/true, /*normalize=*/true);
     //overlay
-    oPlotter.PlotCompareCurves(oWell, {"GR","RPD2","RPM2"}, /*overlay=*/true, /*normalize=*/false);
+    oPlotter.PlotCompareCurves(oWell, curves, /*overlay=*/true, /*normalize=*/false);
     //sidebyside
-    oPlotter.PlotCompareCurves(oWell, {"GR","RPD2","RPM2","RPS2"}, /*overlay=*/false, /*normalize=*/false);
+    oPlotter.PlotCompareCurves(oWell, curves, /*overlay=*/false, /*normalize=*/false);
 
-   
+    //oPlotter.PlotCurve(oWell, "GR");
 
     return 0;
 }

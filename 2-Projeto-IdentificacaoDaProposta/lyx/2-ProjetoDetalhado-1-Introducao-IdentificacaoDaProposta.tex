@@ -9,10 +9,32 @@
 \fancyfoot[R]{\today}
 \pagenumbering{arabic}
 
-Apresenta-se aqui a proposta de desenvolvimento do software XX\_nome\_XX.
-Um software aplicado a engenharia de petróleo e que visa ...descrever.
-em um parágrafo super resumido.
+A elaboração de projetos constitui uma das atribuições fundamentais
+que diferencia o engenheiro do tecnólogo, exigindo a aplicação integrada
+de bases científicas, técnicas e computacionais na resolução de problemas
+reais. Nesse cenário, propõe-se o desenvolvimento de um projeto de
+engenharia de software direcionado à área de Engenharia de Petróleo,
+com foco na manipulação e interpretação de dados geofísicos empregados
+na caracterização de formações e reservatórios.Este projeto propõe
+o desenvolvimento do GeoLogViewer, um software educacional interativo
+destinado à leitura, interpretação e visualização de perfis de poços
+registrados em arquivos LAS (Log ASCII Standard). A ferramenta tem
+como finalidade facilitar o aprendizado de conceitos de petrofísica
+e geologia aplicada, permitindo que estudantes interajam diretamente
+com dados reais utilizados na indústria, visualizando curvas como
+Gamma Ray (GR), densidade (RHOB) e porosidade (NPHI), de forma simples,
+leve e acessível.
 
+Com base no diagnóstico da realidade acadêmica, observa-se que os
+softwares atualmente disponíveis para essa finalidade, como Techlog,
+Petra e WellCAD, são caros, complexos e restritos ao ambiente corporativo,
+tornando-se inviáveis para o uso didático em instituições de ensino.
+O GeoLogViewer busca preencher essa lacuna ao oferecer uma plataforma
+gratuita e de código aberto aproximando o estudante das práticas profissionais
+da indústria do petróleo e gás.Em síntese, o GeoLogViewer visa democratizar
+o acesso à análise de perfis de poços no ambiente acadêmico, contribuindo
+para o desenvolvimento técnico e científico dos futuros engenheiros
+de petróleo, fortalecendo a integração entre teoria, prática e tecnologia.
 
 \section{Identificação da Proposta}
 
@@ -36,12 +58,17 @@ em um parágrafo super resumido.
 
 \subsubsection{Título do projeto }
 \begin{itemize}
-\item \textquotedbl Título do projeto aqui\textquotedbl{}
+\item {\large GeoLogViewer Ferramenta de Leitura e Visualização de Dados
+Geofísicos de Arquivos - LAS}{\large\par}
 \end{itemize}
 
 \subsubsection{Palavras-chave}
 \begin{itemize}
-\item ...coloque aqui lista de palavras chaves - até 5...
+\item Geofísica
+\item Perfis de poços
+\item Software educativo
+\item Arquivos LAS
+\item Interpretação
 \end{itemize}
 
 \section{Identificação da Universidade, Instituições e Empresas Participantes}
@@ -54,58 +81,95 @@ em um parágrafo super resumido.
 \item SETOR DE MODELAGEM MATEMÁTICA COMPUTACIONAL
 \item Representante pela universidade:
 \begin{itemize}
-\item Professor(a): Nome/email/telefone.
-\end{itemize}
-\end{itemize}
-
-\subsection{Instituição/Fundação}
-\begin{itemize}
-\item Nome instituição se houver.
-\item Representante da instituição/fundação:
-\begin{itemize}
-\item Professor(a): Nome/email/telefone.
-\end{itemize}
-\end{itemize}
-
-\subsection{Empresa}
-\begin{itemize}
-\item Nome empresa se houver.
-\item Dados da empresa (CNPj, contatos).
-\item Representante pela empresa:
-\begin{itemize}
-\item Engenheiro(a): Nome/email/telefone.
+\item Professor(a): André Duarte Bueno/bueno@lenep.uenf.br/22-999542635
 \end{itemize}
 \end{itemize}
 
 \subsection{Equipe}
 \begin{itemize}
-\item Nome aluno/email/telefone.
-\item Nome aluno/email/telefone.
-\item Nome aluno/email/telefone.
+\item Pedro Daneluci Cardozo {[}pedrocardozo@lenep.uenf.br/(18)981160414{]}
+\item Rafael Moreira Silva {[}rafaelsilva@lenep.uenf.br/(21)983750772{]}
 \item Representante pela equipe:
 \begin{itemize}
-\item Estudante: Nome/email/telefone.
+\item Pedro Daneluci Cardozo {[}pedrocardozo@lenep.uenf.br/(18)981160414{]}
+\item Rafael Moreira Silva {[}rafaelsilva@lenep.uenf.br/(21)983750772{]}
 \end{itemize}
 \end{itemize}
 
 \section{Resumo\label{sec:Resumo}}
 \begin{itemize}
-\item Limite de 500 palavras, então seja bem direto!
-\item Escreva no final, depois de escrever todo o resto.
+\item O presente projeto de engenharia tem como finalidade o desenvolvimento
+do GeoLogViewer, um software educacional voltado à leitura, interpretação
+e visualização de dados geofísicos armazenados em arquivos LAS (Log
+ASCII Standard), amplamente utilizados na indústria do petróleo e
+gás. O projeto surgiu a partir da necessidade identificada entre estudantes
+e professores dos cursos de Engenharia de Exploração e Produção de
+Petróleo, que enfrentam limitações no acesso a ferramentas adequadas
+para o estudo de perfis de poço e análise de parâmetros petrofísicos
+em ambiente acadêmico. 
+\item O sistema tem como objetivo principal possibilitar a leitura estruturada
+de arquivos LAS e a exibição gráfica de suas curvas logarítmicas,
+representando parâmetros como radiação gama (GR), densidade (RHOB)
+e porosidade neutrônica (NPHI). Além disso, o software busca integrar
+ferramentas auxiliares que permitam o cálculo de propriedades básicas,
+como pressão hidrostática, densidade média e viscosidade média, reforçando
+a conexão entre teoria e prática nas disciplinas de Engenharia de
+Poço e Petrofísica Aplicada.
+\item Metodologicamente, o desenvolvimento do GeoLogViewer segue um processo
+iterativo baseado nas boas práticas da engenharia de software. As
+etapas envolvem: levantamento de requisitos junto ao público-alvo;
+análise detalhada da estrutura dos arquivos LAS; projeto modular da
+aplicação; implementação incremental em linguagem C++; e realização
+de testes de funcionalidade, desempenho e usabilidade. A arquitetura
+modular adotada permite que o sistema seja facilmente expandido, possibilitando
+futuras implementações, como novos tipos de curvas, integração com
+bancos de dados e personalização de gráficos.
 \end{itemize}
 
 \section{Escopo do Problema \label{sec:Escopo-do-Problema}}
-\begin{itemize}
-\item Definir o escopo do problema de engenharia\footnote{\begin{itemize}
-\item problemas vinculados à: i) engenharia de petróleo, ii) algoritmos
-computacionais, iii) sistemas de software
-\end{itemize}
-}, a ideia geral. Destacar sua importância/relevância.
-\item Definir a abrangência, delimintando o assunto (para que caiba no prazo
-de até 24 meses). 
-\item Situá-lo no tempo e no espaço. Situá-lo em relação a outros concorrentes
-(sistemas similares, como softwares similares).
-\end{itemize}
+
+O GeoLogViewer é um software acadêmico desenvolvido para auxiliar
+estudantes e professores de Engenharia de Petróleo na análise e visualização
+de dados geofísicos provenientes de arquivos LAS (Log ASCII Standard).
+O sistema foi concebido com o objetivo de tornar acessível o estudo
+de perfis de poços, promovendo o entendimento de parâmetros petrofísicos
+e geológicos essenciais à caracterização de reservatórios e à formação
+técnica dos futuros engenheiros.
+
+Diferentemente de softwares comerciais complexos e de alto custo,
+o GeoLogViewer oferece uma solução gratuita, leve e didática, especialmente
+voltada para o ambiente acadêmico. Sua interface intuitiva e suas
+funcionalidades permitem que o usuário compreenda e interprete dados
+de forma prática e interativa, fortalecendo o vínculo entre teoria
+e aplicação profissional.
+
+Entre suas principais funcionalidades, destacam-se:
+
+\textbullet{} Leitura estruturada de arquivos LAS, com identificação
+automática de seções e parâmetros geofísicos;
+
+\textbullet{} Visualização gráfica interativa de curvas logarítmicas,
+como radiação gama (GR), densidade (RHOB) e porosidade neutrônica
+(NPHI);
+
+\textbullet{} Ferramentas de cálculo básico, incluindo pressão hidrostática,
+densidade média e viscosidade média;
+
+\textbullet{} Interface de uso simples, voltada para o aprendizado
+em disciplinas como Engenharia de Poço e Petrofísica;
+
+\textbullet{} Exportação de gráficos e relatórios para uso em trabalhos
+e atividades acadêmicas;
+
+\textbullet{} Arquitetura modular e de código aberto, permitindo futuras
+expansões e adaptações por outras instituições.
+
+O escopo do sistema abrange, portanto, a leitura, interpretação, cálculo
+e visualização de dados de poços, proporcionando um ambiente integrado
+de aprendizado técnico e computacional. O GeoLogViewer visa democratizar
+o acesso a ferramentas de análise geofísica, tornando o ensino de
+Engenharia de Petróleo mais interativo, prático e alinhado às tecnologias
+utilizadas na indústria.
 
 \section{Objetivos\label{sec:Objetivos}}
 
@@ -114,27 +178,30 @@ Os objetivos deste projeto de engenharia são:
 \item Objetivo geral:
 
 \begin{itemize}
-\item Descreva aqui o objetivo geral do projeto de engenharia, incluindo
-vínculos com engenharia de petróleo e com modelagem matemática computacional
-(ideia de lógica, algoritmos,...).
-\item Desenvolver um projeto de engenharia de software para ...{[}.....descrever
-de forma clara, direta, objetiva, o objetivo geral do software{]}.
+\item Desenvolver um software educacional completo para leitura, análise
+e visualização de dados geofísicos provenientes de arquivos LAS, proporcionando
+aos estudantes de Engenharia de Petróleo um ambiente interativo que
+favoreça a compreensão prática da interpretação de perfis de poços,
+relacionando parâmetros petrofísicos e suas implicações na caracterização
+de reservatórios, de forma acessível, intuitiva e tecnicamente consistente.
 \end{itemize}
 \item Objetivos específicos:
 
 \begin{itemize}
-\item Modelar física e matematicamente o problema.
-\item Modelagem estática do software (diagramas de caso de uso, de pacotes,
-de classes).
-\item Modelagem dinâmica do software (desenvolver algoritmos e diagramas
-exemplificando os fluxos de processamento).
-\item Calcular XXX{[}.....descrever de forma clara, direta, objetiva, cada
-objetivo específico, cada parte do software{]}.
-\item Calcular XXX{[}.....descrever de forma clara, direta, objetiva, cada
-objetivo específico, cada parte do software{]}.
-\item Simular (realizar simulações para teste do software desenvolvido).
-\item Implementar manual simplificado de uso do software.
-\item 
+\item Implementar a leitura estruturada de arquivos LAS.
+\item Garantir a plotagem de curvas de diferentes perfis de poços de petróleo.
+\item Sobreposição e comparação de registros para identificação de padrões
+e anomalias.
+\item Interpretar as curvas dos perfis de poços, indicando possíveis regiões
+de interesse.
+\item Destaque visual de intervalos de interesse;
+\item Ser capaz de exportar as imagens geradas dos perfis.
+\item Garantir o entendimento do estudante sobre a leitura e interpretação
+de perfis de poços de petróleo.
+\item Elaborar documentação técnica e manual de uso simplificado, com foco
+didático, explicando o funcionamento, a instalação e as principais
+funcionalidades do software.
 \end{itemize}
+\item 
 \end{itemize}
 

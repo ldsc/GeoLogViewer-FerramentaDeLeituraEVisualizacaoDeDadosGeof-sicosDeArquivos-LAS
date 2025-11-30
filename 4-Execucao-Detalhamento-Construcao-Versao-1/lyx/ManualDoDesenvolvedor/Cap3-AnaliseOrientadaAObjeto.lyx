@@ -214,7 +214,7 @@ name "sec:Diagramas-de-classes"
 O diagrama de classes é apresentado na Figura 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "cap:Diagrama-de-classes"
+reference "cap:DiagramaDeClasses"
 nolink "false"
 
 \end_inset
@@ -226,12 +226,12 @@ placement document
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename imagens/DiagramaDeClasses.png
+	filename imagens/Diagrama DeClasses.png
 	lyxscale 50
 	width 55text%
 	rotateAngle 90
@@ -248,7 +248,7 @@ status collapsed
 Diagrama de classes
 \begin_inset CommandInset label
 LatexCommand label
-name "cap:Diagrama-de-classes"
+name "cap:DiagramaDeClasses"
 
 \end_inset
 

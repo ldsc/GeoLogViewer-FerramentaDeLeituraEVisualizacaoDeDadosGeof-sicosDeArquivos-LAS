@@ -1,0 +1,174 @@
+\lhead{\thechapter\space - Análise Orientada a Objeto}  
+
+\chapter{AOO\index{AOO} -- Análise Orientada a Objeto\label{chap:An=0000E1lise Orientada a Objeto}\index{Análise orientada a objeto}\label{sec:AOO}}
+
+Neste capítulo são apresentadas as classes desenvolvidas no projeto,
+suas relações, atributos e métodos. Ainda teremos um breve conceito
+de cada classe. Todos os diagramas respeitam a estrutura UML (Linguagem
+de Modelagem Unificada) para auxiliar na padronização e compreensão.
+Ainda veremos, além do diagrama de classes, os diagramas de sequência,
+de comunicação, de máquina de estado e de atividades (Bueno,2003).
+
+\section{Diagramas de classes\label{sec:Diagramas-de-classes}}
+
+O diagrama de classes é apresentado na Figura \ref{cap:Diagrama-de-classes}.
+\begin{figure}[p]
+\begin{centering}
+\includegraphics[angle=90,width=0.55\textwidth]{imagens/DiagramaDeClasses}
+\par\end{centering}
+\caption{Diagrama de classes\label{cap:Diagrama-de-classes}}
+\end{figure}
+
+
+\subsection{Dicionário de classes\label{subsec:Dicion=0000E1rio-de-classes}}
+
+A seguir apresenta-se o dicionário de classes correspondente ao diagrama
+de classes fornecido, descrevendo o papel, responsabilidades e principais
+funcionalidades de cada classe do sistema GeoLogViewer.
+\begin{itemize}
+\item CGeoLogViewerApp: Classe central do software, responsável por integrar
+todos os módulos, gerenciar fluxo de execução e coordenar ações do
+usuário.
+\item CLASReader: Classe responsável pela leitura e carregamento de arquivos
+LAS. 
+\item CWellLog: Classe que representa um registro completo de poço, contendo
+profundidades, curvas e informações gerais.
+\item CLogCurve: Classe que representa cada curva individual presente em
+um arquivo LAS (GR, RHOB, NPHI, etc.).
+\item CPlotter: Classe responsável pela geração de gráficos, atuando como
+intermediária entre os dados do poço e ferramentas externas (como
+Gnuplot).
+\item CGnuplot: Classe que encapsula chamadas para o software externo Gnuplot,
+permitindo a construção efetiva dos gráficos.
+\item CPetroPhysicsCalculator: Classe dedicada aos cálculos petrofísicos.
+É um módulo matemático que processa curvas e gera informações complementares.
+\item CInterpreter: Classe responsável por realizar interpretações automáticas
+ou auxiliares, aplicando critérios petrofísicos e geológicos.
+\item CFormationZone: Classe utilizada para representar intervalos interpretados
+(como zonas de reservatório, contatos litológicos ou intervalos produtivos).
+\end{itemize}
+
+\section{Diagrama de seqüência -- eventos\index{Eventos} e mensagens\index{Mensagens}\index{Diagrama de sequência}\label{subsec:diagrama de sequ=0000EAncia}}
+
+\textit{\emph{O diagrama de seqüência enfatiza a troca de eventos
+e mensagens e sua ordem temporal. Contém informações sobre o fluxo
+de controle do software. Costuma ser montado a partir de um diagrama
+de caso de uso e estabelece o relacionamento dos atores (usuários
+e sistemas externos) com alguns objetos do sistema.}}
+
+\subsection{\textit{\emph{Diagrama de sequência geral\label{subsec: Diagrama de sequ=0000EAncia geral}}}}
+
+Veja o \textit{\emph{diagrama de seqüência na}} Figura \ref{cap:Diagrama-de-sequencia}.
+\begin{itemize}
+\item O diagrama de sequência apresenta, de maneira sintetizada, o fluxo
+completo de interação entre o usuário e os principais componentes
+do GeoLogViewer durante as etapas de carregamento, interpretação e
+plotagem de dados LAS. Ele mostra como o usuário inicia o programa,
+seleciona um arquivo LAS e aciona o processo de leitura realizado
+pela classe CLASReader, que extrai curvas, profundidades e metadados
+e os armazena em um objeto CWellLog. Em seguida, ao solicitar a interpretação,
+o sistema utiliza o CInterpreter em conjunto com o CPetroPhysicsCalculator
+para gerar parâmetros derivados e curvas interpretadas. Por fim, na
+etapa de visualização, o CPlotter envia comandos ao Gnuplot para produzir
+os gráficos interpretados, que são então exibidos ao usuário. O diagrama
+evidencia a cooperação ordenada entre os módulos e a separação clara
+entre leitura, análise e visualização.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaDeSequencia}
+\par\end{centering}
+\caption{Diagrama de seqüência\label{cap:Diagrama-de-sequencia}}
+\end{figure}
+\end{itemize}
+
+\section{Diagrama de comunicação\index{comunicação} -- colaboração\index{colaboração}\label{subsec:Diagrama-de-Comunica=0000E7=0000E3o}\index{Diagrama de colaboração}\label{par:Diagrama-de-colabora=0000E7=0000E3o:} }
+
+Veja o diagrama de comunicação na Figura \ref{subsec:Diagrama-de-Comunica=0000E7=0000E3o}
+\begin{itemize}
+\item O diagrama de comunicação apresenta, de forma resumida, como os principais
+componentes do GeoLogViewer trocam informações entre si durante o
+processamento de um arquivo LAS. O fluxo inicia com o CGeoLogViewerApp
+solicitando ao CLASReader a leitura do arquivo, cujos dados são então
+armazenados em CWellLog e CLogCurve. Para interpretar esses dados,
+o CInterpreter consulta o poço e utiliza o CPetroPhysicsCalculator
+para realizar cálculos petrofísicos. Os resultados interpretados são
+enviados ao CPlotter, que, em conjunto com o CGnuplot, gera os gráficos
+finais. Assim, o diagrama evidencia uma comunicação estruturada e
+modular, onde cada classe desempenha um papel específico e contribui
+para o fluxo completo de leitura, interpretação e visualização dos
+dados geofísicos.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaDeComunicação}
+\par\end{centering}
+\caption{Diagrama de comunicação\label{cap:Diagrama-de-comunica=0000E7=0000E3o}}
+\end{figure}
+\end{itemize}
+
+\section{Diagrama de estado\index{estado}\index{Diagrama de estado}\label{subsec:diagrama de estados}}
+
+Um diagrama de máquina de estado representa os diversos estados que
+o objeto assume e os eventos que ocorrem ao longo de sua vida ou mesmo
+ao longo de um processo (histórico do objeto). É usado para modelar
+aspectos dinâmicos do objeto.
+
+Veja na Figura \ref{cap:Diagrama-de-maquina-de-estado} o diagrama
+de máquina de estado..
+\begin{itemize}
+\item O diagrama de máquina de estado representa a evolução de um único
+objeto responsável pelo gerenciamento do arquivo LAS, destacando como
+ele muda de condição conforme novos eventos ocorrem. Inicialmente,
+esse objeto encontra-se em estado ocioso, passando para o estado de
+recebimento do arquivo quando um LAS é fornecido. A partir daí, ele
+assume o estado de leitura do conteúdo, no qual se torna capaz de
+interpretar e reconhecer as informações estruturais do arquivo. Após
+essa leitura, o objeto evolui para o estado de armazenamento dos dados
+de poço e curvas, momento em que sua estrutura interna é atualizada
+para conter esses valores. Com os dados devidamente incorporados ao
+objeto, ele avança para o estado de processamento interpretativo,
+no qual mantém informações adicionais derivadas das curvas originais.
+Em seu estado final, o objeto assume a condição de pronto para visualização,
+permitindo que suas informações sejam consultadas para fins de plotagem
+ou análise externa. Assim, o diagrama evidencia a trajetória de transformação
+interna do objeto ao longo de todo o ciclo de vida, e não uma simples
+sequência de ações computacionais.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaDeMaquinaDeEstado}
+\par\end{centering}
+\caption{Diagrama de máquina de estado\label{cap:Diagrama-de-maquina-de-estado}}
+\end{figure}
+\end{itemize}
+
+\section{Diagrama de atividades\label{sec: Diagrama de atividades}}
+
+Veja na Figura \ref{cap:Diagrama-de-atividades} o diagrama de atividades
+correspondente a uma atividade específica do diagrama de máguina de
+estado. 
+
+O diagrama de atividades apresentado descreve o fluxo operacional
+para a atividade específica de seleção e plotagem das curvas a partir
+de um arquivo fornecido pelo usuário. O processo inicia-se com a obtenção
+do arquivo, passando imediatamente pela verificação de sua conformidade
+com o formato LAS. Somente quando essa condição é satisfeita o fluxo
+segue para o estado em que a atividade de plotagem é preparada. A
+partir daí, o usuário é conduzido a decidir se deseja visualizar todas
+as curvas disponíveis ou selecionar apenas algumas. Caso opte pela
+seleção parcial, o fluxo direciona a atividade para a entrada manual
+dos nomes das curvas desejadas.
+
+Uma vez informadas, o sistema verifica a existência dessas curvas,
+retornando à etapa de entrada sempre que algum nome não corresponda
+aos dados presentes no arquivo. Quando a verificação é bem-sucedida
+ou quando o usuário escolhe visualizar todas as curvas, o fluxo avança
+para a confirmação da ação --- representada pela atividade de finalizar
+a seleção. Com essa confirmação, a atividade conclui-se na plotagem
+das curvas solicitadas, encerrando o processo específico modelado
+pelo diagrama.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaDeAtividades}
+\par\end{centering}
+\caption{Diagrama de atividades\label{cap:Diagrama-de-atividades}}
+\end{figure}
+

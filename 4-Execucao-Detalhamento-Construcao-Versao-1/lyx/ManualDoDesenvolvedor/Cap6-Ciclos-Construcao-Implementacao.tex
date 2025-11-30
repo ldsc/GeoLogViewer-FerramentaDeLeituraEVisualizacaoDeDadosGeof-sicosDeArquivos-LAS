@@ -1,0 +1,224 @@
+%% LyX 2.4.4 created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,oneside,brazil]{extbook}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=25mm,bmargin=20mm,lmargin=30mm,rmargin=20mm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{setspace}
+\onehalfspacing
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage {graphicx}
+\usepackage {longtable}
+\usepackage {indentfirst}
+\renewenvironment{center}{\par\centering}{\par}
+
+% Comentar linhas abaixo se n�o estiver usando pacote abntex
+% ou se o pacote ainda n�o foi instalado.
+% neste caso sugere-se usar cita��es no padr�o apalike (lembra o da anbt).
+%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
+%\usepackage {helvet}
+%\renewcommand {\familydefault}{\sfdefault}
+
+% Para uso de listagens de c�digo
+\usepackage{color}
+\definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
+% Informa que vai usar o pacote listings, 
+% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
+\usepackage{listings}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\UseRawInputEncoding
+\lstset{
+    inputencoding=utf8,
+    extendedchars=true,
+    literate=
+        {�}{{\'a}}1 {�}{{\'A}}1
+        {�}{{\`a}}1 {�}{{\`A}}1
+        {�}{{\~a}}1 {�}{{\~A}}1
+        {�}{{\^a}}1 {�}{{\^A}}1
+        {�}{{\'e}}1 {�}{{\'E}}1
+        {�}{{\^e}}1 {�}{{\^E}}1
+        {�}{{\'i}}1 {�}{{\'I}}1
+        {�}{{\'o}}1 {�}{{\'O}}1
+        {�}{{\^o}}1 {�}{{\^O}}1
+        {�}{{\~o}}1 {�}{{\~O}}1
+        {�}{{\'u}}1 {�}{{\'U}}1
+        {�}{{\c{c}}}1 {�}{{\c{C}}}1
+}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+
+\chapter{Ciclos Construção – Implementação}
+\label{chap:Ciclos-Construcao-Implementacao}
+\index{Ciclo construção}
+\index{Implementação}
+
+
+\lhead{\thechapter - Implementa��o}
+
+Neste cap�tulo, s�o apresentados os c�digos fonte implementados.
+
+\section{C�digo fonte\label{sec:Codigo-fonte}\index{Implementa��o}}
+
+Como visto na se��o anterior, a vers�o 0.1 foi a �ltima desenvolvida
+utilizando execu��o no terminal. Abaixo ser�o exibidas as classes
+necess�rias para a intera��o via terminal.
+
+Apresenta-se a seguir um conjunto de classes (arquivos .h e .cpp)
+al�m do programa \textit{main}.
+
+Apresenta-se na listagem \ref{main.cpp} o arquivo com c�digo da fun��o
+\textit{main}.
+
+\lstinputlisting[caption={Arquivo main.cpp}, label={lst:main}]{../../src/main.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CGeoLogViewerApp.h} o arquivo de cabe�alho
+da classe CGeoLogViewerApp.
+
+\lstinputlisting[caption={Arquivo CGeoLogViewerApp.h}, label={lst:CGeoLogViewerAppH}]{../../src/app/CGeoLogViewerApp.h}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CGeoLogViewerApp.cpp} a implementa��o
+da classe CGeoLogViewerApp.
+
+\lstinputlisting[caption={Arquivo CGeoLogViewerApp.cpp}, label={lst:CGeoLogViewerAppCpp}]{../../src/app/CGeoLogViewerApp.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CLASReader.h} o arquivo de cabe�alho
+da classe CLASReader.
+
+\lstinputlisting[caption={Arquivo CLASReader.h}, label={lst:CLASReaderH}]{../../src/Core/CLASReader.h}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CLASReader.cpp} a implementa��o da
+classe CLASReader.
+
+\lstinputlisting[caption={Arquivo CLASReader.cpp}, label={lst:CLASReaderCpp}]{../../src/Core/CLASReader.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CLogCurve.h} o arquivo de cabe�alho
+da classe CLogCurve.
+
+\lstinputlisting[caption={Arquivo CLogCurve.h}, label={lst:CLogCurveH}]{../../src/Core/CLogCurve.h}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CLogCurve.cpp} a implementa��o da classe
+CLogCurve.
+
+\lstinputlisting[caption={Arquivo CLogCurve.cpp}, label={lst:CLogCurveCpp}]{../../src/Core/CLogCurve.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CWellLog.h} o arquivo de cabe�alho
+da classe CWellLog.
+
+\lstinputlisting[caption={Arquivo CWellLog.h}, label={lst:CWellLogH}]{../../src/Core/CWellLog.h}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CWellLog.cpp} a implementa��o da classe
+CWellLog.
+
+\lstinputlisting[caption={Arquivo CWellLog.cpp}, label={lst:CWellLogCpp}]{../../src/Core/CWellLog.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CFormationZone.cpp} a implementa��o
+da classe CFormationZone.
+
+\lstinputlisting[caption={Arquivo CFormationZone.cpp}, label={lst:CFormationZoneCpp}]{../../src/Interpretation/CFormationZone.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CInterpreter.h} o arquivo de cabe�alho
+da classe CInterpreter.
+
+\lstinputlisting[caption={Arquivo CInterpreter.h}, label={lst:CInterpreterH}]{../../src/Interpretation/CInterpreter.h}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CInterpreter.cpp} a implementa��o da
+classe CInterpreter.
+
+\lstinputlisting[caption={Arquivo CInterpreter.cpp}, label={lst:CInterpreterCpp}]{../../src/Interpretation/CInterpreter.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CPetrophysicsCalculator.h} o arquivo
+de cabe�alho da classe CPetrophysicsCalculator.
+
+\lstinputlisting[caption={Arquivo CPetrophysicsCalculator.h}, label={lst:CPetrophysicsCalculatorH}]{../../src/petrophysics/CPetrophysicsCalculator.h}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CPetrophysicsCalculator.cpp} a implementa��o
+da classe CPetrophysicsCalculator.
+
+\lstinputlisting[caption={Arquivo CPetrophysicsCalculator.cpp}, label={lst:CPetrophysicsCalculatorCpp}]{../../src/petrophysics/CPetrophysicsCalculator.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CGnuplot.h} a implementa��o da classe
+CGnuplot.
+
+\lstinputlisting[caption={Arquivo CGnuplot.h}, label={lst:CGnuplotH}]{../../src/Plotting/CGnuplot.h}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CGnuplot.cpp} a implementa��o da classe
+CGnuplot.
+
+\lstinputlisting[caption={Arquivo CGnuplot.cpp}, label={lst:CGnuplotCpp}]{../../src/Plotting/CGnuplot.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CPlotter.h} a implementa��o da classe
+CPlotter.
+
+\lstinputlisting[caption={Arquivo CPlotter.h}, label={lst:CPlotterH}]{../../src/Plotting/CPlotter.h}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+Apresenta-se na listagem \ref{CPlotter.cpp} a implementa��o da classe
+CPlotter.
+
+\lstinputlisting[caption={Arquivo CPlotter.cpp}, label={lst:CPlotterCpp}]{../../src/Plotting/CPlotter.cpp}
+\begin{center}
+Fonte: produzido pelo autor.
+\par\end{center}
+
+
+\end{document}

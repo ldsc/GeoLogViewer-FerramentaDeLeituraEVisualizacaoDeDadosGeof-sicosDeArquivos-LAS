@@ -1,5 +1,5 @@
-#LyX 2.3 created this file. For more info see http://www.lyx.org/
-\lyxformat 544
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -27,11 +27,11 @@
 \end_preamble
 \use_default_options false
 \master DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
-\maintain_unincluded_children false
+\maintain_unincluded_children no
 \language brazilian
 \language_package auto
-\inputencoding auto
-\fontencoding global
+\inputencoding auto-legacy
+\fontencoding auto
 \font_roman "default" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
@@ -39,7 +39,9 @@
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
-\font_osf false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
 \use_microtype false
@@ -53,7 +55,7 @@
 \paperfontsize 12
 \spacing onehalf
 \use_hyperref false
-\papersize a4paper
+\papersize a4
 \use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
@@ -74,7 +76,9 @@
 \suppress_date false
 \justification true
 \use_refstyle 0
+\use_formatted_ref 0
 \use_minted 0
+\use_lineno 0
 \index Índice
 \shortcut idx
 \color #008000
@@ -96,11 +100,16 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle fancy
+\tablestyle default
 \tracking_changes false
 \output_changes false
+\change_bars false
+\postpone_fragile_content false
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
 \end_header
 
 \begin_body
@@ -135,16 +144,20 @@ thechapter - Projeto}
 \end_layout
 
 \begin_layout Standard
-Neste capítulo do projeto de engenharia veremos questões associadas ao projeto
- do sistema, incluindo protocolos, recursos, plataformas suportadas, inplicações
- nos diagramas feitos anteriormente, diagramas de componentes e implantação.
- Na segunda parte revisamos os diagramas levando em conta as decisões do
- projeto do sistema.
+Neste capítulo do projeto de engenharia veremos questões associadas ao projeto do sistema,
+ incluindo protocolos,
+ recursos,
+ plataformas suportadas,
+ inplicações nos diagramas feitos anteriormente,
+ diagramas de componentes e implantação.
+ Na segunda parte revisamos os diagramas levando em conta as decisões do projeto do sistema.
 \end_layout
 
 \begin_layout Section
 Projeto do Sistema
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -164,39 +177,16 @@ name "sec:Projeto-do-sistema"
 \end_layout
 
 \begin_layout Standard
-Depois da análise orientada a objeto desenvolve-se o projeto do sistema,
- qual envolve etapas como a definição dos protocolos, da interface API,
- o uso de recursos, a subdivisão do sistema em subsistemas, a alocação dos
- subsistemas ao hardware e a seleção das estruturas de controle, a seleção
- das plataformas do sistema, das bibliotecas externas, dos padrões de projeto,
- além da tomada de decisões conceituais e políticas que formam a infraestrutura
- do projeto.
-\end_layout
-
-\begin_layout Standard
-Deve-se definir padrões de documentação, padrões para o nome das classes,
- padrões de retorno e de parâmetros em métodos, características da interface
- do usuário e características de desempenho.
- 
-\end_layout
-
-\begin_layout Standard
-Segundo 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "prog-UML-Rumbaugh,prog-UML-blaha"
-literal "true"
-
-\end_inset
-
-, o projeto do sistema é a estratégia de alto nível para resolver o problema
- e elaborar uma solução.
- Você deve se preocupar com itens como: 
+O projeto do sistema GeoLogViewer foi estruturado com base na análise orientada a objeto e nas demandas específicas do processamento de dados geofísicos em Engenharia de Petróleo.
+ A aplicação foi concebida como um software desktop leve e autônomo,
+ desenvolvido em C++ e integrado ao Gnuplot para a visualização gráfica das curvas e interpretações petrofísicas.
 \end_layout
 
 \begin_layout Enumerate
 Protocolos
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -214,79 +204,49 @@ Protocolos
 
 \begin_deeper
 \begin_layout Itemize
-Definição dos protocolos de comunicação entre os diversos elementos externos
- 
-\begin_inset Newline newline
-\end_inset
-
-(como dispositivos).
- Por exemplo: se o sistema envolve o uso dos nós de um cluster, devem ser
- considerados aspectos como o protocolo de comunicação entre os nós do cluster.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Entre elementos externos:
+ O GeoLogViewer não depende de dispositivos físicos nem APIs remotas.
+ A única interação externa ocorre com o Gnuplot,
+ por meio do envio de comandos e dados através de pipes ou arquivos temporários para geração de gráficos.
+ Fora isso,
+ a aplicação opera de forma totalmente local.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Entre elementos internos:
+ A comunicação entre os módulos ocorre por chamadas diretas de métodos entre objetos C++.
+ Cada classe expõe sua funcionalidade principal por meio de sua interface pública,
+ e os dados trafegam por referências,
+ ponteiros inteligentes (smart pointers) e containers da STL.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Definição dos protocolos de comunicação entre os diversos elementos internos
- 
-\begin_inset Newline newline
-\end_inset
-
-(como objetos).
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+Interface das classes:
+ As APIs internas são descritas nos arquivos .h,
+ onde são definidos os métodos públicos,
+ atributos essenciais e contratos das classes como CWellLog,
+ CLogCurve,
+ CInterpreter,
+ CPlotter e CLASReader.
+ Essas interfaces documentam o que cada módulo oferece ao restante do sistema.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Formato de arquivos:
+ O software trabalha principalmente com arquivos LAS (entrada),
+ seguindo o padrão Log ASCII Standard,
+ e gera arquivos CSV contendo curvas interpretadas e intervalos calculados.
+ Para gráficos,
+ são produzidos arquivos PNG ou SVG gerados por Gnuplot.
+ Todos os formatos são abertos e facilmente manipuláveis.
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-Definição da interface API de suas bibliotecas e sistemas.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Definição do formato dos arquivos gerados pelo software.
- Por exemplo: prefira formatos abertos, como arquivos txt e xml.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
 \end_deeper
 \begin_layout Enumerate
 Recursos
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -304,59 +264,32 @@ Recursos
 
 \begin_deeper
 \begin_layout Itemize
-Identificação e alocação dos recursos globais, como os recursos do sistema
- serão alocados, utilizados, compartilhados e liberados.
- Implicam modificações no diagrama de componentes.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Uso de memória:
+ O gerenciamento é feito pela STL,
+ utilizando std::vector,
+ std::map e smart pointers (std::unique_ptr,
+ std::shared_ptr).
+ Os dados das curvas são mantidos em estruturas contíguas para eficiência em cálculos numéricos.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Banco de dados:
+ Não é utilizado banco de dados.
+ Todas as informações são carregadas diretamente de arquivos LAS e exportadas para CSV.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Identificação da necessidade do uso de banco de dados.
- Implicam em modificações nos diagramas de atividades e de componentes.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Armazenamento:
+ Todos os dados são salvos localmente pelo usuário.
+ A leveza dos arquivos LAS e CSV garante alta portabilidade e facilidade de versionamento.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Identificação da necessidade de sistemas de armazenamento de massa.
- Por exemplo: um 
-\emph on
-storage
-\emph default
- em um sistema de cluster ou sistemas de backup.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
 \end_deeper
 \begin_layout Enumerate
 Controle
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -374,91 +307,43 @@ Controle
 
 \begin_deeper
 \begin_layout Itemize
-Identificação e seleção da implementação de controle, seqüencial ou concorrente,
- baseado em procedimentos ou eventos.
- Implicam modificações no diagrama de execução.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+Baseado em execução sequencial:
+ O fluxo principal segue uma ordem definida:
+ leitura do arquivo → armazenamento dos dados → interpretação → plotagem.
+ A aplicação não utiliza event loop gráfico,
+ mas possui um controle centralizado pelo CGeoLogViewerApp.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Condições extremas:
+ O sistema trata cenários como arquivos LAS mal-formados,
+ curvas ausentes ou valores inconsistentes.
+ O parser do LAS (CLASReader) verifica seções obrigatórias e notifica erros.
+ Funções de interpretação validam tamanhos e unidades das curvas antes dos cálculos.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Identificação das condições extremas e de prioridades.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Escalas de tempo:
+ O processamento é imediato,
+ com operações realizadas assim que o usuário solicita leitura,
+ interpretação ou plotagem.
+ As curvas interpretadas são geradas e exportadas logo após a execução dos cálculos.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Concorrência:
+ A aplicação é leve e realiza cálculos relativamente rápidos,
+ portanto a concorrência ainda não é necessária.
+ Contudo,
+ o projeto permite futura implementação com std::thread ou std::async para paralelizar cálculos petrofísicos.
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-Identificação da necessidade de otimização.
- Por exemplo: prefira sistemas com grande capacidade de memória; prefira
- vários hds pequenos a um grande.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Identificação e definição de 
-\emph on
-loops
-\emph default
- de controle e das escalas de tempo.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Identificação de concorrências – quais algoritmos podem ser implementados
- usando processamento paralelo.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
 \end_deeper
 \begin_layout Enumerate
 Plataformas
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -476,97 +361,37 @@ Plataformas
 
 \begin_deeper
 \begin_layout Itemize
-Identificação das estruturas arquitetônicas comuns.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+Arquitetura:
+ O software utiliza uma estrutura modular clara,
+ organizada em camadas:
+ entrada,
+ modelo,
+ processamento e visualização.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Plataformas suportadas:
+ O sistema foi projetado para compilar em Windows e Linux,
+ utilizando apenas recursos padrão do C++ e ferramentas externas simples (Gnuplot),
+ garantindo portabilidade.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Identificação de subsistemas relacionados à plataforma selecionada.
- Podem implicar em modificações no diagrama de pacotes e no diagrama de
- componentes.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+Bibliotecas utilizadas:
+ STL - containers,
+ algoritmos e gestão de memória;
+ Gnuplot - geração dos gráficos interpretados
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+IDE:
+ O projeto pode ser desenvolvido em qualquer editor,
+ mas utiliza CMake,
+ permitindo integração com Visual Studio,
+ VSCode,
+ CLion ou qualquer outra IDE moderna.
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-Identificação e definição das plataformas a serem suportadas: hardware,
- sistema operacional e linguagem de software.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Seleção das bibliotecas externas a serem utilizadas.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Seleção da biblioteca utilizada para montar a interface gráfica do software
- – GDI.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Seleção do ambiente de desenvolvimento para montar a interface de desenvolviment
-o – IDE.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
 \end_deeper
 \begin_layout Enumerate
 Padrões de projeto
@@ -578,36 +403,49 @@ Padrões de projeto
 
 \begin_deeper
 \begin_layout Itemize
-Normalmente os padrões de projeto são identificados e passam a fazer parte
- de uma biblioteca de padrões da empresa.
- Mas isto só ocorre após a realização de diversos projetos.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Modularidade:
+ cada classe possui uma responsabilidade única —
+ leitura,
+ armazenamento,
+ cálculo ou plotagem.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-se um item não for pertinente; pode ser retirado; ,mas somente na versão
- final; isto facilita o trabalho de revisão do trabalho!!
+Baixo acoplamento e alta coesão:
+ o fluxo de dados é linear e cada módulo conhece somente o necessário sobre os demais.
+ As interfaces são limpas e bem definidas.
 \end_layout
 
-\end_inset
-
-
+\begin_layout Itemize
+Padrões usados:
 \end_layout
 
-\end_deeper
+\begin_layout Itemize
+– Facade:
+ CGeoLogViewerApp atua como fachada coordenando todas as operações.
+\end_layout
+
+\begin_layout Itemize
+– Strategy:
+ os algoritmos de interpretação podem ser trocados ou estendidos sem alterar o núcleo do sistema.
+\end_layout
+
+\begin_layout Itemize
+– Adapter:
+ a interação com o Gnuplot é encapsulada dentro do CPlotter.
+\end_layout
+
+\begin_layout Itemize
+– Creator/Factory (implícito):
+ criação de curvas e poços é centralizada para manter consistência.
+\end_layout
+
 \end_deeper
 \begin_layout Section
 Projeto Orientado a Objeto – POO
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -618,6 +456,8 @@ POO
 
 
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -637,35 +477,25 @@ name "sec:Projeto-orientado-a-objeto"
 \end_layout
 
 \begin_layout Standard
-O projeto orientado a objeto é a etapa posterior ao projeto do sistema.
- Baseia-se na análise, mas considera as decisões do projeto do sistema.
- Acrescenta a análise desenvolvida e as características da plataforma escolhida
- (hardware, sistema operacional e linguagem de softwareção).
- Passa pelo maior detalhamento do funcionamento do software, acrescentando
- atributos e métodos que envolvem a solução de problemas específicos não
- identificados durante a análise.
-\end_layout
-
-\begin_layout Standard
-Envolve a otimização da estrutura de dados e dos algoritmos, a minimização
- do tempo de execução, de memória e de custos.
- Existe um desvio de ênfase para os conceitos da plataforma selecionada.
- 
-\end_layout
-
-\begin_layout Standard
-Exemplo: na análise você define que existe um método para salvar um arquivo
- em disco, define um atributo nomeDoArquivo, mas não se preocupa com detalhes
- específicos da linguagem.
- Já no projeto, você inclui as bibliotecas necessárias para acesso ao disco,
- cria um objeto específico para acessar o disco, podendo, portanto, acrescentar
- novas classes àquelas desenvolvidas na análise.
- 
+O projeto orientado a objeto do GeoLogViewer foi desenvolvido considerando os recursos da linguagem C++,
+ suas bibliotecas padrão (STL) e a integração com ferramentas externas como o Gnuplot.
+ As classes definidas durante a análise foram refinadas com novos atributos,
+ métodos e estruturas necessárias para atender aos requisitos arquiteturais determinados no projeto do sistema.
+ Nesta etapa,
+ são incorporadas decisões práticas sobre algoritmos,
+ estruturas de dados,
+ manipulação de arquivos,
+ otimização de desempenho e controle do fluxo de execução.
+ O modelo conceitual passa a considerar as particularidades da plataforma escolhida (hardware,
+ SO e compilador),
+ além de acrescentar classes e métodos específicos para resolver problemas não identificados na análise inicial.
 \end_layout
 
 \begin_layout Subsubsection
 Efeitos do projeto no modelo
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -685,52 +515,40 @@ name "subsec:Efeito-do-projeto-no-modelo-estrutural"
 \end_layout
 
 \begin_layout Itemize
-Adicionar nos diagramas de pacotes as bibliotecas e subsistemas selecionados
- no projeto do sistema (exemplo: a biblioteca gráfica selecionada).
-\begin_inset Separator latexpar
-\end_inset
-
-
+Atualização dos diagramas de pacotes:
+ O sistema foi organizado em subsistemas claros —
+ Leitura,
+ Modelo,
+ Interpretação,
+ Plotagem e App Central.
+ Essa separação permite modularidade e facilita a manutenção.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Refinamento dos diagramas de classes:
+ As classes receberam novos atributos como std::vector<float>,
+ std::map<std::string,
+ CLogCurve> e std::vector<Interval>.
+ Também foram acrescentados métodos concretos como ParseLAS(),
+ PlotCurve(),
+ ComputeDerivedWI(),
+ GetCurvesInterpretadas() e controladores centrais como Execute() dentro do CGeoLogViewerApp.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Novas classes e associações oriundas das bibliotecas selecionadas e da linguagem
- escolhida devem ser acrescentadas ao modelo.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Inclusão de classes auxiliares:
+ O projeto adicionou estruturas como CFormationZone,
+ Derived,
+ Interval,
+ entre outras,
+ para suportar cálculos petrofísicos e detalhar intervalos e propriedades.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Estabelecer as dependências e restrições associadas à plataforma escolhida.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
 \begin_layout Subsubsection
 Efeitos do projeto no modelo
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -750,39 +568,32 @@ name "subsec:Efeito-do-projeto-no-modelo-dinamico"
 \end_layout
 
 \begin_layout Itemize
-Revisar os diagramas de seqüência e de comunicação considerando a plataforma
- escolhida.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Atualização dos diagramas de sequência:
+ Os diagramas agora refletem o fluxo real de execução,
+ incluindo chamadas aos métodos de parsing,
+ cálculo e plotagem.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Aprimoramento do diagrama de comunicação:
+ Cada classe passa a interagir conforme seus métodos concretos,
+ evidenciando compartilhamento de dados entre CWellLog,
+ CLogCurve,
+ CInterpreter e CPlotter.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Verificar a necessidade de se revisar, ampliar e adicionar novos diagramas
- de máquinas de estado e de atividades.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+Completar diagramas de atividades:
+ O fluxo agora inclui etapas como validação do arquivo LAS,
+ normalização das curvas,
+ seleção das curvas de interpretação e exportação para CSV.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
 \begin_layout Subsubsection
 Efeitos do projeto nos atributos
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -802,24 +613,43 @@ name "subsec:Efeito-do-projeto-nos-atributos"
 \end_layout
 
 \begin_layout Itemize
-Atributos novos podem ser adicionados a uma classe, como, por exemplo, atributos
- específicos de uma determinada linguagem de softwareção (acesso a disco,
- ponteiros, constantes e informações correlacionadas).
-\begin_inset Separator latexpar
-\end_inset
-
-
+Novos atributos adicionados para implementação real:
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– Vetores de profundidade (std::vector<float> vDepth)
 \end_layout
 
-\end_deeper
+\begin_layout Itemize
+– Armazenamento de curvas (std::map<std::string,
+ CLogCurve> mapCurves)
+\end_layout
+
+\begin_layout Itemize
+– Zona de formação (std::map<std::string,
+ double> mProps)
+\end_layout
+
+\begin_layout Itemize
+– Flags internas (bool mLASCarregado,
+ bool mInterpretacaoPronta)
+\end_layout
+
+\begin_layout Itemize
+– Ponteiros ou referências para classes centrais (ex:
+ ponteiro para CLASReader dentro de CGeoLogViewerApp)
+\end_layout
+
+\begin_layout Itemize
+Esses atributos foram acrescentados para otimizar cálculos,
+ melhorar o acesso aos dados e minimizar conversões redundantes.
+\end_layout
+
 \begin_layout Subsubsection
 Efeitos do projeto nos métodos
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -830,6 +660,8 @@ métodos
 
 
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -842,89 +674,58 @@ Efeitos do projeto nos métodos
 \end_layout
 
 \begin_layout Itemize
-Em função da plataforma escolhida, verifique as possíveis alterações nos
- métodos.
- O projeto do sistema costuma afetar os métodos de acesso aos diversos dispositi
-vos (exemplo: hd, rede).
-\begin_inset Separator latexpar
-\end_inset
-
-
+Métodos refinados ou criados especificamente para a implementação:
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– bool LoadFromFile()
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-De maneira geral os métodos devem ser divididos em dois tipos: i) tomada
- de decisões, métodos políticos ou de controle; devem ser claros, legíveis,
- flexíveis e usam polimorfismo.
- ii) realização de processamentos, podem ser otimizados e em alguns casos
- o polimorfismo deve ser evitado.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+– AddCurveValue()
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– ComputeDerivedWI()
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Algoritmos complexos podem ser subdivididos.
- Verifique quais métodos podem ser otimizados.
- Pense em utilizar algoritmos prontos como os da STL (algoritmos genéricos).
-\begin_inset Separator latexpar
-\end_inset
-
-
+– PickReservoirs()
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– PlotCurve()
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Responda a pergunta: os métodos da classes estão dando resposta às responsabilid
-ades da classe?
-\begin_inset Separator latexpar
-\end_inset
-
-
+– WriteCSV()
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– Métodos de controle:
+ Menu(),
+ Execute(),
+ AcaoListarCurvas()
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Revise os diagramas de classes, de seqüência e de máquina de estado.
-\begin_inset Separator latexpar
-\end_inset
-
-
+– Métodos auxiliares de verificação e normalização.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Os métodos recebem parâmetros específicos (vetores,
+ referências,
+ nomes de curva,
+ parâmetros petrofísicos),
+ algo não detalhado na análise,
+ mas essencial para implementação real.
 \end_layout
 
-\end_deeper
 \begin_layout Subsubsection
 Efeitos do projeto nas heranças
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -935,6 +736,8 @@ heranças
 
 
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -945,6 +748,8 @@ Efeitos do projeto nas heranças
 
 
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -957,70 +762,41 @@ Heranças
 \end_layout
 
 \begin_layout Itemize
-Reorganização das classes e dos métodos (criar métodos genéricos com parâmetros
- que nem sempre são necessários e englobam métodos existentes).
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+Heranças funcionais:
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Embora o sistema utilize principalmente composição,
+ algumas classes adotam herança para especializar comportamentos,
+ como:
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Abstração do comportamento comum (duas classes podem ter uma superclasse
- em comum).
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+– CGeoLogViewerApp especializando o comportamento de controle geral,
+ agregando outros módulos.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– Classes auxiliares de cálculo podem herdar de tipos base conceituais (ex:
+ famílias de cálculos petrofísicos),
+ permitindo extensões futuras.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Utilização de delegação para compartilhar a implementação (quando você cria
- uma herança irreal para reaproveitar código).
- Usar com cuidado.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Heranças conceituais:
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+As classes seguem princípios de agrupamento hierárquico —
+ uma curva (CLogCurve) pertence a um poço (CWellLog),
+ e zonas de formação são tratadas como componentes naturais do poço.
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-Revise as heranças no diagrama de classes.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
 \begin_layout Subsubsection
 Efeitos do projeto nas associações
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -1031,6 +807,8 @@ Efeitos do projeto nas associações
 
 
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -1043,58 +821,43 @@ Associações
 \end_layout
 
 \begin_layout Itemize
-Deve-se definir na fase de projeto como as associações serão implementadas,
- se obedecerão um determinado padrão ou não.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+Associações implementadas por containers STL:
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– Poço → curvas:
+ std::map<std::string,
+ CLogCurve>
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Se existe uma relação de "muitos", pode-se implementar a associação com
- a utilização de um dicionário, que é um mapa das associações entre objetos.
- Assim, o objeto A acessa o dicionário fornecendo uma chave (um nome para
- o objeto que deseja acessar) e o dicionário retorna um valor (um ponteiro)
- para o objeto correto.
- 
-\begin_inset Separator latexpar
-\end_inset
-
-
+– Curva → dados:
+ std::vector<float>
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– Interpretação → resultados:
+ std::vector<Derived> ou std::vector<Interval>
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Evite percorrer várias associações para acessar dados de classes distantes.
- Pense em adicionar associações diretas.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Associações diretas entre módulos principais:
+ CGeoLogViewerApp mantém associações diretas com CLASReader,
+ CWellLog,
+ CInterpreter e CPlotter,
+ controlando o fluxo completo.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Uso de referências ou ponteiros:
+ Permite reduzir cópias e trabalhar com objetos grandes (como curvas com milhares de amostras).
 \end_layout
 
-\end_deeper
 \begin_layout Subsubsection
 Efeitos do projeto nas otimizações
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -1107,109 +870,58 @@ otimizações
 \end_layout
 
 \begin_layout Itemize
-Faça uma análise de aspectos relativos à otimização do sistema.
- Lembrando que a otimização deve ser desenvolvida por analistas/desenvolvedores
- experientes.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Identifique pontos a serem otimizados em que podem ser utilizados processos
- concorrentes.
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Neste projeto blablabla
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Pense em incluir bibliotecas otimizadas.
+Desempenho:
 \end_layout
 
 \begin_layout Itemize
-Se o acesso a determinados objetos (atributos/métodos) requer um caminho
- longo (exemplo: A->B->C->D.atributo), pense em incluir associações extras
- (exemplo: A-D.atributo).
-\begin_inset Separator latexpar
-\end_inset
-
-
+– Vetores contíguos (std::vector) foram priorizados para cálculos numéricos eficientes.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– Erros são detectados cedo para evitar desperdício de processamento.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Atributos auxiliares podem ser incluídos.
-\begin_inset Separator latexpar
-\end_inset
-
-
+– Gnuplot é chamado apenas com dados necessários,
+ minimizando overhead.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+Organização:
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-A ordem de execução pode ser alterada.
-\begin_inset Separator latexpar
-\end_inset
-
-
+– Classes auxiliares foram criadas para separar parsing,
+ armazenamento,
+ cálculo e visualização.
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– O código foi estruturado para minimizar acoplamento e facilitar manutenção.
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-Revise as associações nos diagramas de classes.
-\begin_inset Separator latexpar
-\end_inset
-
-
+Escalabilidade:
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Neste projeto blablabla
+– O projeto permite adicionar novos algoritmos de interpretação.
 \end_layout
 
-\end_deeper
-\begin_layout Standard
-Depois de revisados os diagramas da análise você pode montar dois diagramas
- relacionados à infraestrutura do sistema.
- As dependências dos arquivos e bibliotecas podem ser descritos pelo diagrama
- de componentes, e as relações e dependências entre o sistema e o hardware
- podem ser ilustradas com o diagrama de implantação.
+\begin_layout Itemize
+– A estrutura facilita futura inclusão de interfaces gráficas,
+ novos formatos de arquivo ou paralelização dos cálculos.
+\end_layout
+
+\begin_layout Itemize
+– O núcleo petrofísico pode evoluir para incluir métodos avançados como Neural Logs ou inversão.
 \end_layout
 
 \begin_layout Section
 Diagrama de Componentes
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -1229,84 +941,51 @@ name "sec:Diagrama-de-componentes"
 \end_layout
 
 \begin_layout Standard
-O diagrama de componentes mostra a forma como os componentes do software
- se relacionam, suas dependências.
- Inclui itens como: componentes, subsistemas, executáveis, nós, associações,
- dependências, generalizações, restrições e notas.
- Exemplos de componentes são bibliotecas estáticas, bibliotecas dinâmicas,
- dlls, componentes Java, executáveis, arquivos de disco, código-fonte.
+O diagrama de componentes mostra as relações entre todos os componentes do software e é apresentado na Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cap:Diagrama-de-componentes"
+nolink "false"
+
+\end_inset
+
  
 \end_layout
 
 \begin_layout Standard
-Veja na Figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "cap:Diagrama-de-componentes"
-
-\end_inset
-
- um exemplo de diagrama de componentes.
- Observe que este inclui muitas dependências, ilustrando as relações entre
- os arquivos.
- Por exemplo: o subsistema biblioteca inclui os arquivos das classes A e
- B, e a geração dos objetos A.obj e B.obj depende dos arquivos A.h, A.cpp, B.h
- e B.cpp.
- A geração da biblioteca depende dos arquivos A.obj e B.obj.
- O subsistema biblioteca Qt, um subsistema exerno, inclui os arquivos de
- código da biblioteca Qt e a biblioteca em si.
- O subsistema banco de dados representa o banco de dados utilizado pelo
- sistema e tem uma interface de acesso que é utilizada pelo software para
- acesso aos dados armazenados no banco de dados.
- O software executável a ser gerado depende da biblioteca gerada, dos arquivos
- da biblioteca Qt, do módulo de arquivos MinhaJanela e do banco de dados.
+O diagrama de componentes apresentado evidencia a organização estrutural do sistema e as dependências existentes entre os módulos que o compõem.
+ Ele destaca como cada componente participa da solução,
+ mostrando de que forma as funcionalidades são distribuídas e como o fluxo de informações se estabelece entre eles.
+ No centro da arquitetura encontra-se o componente CGeoLogViewerApp,
+ responsável por coordenar as operações principais da aplicação e atuar como ponto de integração entre os demais módulos.
 \end_layout
 
 \begin_layout Standard
-Algumas observações úteis para o diagrama de componentes:
-\end_layout
-
-\begin_layout Itemize
-De posse do diagrama de componentes, temos a lista de todos os arquivos
- necessários para compilar e rodar o software.
-\end_layout
-
-\begin_layout Itemize
-Observe que um assunto/pacote pode se transformar em uma biblioteca e será
- incluído no diagrama de componentes.
-\end_layout
-
-\begin_layout Itemize
-A ligação entre componentes pode incluir um estereótipo indicando o tipo
- de relacionamento ou algum protocolo utilizado.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Na versão final apagar este texto copiado do livro; e colocado aqui para
- lhe auxiliar; deixar somente o que é pertinente ao trabalho
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Neste projeto blablabla
-\end_layout
-
-\begin_layout Standard
+A partir dele,
+ observam-se dependências direcionadas para três componentes essenciais:
+ CLASReader,
+ encarregado da leitura e interpretação inicial dos arquivos LAS;
+ CInterpreter,
+ que atua como intermediário na preparação e organização dos dados interpretados;
+ e CPetrophysicsCalculator,
+ responsável pelo cálculo dos parâmetros derivados utilizados na análise petrofísica.
+ Além disso,
+ o componente CPlotter mantém uma relação de dependência com a aplicação principal,
+ sendo ele o responsável pela renderização gráfica das curvas processadas.
+ Assim,
+ o diagrama apresenta claramente uma arquitetura modular,
+ na qual cada componente possui responsabilidades bem definidas e colabora para garantir a funcionalidade completa do sistema.
 \begin_inset Float figure
 placement H
+alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename imagens/DiagramaDeComponentes-Assuntos-Pacotes.png
+	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeComponentes.png
 	lyxscale 40
 	width 100text%
 
@@ -1342,6 +1021,8 @@ name "cap:Diagrama-de-componentes"
 \begin_layout Section
 Diagrama de Implantação
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -1352,6 +1033,8 @@ Diagrama de implantação
 
 
 \begin_inset Index idx
+range none
+pageformat default
 status open
 
 \begin_layout Plain Layout
@@ -1371,55 +1054,72 @@ name "sec:Diagrama-de-execução"
 \end_layout
 
 \begin_layout Standard
-O diagrama de implantação é um diagrama de alto nível que inclui relações
- entre o sistema e o hardware e que se preocupa com os aspectos da arquitetura
- computacional escolhida.
- Seu enfoque é o hardware, a configuração dos nós em tempo de execução.
+O diagrama de implantação é apresentado na Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cap:Diagrama-de-implantação."
+nolink "false"
+
+\end_inset
+
  
 \end_layout
 
 \begin_layout Standard
-O diagrama de implantação deve incluir os elementos necessários para que
- o sistema seja colocado em funcionamento: computador, periféricos, processadore
-s, dispositivos, nós, relacionamentos de dependência, associação, componentes,
- subsistemas, restrições e notas.
+O diagrama de implantação demonstra como o software de perfilagem GeoLogViewer é disponibilizado e executado dentro da infraestrutura física do sistema.
+ Esse tipo de diagrama tem foco na arquitetura computacional em nível físico,
+ evidenciando os nós de hardware envolvidos,
+ a alocação dos componentes de software e as interações que ocorrem entre eles em tempo de execução.
+ Nele,
+ o computador é representado como o nó principal,
+ dentro do qual se encontra o Disco Rígido,
+ responsável por armazenar tanto o Sistema Operacional quanto o software de perfilagem.
+ O sistema operacional exerce papel fundamental,
+ uma vez que fornece o ambiente necessário para a execução do programa,
+ gerenciando os recursos físicos e realizando a intermediação entre hardware e aplicação.
 \end_layout
 
 \begin_layout Standard
-Veja na Figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "cap:Diagrama-de-implantação."
-
-\end_inset
-
- um exemplo de diagrama de implantação de um cluster.
- Observe a presença de um servidor conectado a um switch.
- Os nós do cluster (ou clientes) também estão conectados ao switch.
- Os resultados das simulações são armazenados em um servidor de arquivos
- (
-\emph on
-storage
-\emph default
-).
+Após ser carregado pelo sistema operacional,
+ o GeoLogViewer inicia o processamento dos dados de perfis,
+ realizando cálculos e gerando curvas para visualização.
+ Esse processamento é efetuado pelo Processador (CPU),
+ que recebe as instruções geradas pelo software e realiza as operações necessárias,
+ enviando os resultados para o monitor,
+ onde são exibidos graficamente ao usuário.
+ Além disso,
+ o diagrama também apresenta o teclado como dispositivo de entrada responsável pela interação do usuário com o sistema,
+ possibilitando a inserção de comandos e dados que são encaminhados ao processador para continuidade do fluxo de execução.
+ Também é representada a relação entre o processador e o disco rígido,
+ indicando o acesso constante a arquivos e ao sistema conforme a aplicação trabalha.
 \end_layout
 
 \begin_layout Standard
-Pode-se utilizar uma anotação de localização para identificar onde determinado
- componente está residente, por exemplo {localização: sala 3}.
-\end_layout
-
-\begin_layout Standard
+Dessa forma,
+ o diagrama de implantação evidencia todos os elementos essenciais para o funcionamento do software,
+ incluindo componentes físicos como computador,
+ CPU,
+ teclado,
+ monitor e disco rígido,
+ bem como a organização e comunicação entre eles.
+ Além disso,
+ representa claramente as dependências e associações necessárias para execução do programa,
+ mostrando como o ambiente computacional suporta o processamento e a exibição dos dados visualizados.
+ Assim,
+ este diagrama cumpre seu propósito ao descrever com clareza a arquitetura física do sistema,
+ demonstrando o fluxo de execução,
+ funcionamento dos dispositivos e relação entre hardware e software dentro do ambiente operacional.
 \begin_inset Float figure
 placement H
+alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename imagens/DiagramaDeExecucao.png
+	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeImplantação.png
 	lyxscale 50
 	width 100text%
 
@@ -1450,22 +1150,6 @@ name "cap:Diagrama-de-implantação."
 \end_inset
 
 
-\end_layout
-
-\begin_layout Description
-Nota: 
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-Não perca de vista a visão do todo; do projeto de engenharia como um todo.
- Cada capítulo, cada seção, cada parágrafo deve se encaixar.
- Este é um diferencial fundamental do engenheiro em relação ao técnico,
- a capacidade de desenvolver projetos, de ver o todo e suas diferentes partes,
- de modelar processos/sistemas/produtos de engenharia.
 \end_layout
 
 \end_body

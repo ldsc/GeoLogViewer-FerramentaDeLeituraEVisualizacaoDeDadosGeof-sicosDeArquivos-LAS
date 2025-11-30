@@ -1,0 +1,437 @@
+\lhead{\thechapter\space - Elaboração}  
+
+\chapter{Elaboração\index{Elaboração}\label{sec:Elabora=0000E7=0000E3o}}
+
+Neste capítulo será apresentada a elaboração do software, que envolve
+a definição teórica, os conceitos de domínio, a organização dos pacotes
+e os algoritmos adicionais relacionados ao desenvolvimento do sistema
+proposto.
+
+\section{Análise de domínio\label{sec:An=0000E1lise-de-dom=0000EDnio}}
+
+A análise de domínio é uma etapa fundamental da elaboração de um projeto,
+na qual se faz necessário entender e delimitar os conceitos principais
+que orientam a construção do sistema.
+
+O presente projeto está relacionado a 5 conceitos fundamentais:
+\begin{enumerate}
+\item Geofísica e perfis de poço:
+
+O software está orientado à manipulação de perfis de poço em formato
+LAS, amplamente utilizados na indústria do petróleo. Esses arquivos
+contêm curvas de propriedades físicas (como radiação gama, densidade
+de formação e porosidade neutrônica), fundamentais para caracterizar
+reservatórios e avaliar potencial produtivo.
+\item Geologia de reservatórios:
+
+A compreensão dos perfis de poço é indissociável da análise geológica.
+As curvas obtidas a partir dos arquivos LAS permitem interpretar propriedades
+das rochas, como litologia, porosidade e saturação, essenciais para
+estudos de correlação estratigráfica e para a modelagem de reservatórios.
+\item Estruturas de dados e processamento de arquivos:
+
+O formato LAS (Log ASCII Standard) é padronizado, mas pode apresentar
+variações dependendo da ferramenta de aquisição e da empresa responsável
+pelo levantamento. O software deve ser capaz de ler, validar e organizar
+as informações em estruturas de dados consistentes, permitindo seu
+processamento e manipulação de forma eficiente.
+\item Programação:
+
+O paradigma orientado a objetos (POO) é adotado no projeto para modularizar
+o código em classes e objetos responsáveis por diferentes partes do
+sistema (entrada de dados, processamento, visualização, exportação).
+Esse paradigma facilita a manutenção, reutilização de código e futuras
+expansões, como a incorporação de novos formatos de dados além do
+LAS.
+\item Visualização gráfica:
+
+A etapa final do processamento consiste em disponibilizar ao usuário
+representações gráficas claras e interativas dos perfis de poço. Isso
+envolve o uso de bibliotecas gráficas capazes de gerar trilhos, sobrepor
+curvas, ajustar escalas e permitir zoom em intervalos específicos.
+A visualização intuitiva é essencial para que engenheiros e estudantes
+possam interpretar os dados de forma rápida e confiável.
+\end{enumerate}
+
+\section{Formulação teórica\label{sec:Formula=0000E7=0000E3o-te=0000F3rica}}
+
+\subsection{Fundamentos da Perfilagem de Poço\label{subsec:Fundamentos da Perfilagem de Po=0000E7o}}
+
+A perfilagem geofísica de poços é a prática de efetuar um registro
+detalhado das formações geológicas atravessadas por uma perfuração.
+Nesse método, sondas equipadas com diversos sensores são deslocadas
+verticalmente no poço (geralmente por cabo ou integradas à sonda de
+perfuração -- LWD), registrando parâmetros físicos das rochas em
+função da profundidade. Esses parâmetros podem incluir resistividade,
+radioatividade natural (raios gama), densidade, porosidade, tempo
+de trânsito sônico, entre outros (Rider,1996).
+
+Tradicionalmente, as medições são obtidas após a perfuração de um
+trecho, baixando-se uma sonda com guincho até o fundo e depois recolhendo-a
+lentamente, de modo que as leituras sejam registradas continuamente
+enquanto a sonda ascende pela coluna de sondagem. Atualmente, é comum
+o uso de LWD (Logging While Drilling), em que sensores integrados
+à ferramenta de perfuração coletam dados em tempo real durante a própria
+perfuração. Esses dados são então armazenados em arquivos digitais
+(tipicamente no padrão LAS) para análise posterior. A combinação de
+múltiplos perfis de poço possibilita uma caracterização detalhada
+das camadas perfuradas, muito além do que seria obtido apenas com
+amostras físicas (Schlumberger,1991)
+
+A alta resolução dos perfis de poço é crucial na engenharia de petróleo,
+pois permite identificar com precisão a profundidade e espessura de
+camadas porosas ou impermeáveis no reservatório. Por exemplo, variações
+bruscas nos perfis de resistividade e porosidade podem indicar zonas
+saturadas por hidrocarbonetos ou água, enquanto níveis elevados de
+raios gama sinalizam camadas argilosas indesejáveis. Essas informações
+auxiliam geocientistas e engenheiros a recomendar completações de
+poço adequadas (como intervalos produtivos versus selos) ou mesmo
+o abandono seguro de trechos sem potencial produtivo. Em suma, a perfilagem
+de poços é ferramenta central na caracterização de reservatórios,
+complementando outros métodos geofísicos e geológicos para delineamento
+estratigráfico e avaliação de reservas (Asquith,2004).
+
+\subsection{Propriedades Físicas Medidas por Perfilagem\label{subsec:Propriedades-F=0000EDsicas-Medidas-por-Perfilagem}}
+
+Os perfis de poço registram diversas propriedades físicas das rochas
+sedimentares. Dentre os perfis mais comuns estão: perfil de raios
+gama (mede a radioatividade natural da rocha), perfil de densidade
+(gama-gama), perfil de porosidade (em geral nêutron, ou densidade
+calibrada para porosidade) e perfil sônico (tempo de trânsito de ondas
+acústicas) . Cada perfil baseia-se em um princípio físico distinto:
+por exemplo, o perfil de raios gama detecta as emissões de elementos
+radioativos naturais (como K, U e Th) na formação, usado sobretudo
+para distinguir camadas argilosas de arenitos mais \textquotedblleft limpos\textquotedblright{}
+(Rider,1996). Já perfis de densidade baseados na atenuação de fótons
+gama permitem estimar a massa por unidade de volume, e perfis nêutron
+avaliam a quantidade de hidrogênio (e portanto de porosidade) na rocha.
+O perfil sônico mede o tempo de propagação de um pulso acústico através
+da formação, sendo útil para inferir porosidade e elasticidade. Além
+destes, perfis de resistividade elétrica e de potencial espontâneo
+(SP) são frequentemente coletados: a resistividade indica a capacidade
+da rocha conduzir corrente (alta em arenitos saturados com óleo),
+enquanto o SP reflete diferenças de salinidade entre lama e fluido
+de formação. A Figura abaixo exemplifica o trabalho realizado para
+se adquirir os perfis geofísicos de um poço de petróleo.
+
+\begin{figure}[H]
+\begin{centering}
+\caption{Representação esquemática de uma descida de uma ferramenta de perfilagem\label{fig:Perfilagem-Po=0000E7o}}
+\par\end{centering}
+\begin{centering}
+\includegraphics[width=0.4\textwidth]{imagens/PerfilagemPoço.PNG}
+\par\end{centering}
+\centering{}Fonte: (Rider,1996)
+\end{figure}
+
+O perfil de raios gama é quase sempre o primeiro analisado, pois sinaliza
+rapidamente variações litológicas. Equipamentos de contagem gama na
+sonda detectam fótons de alta energia liberados pela desintegração
+radioativa natural. Valores altos no perfil de raios gama geralmente
+indicam folhelhos ricos em argila, enquanto valores baixos sugerem
+arenitos ou carbonatos de baixa radioatividade.
+
+Os perfis de densidade e porosidade são complementares: sondas de
+densidade (gama-gama) emitem radiação gama e medem sua atenuação para
+calcular a densidade da rocha. Perfis de porosidade (por exemplo,
+sondas nêutron ou combinação de densidade-neutron) estimam a fração
+de vazio no volume rochoso. Em rochas carbonáticas calcárias, por
+exemplo, a diferença entre a densidade lítica esperada e a densidade
+medida dá a porosidade; em arenitos, sondas nêutron são calibradas
+para saturação de hidrocarboneto. Esses registros permitem avaliar
+diretamente a porosidade efetiva e inferir saturação de fluidos no
+reservatório (Ellis,2007).
+
+O perfil sônico (acústico) mede o tempo de trânsito de ondas de pressão
+geradas pela sonda. Rochas consolidadas (arenitos cimentados, calcários
+duros) apresentam tempos de trânsito menores (ondas viajam mais rápido)
+do que rochas macias ou porosas. A partir do tempo de trânsito sônico
+e da densidade, pode-se inferir porosidade acústica e mesmo parâmetros
+mecânicos da rocha. Já os perfis de resistividade são obtidos com
+eletrodos elétricos ou bobinas indutivas na sonda: rochas saturadas
+com óleo são mais resistivas que as saturadas por água salina. O perfil
+de potencial espontâneo (SP), por fim, mede uma diferença de potencial
+natural gerada quando lama de perfuração (diluída) encontra água de
+formação (geralmente salina), ajudando a delimitar camadas permeáveis
+(que geram maior sinal SP).
+
+Além desses, há ainda perfis de calibre (que registram o diâmetro
+do poço, indicando cavernas ou incrustações), de imagem (resistiva
+ou acústica, que geram imagens 360° das paredes do poço) e dipmeter
+(para orientação das camadas). Em conjunto, os múltiplos perfis permitem
+calcular frações de argila, saturação de água (curva de saturação)
+e outros parâmetros petrofísicos essenciais à avaliação do reservatório.
+
+\subsection{Interpretação Geológica a partir de Perfis\label{subsec:Interpreta=0000E7=0000E3o-Geol=0000F3gica-a-partir-de-Perfis}}
+
+A interpretação de perfis de poço visa identificar litologias, zonas
+potenciais de produção e correlações estratigráficas. Por exemplo,
+altos valores de raios gama associados a resistividades baixas podem
+revelar camadas argilosas impermeáveis, enquanto declínios abruptos
+de resistividade combinados com picos de porosidade sugerem arenitos
+saturados de hidrocarbonetos. A análise integrada dos perfis -- por
+exemplo, cruzando curvas de densidade e nêutron -- permite estimar
+a porosidade efetiva e a saturação de fluidos de cada camada, diferenciando
+here arenitos porosos de camadas compactas (Asquith,2004). A Figura
+abaixo exemplifica perfis típicos de poços, incluindo raios gama,
+porosidade e resistividade, ilustrando como múltiplas curvas são alinhadas
+versus profundidade.
+
+\begin{figure}[H]
+\begin{centering}
+\caption{Exemplo de perfil usualmente utilizado na indústria\label{fig:Interpreta=0000E7=0000E3o-Geol=0000F3gica}}
+\par\end{centering}
+\begin{centering}
+\includegraphics[width=0.4\textwidth,totalheight=10cm]{imagens/InterpretaçãoGeológica.PNG}
+\par\end{centering}
+\centering{}Fonte: (Petrowiki,2014)
+\end{figure}
+
+A correlação estratigráfica entre poços é uma aplicação fundamental
+dos logs. Como apontado por estudos em campos petrolíferos, \textquotedblleft a
+correlação estratigráfica de poços é de suma importância na indústria
+do petróleo\textquotedblright , pois define a continuidade lateral
+das camadas produtivas. Isso significa que intervalos identificados
+como reservatório em um poço podem ser localizados em outros poços
+da mesma bacia utilizando padrões semelhantes nos perfis. Assim, a
+partir da comparação de curvas de raios gama, resistividade, porosidade
+e densidade de poços adjacentes, geólogos podem construir um modelo
+estratigráfico contínuo. No caso ilustrado abaixo, os dados de raios
+gama, resistividade e porosidade de três poços foram correlacionados
+para demonstrar a continuidade do reservatório do Campo de Namorado.
+
+Ao correlacionar camadas em diferentes poços, também é possível mapear
+heterogeneidades e orientar estudos sísmicos e de engenharia. Além
+disso, perfis de poço calibrados com dados de testemunhos ou amostras
+geológicas reforçam a interpretação litológica: por exemplo, uma mudança
+súbita no perfil sônico pode corresponder a uma mudança de facies
+sedimentar, enquanto uma zona de alta densidade e baixa porosidade
+sugere preenchimento calcário ou compactação. Em síntese, a interpretação
+de perfis de poço fornece um detalhamento petrofísico que, integrado
+com outros dados de reservatório, permite caracterizar unidades de
+interesse econômico e otimizar estratégias de produção (Ellis,2007).
+
+\subsection{Técnicas de Aquisição e Formato de Arquivo LAS\label{subsec:T=0000E9cnicas-de-Aquisi=0000E7=0000E3o-e-Formato-de-Arquivo-LAS}}
+
+Os dados de perfilagem de poço são coletados por meio de procedimentos
+bem definidos. Em poços perfurados, as medições em poço aberto normalmente
+ocorrem após estabilização da lama, usando sondas wireline: após a
+perfuração, a sonda de perfilagem é inserida pelo poço, registra as
+medidas em profundidade (track), e é então recolhida. Complementarmente,
+o logging while drilling (LWD) permite adquirir perfis enquanto a
+perfuração prossegue: sensores instalados no fundo de sonda medem
+continuamente as propriedades das rochas conforme o furo avança. O
+LWD é especialmente vantajoso em poços profundos ou desviados, pois
+dispensa o tempo de espera pela finalização do furo. Em ambos os casos,
+o resultado da perfilagem é um conjunto de curvas quantitativas associadas
+a profundidades no poço, que refletem diretamente as propriedades
+geofísicas calculadas pelos instrumentos de medição (Schlumberger,1991).
+
+Após a aquisição, os dados de perfilagem são organizados no padrão
+Log ASCII Standard (LAS) -- um formato de arquivo texto amplamente
+usado na indústria de óleo e gás. O arquivo LAS facilita o intercâmbio
+de dados entre equipamentos e softwares de interpretação. Ele é composto
+por seções padronizadas (geralmente iniciadas por \textasciitilde Version,
+\textasciitilde Well, \textasciitilde Curve, \textasciitilde Parameter
+e \textasciitilde Ascii), onde cada seção reúne informações específicas:
+por exemplo, \textasciitilde Well contém dados do poço (profundidade
+total, nome do poço, informações de localização, etc.), \textasciitilde Curve
+lista as curvas registradas (com nome, unidade e descrição), e a seção
+\textasciitilde Ascii abriga os valores medidos em formato tabulado
+(cada linha corresponde a uma profundidade e às medições de todas
+as curvas naquele ponto). A padronização do LAS garante que diferentes
+softwares de visualização e análise possam ler os mesmos dados sem
+ambiguidades.
+
+Em termos práticos, o arquivo LAS armazena cada amostra de dado como
+um registro de profundidade e valores em todas as curvas, permitindo
+a sobreposição e comparação precisa de várias curvas de múltiplos
+poços em um mesmo ambiente de interpretação. Por exemplo, ao carregar
+um arquivo LAS em um software de log-plot, o interprete vê simultaneamente
+as curvas de raios gama, resistividade, porosidade, etc., alinhadas
+por profundidade, facilitando a análise integrada. Dessa forma, o
+formato LAS é fundamental para preservar a integridade dos perfis
+medidos e viabilizar a manipulação e visualização dos dados de perfilagem
+por engenheiros e geocientistas (Asquith,2004).
+
+\subsection{Estimativas Petrfísicas\label{subsec:Estimativas Petrof=0000EDsicas}}
+
+\subsubsection*{Volume de Argila a partir do Perfil de Gamma Ray}
+
+A interpretação do volume de argila a partir do perfil de Gamma Ray
+baseia-se no fato de que minerais argilosos apresentam maior radioatividade
+natural devido à presença de potássio, urânio e tório. Assim, formações
+mais argilosas emitem mais radiação detectada pela ferramenta de poço.
+
+Para obter um valor adimensional entre 0 e 1, o sinal é inicialmente
+normalizado:
+
+\begin{equation}
+GRnorm=\frac{GR-GRmin}{GRmax-GRmin}
+\end{equation}
+
+onde:
+\begin{itemize}
+\item $GR$ é o valor lido no perfil
+\item $GR_{min}$ representa a zona mais limpa
+\item $GR_{max}$ representa a zona mai argilosa
+\end{itemize}
+
+\subsubsection*{Modelo Linear}
+
+O modelo linear assume que a radioatividade cresce de forma proporcional
+à fração de argila na rocha. 
+
+Dessa forma:
+
+\begin{equation}
+Vsh\LyXZeroWidthSpace=GRnorm
+\end{equation}
+
+Esse modelo é indicado quando a resposta do perfil não apresenta efeitos
+significativos de cimentação ou compactação, sendo comum em arenitos
+pouco complexos.
+
+\subsubsection*{Modelos de Larionov}
+
+Larionov propôs modelos empíricos que corrigem a não linearidade observada
+entre o Gamma Ray e a fração de argila em rochas consolidadas. Esses
+modelos foram desenvolvidos a partir de estudos experimentais comparando
+perfis de poço com análises de testemunhos geológicos.
+
+Larionov para Rochas Terciárias
+\begin{equation}
+Vsh\LyXZeroWidthSpace=0.083(2^{3,7.GRnorm}-1)
+\end{equation}
+
+Esse modelo considera que formações jovens, como rochas terciárias,
+apresentam maior influência de minerais com radioatividade dispersa
+e comportamento não linear entre GR e argilosidade.
+
+Larionov para Rochas Pré-terciárias
+\begin{equation}
+Vsh\LyXZeroWidthSpace=0.33(2^{2,0.GRnorm}-1)
+\end{equation}
+
+Formações antigas e mais consolidadas têm menor dispersão radioativa,
+e essa formulação corrige a superestimativa que ocorre quando se usa
+o modelo linear ou o modelo típico para rochas jovens.
+
+\subsubsection*{Porosidade Calculada pelo Perfil de Densidade}
+
+A estimativa de porosidade por densidade deriva diretamente do modelo
+de mistura volumétrica entre matriz sólida e fluido. A densidade total
+medida pode ser expressa como:
+
+\begin{equation}
+\rho b\LyXZeroWidthSpace=\phi\rho_{fluid}\LyXZeroWidthSpace+(1-\phi)\rho_{matrix}
+\end{equation}
+
+Rearranjando, obtém-se a forma clássica:
+\begin{equation}
+\phi_{d}\LyXZeroWidthSpace=\frac{\rho_{matrix}-\rho_{b}}{\rho_{matrix}-\rho_{fluid}}\LyXZeroWidthSpace\LyXZeroWidthSpace\LyXZeroWidthSpace
+\end{equation}
+
+onde:
+\begin{itemize}
+\item $\rho_{b}$ é a densidade da formação medida pela ferramenta
+\item $\rho_{matrix}$ é a densidade do grão mineral (quartzo, calcita ect.)
+\item $\rho_{fluid}$ é a densidade do fluido presente nos poros
+\end{itemize}
+Esse modelo vem diretamente da lei das misturas e assume que não há
+efeitos significativos de gás ou minerais pesados distorcendo a leitura.
+
+\subsubsection*{Porosidade Combinada Neutrão-Densidade}
+
+O perfil de neutrões responde principalmente à presença de hidrogênio,
+enquanto o perfil de densidade mede a massa específica da formação.
+Como cada ferramenta apresenta limitações distintas, especialmente
+na presença de gás, é comum combinar as duas de forma simples:
+
+\begin{equation}
+\phi_{ND}\LyXZeroWidthSpace=\frac{\phi_{n\LyXZeroWidthSpace}+\phi_{d}}{2}\LyXZeroWidthSpace\LyXZeroWidthSpace\LyXZeroWidthSpace
+\end{equation}
+
+Essa combinação surge de técnicas clássicas de correlação cruzada
+entre logs, demonstrando que a média simples fornece um valor mais
+robusto para arenitos e carbonatos, reduzindo distorções individuais
+das ferramentas.
+
+\subsubsection*{Saturação de Água pelo Modelo de Archie}
+
+A equação de Archie foi desenvolvida empiricamente a partir de experimentos
+realizados por G.E. Archie em amostras de rochas saturadas com água
+salina. Ela estabelece a relação entre resistividade elétrica da rocha,
+porosidade e saturação de água em meios porosos limpos, sem argilas
+condutivas.
+
+O ponto de partida da formulação é:
+\begin{equation}
+R\LyXZeroWidthSpace_{t}\LyXZeroWidthSpace=a\frac{R_{w}}{\phi^{m}S_{w}^{n\LyXZeroWidthSpace}}\LyXZeroWidthSpace\LyXZeroWidthSpace\LyXZeroWidthSpace
+\end{equation}
+
+onde:
+\begin{itemize}
+\item $R_{t}$ é a resistividade da formação
+\item $R_{w}$ é a resistividade da água nos poros
+\item $\phi$ é a porosidade
+\item $S_{w}$ é a saturação de água
+\item $a$ é o fator de tortuosidade
+\item $m$ é o expoente de cimentação
+\item $n$ é o expoente de saturação
+\end{itemize}
+Isolando $S_{w}$:
+\begin{equation}
+S_{w}\LyXZeroWidthSpace=\left(\frac{aR_{w}}{\phi^{m}R_{t}}\right)^{\frac{1}{n}}\LyXZeroWidthSpace\LyXZeroWidthSpace\LyXZeroWidthSpace
+\end{equation}
+
+O modelo é amplamente utilizado devido à sua base experimental sólida
+e simplicidade matemática. Ele descreve adequadamente rochas limpas
+onde a condução elétrica ocorre predominantemente no fluido intersticial.
+
+\section{Identificação de pacotes -- assuntos\label{subsec:Identifica=0000E7=0000E3o de pacotes - assuntos}}
+\begin{itemize}
+\item Pacote Análise de Perfis: Este pacote é o núcleo principal do sistema,
+responsável por integrar os demais pacotes relacionados à leitura,
+plotagem e interpretação dos perfis. É a partir dele que os módulos
+específicos são organizados para permitir uma análise completa e estruturada
+dos dados de perfilagem.
+\item Pacote Leitura de Arquivos: Este pacote é dedicado ao processamento
+e entrada de dados, especialmente arquivos no formato LAS, que são
+amplamente utilizados na perfilagem de poços. Ele garante a correta
+importação das informações brutas para que possam ser posteriormente
+analisadas.
+\item Pacote Arquivos LAS: Representa o subconjunto especializado dentro
+do pacote de leitura de arquivos. É responsável por manipular e estruturar
+os dados provenientes deste tipo de arquivo, assegurando a padronização
+e consistência na utilização dos dados de perfilagem.
+\item Pacote Plotagem: Este pacote agrupa as funcionalidades relacionadas
+à visualização gráfica dos perfis. Sua função é transformar os dados
+numéricos em representações visuais claras, permitindo que o usuário
+compreenda de maneira intuitiva as variações e correlações entre os
+parâmetros analisados.
+\item Pacote Gnuplot: É um subpacote associado à plotagem, responsável por
+fornecer os recursos de geração de gráficos por meio da integração
+com a ferramenta Gnuplot. Ele automatiza a construção de curvas, tracks
+compostos e representações visuais necessárias à análise.
+\item Pacote Interpretação: Este pacote trata da etapa analítica do processo,
+na qual os perfis já processados e plotados são avaliados em termos
+de parâmetros petrofísicos e geológicos. Seu objetivo é oferecer informações
+sobre propriedades como porosidade, saturação e resistividade.
+\item Pacote Parâmetros de Perfil: Subconjunto do pacote de interpretação,
+é responsável por armazenar, organizar e manipular os diferentes parâmetros
+derivados dos perfis. Ele fornece a base quantitativa necessária para
+a interpretação detalhada e consistente dos dados de perfilagem.
+\end{itemize}
+
+\section{Diagrama de pacotes -- assuntos\label{sec: Diagrama de pacotes =002013 assuntos}}
+
+O diagrama de pacotes é apresentado na Figura \ref{fig:Diagrama-de-Pacotes}.
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaDeAssuntos}
+\par\end{centering}
+\caption{Diagrama de Pacotes\label{fig:Diagrama-de-Pacotes}}
+\end{figure}
+

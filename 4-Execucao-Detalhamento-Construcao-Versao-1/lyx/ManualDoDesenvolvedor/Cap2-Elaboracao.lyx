@@ -27,7 +27,7 @@
 \usepackage{listings}
 \end_preamble
 \use_default_options false
-\master 3-Projeto-ModelosDeEngenharia-Master.lyx
+\master DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
 \maintain_unincluded_children no
 \language brazilian
 \language_package auto
@@ -272,7 +272,7 @@ name "sec:Formulação-teórica"
 Fundamentos da Perfilagem de Poço
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Fundamentos-da-Perfilagem-de-Poço"
+name "subsec:Fundamentos da Perfilagem de Poço"
 
 \end_inset
 
@@ -289,19 +289,7 @@ A perfilagem geofísica de poços é a prática de efetuar um registro detalhado
  densidade,
  porosidade,
  tempo de trânsito sônico,
- entre outros.
- A perfilagem fornece alta resolução vertical das propriedades dos materiais geológicos investigados,
- permitindo estimar parâmetros petrofísicos do reservatório;
- contudo,
- sua aplicação é limitada às imediações das paredes do poço 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Nery2013"
-literal "false"
-
-\end_inset
-
-.
+ entre outros (Rider,1996).
 \end_layout
 
 \begin_layout Standard
@@ -314,15 +302,7 @@ Tradicionalmente,
  em que sensores integrados à ferramenta de perfuração coletam dados em tempo real durante a própria perfuração.
  Esses dados são então armazenados em arquivos digitais (tipicamente no padrão LAS) para análise posterior.
  A combinação de múltiplos perfis de poço possibilita uma caracterização detalhada das camadas perfuradas,
- muito além do que seria obtido apenas com amostras físicas 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Schlumberger1991"
-literal "false"
-
-\end_inset
-
-
+ muito além do que seria obtido apenas com amostras físicas (Schlumberger,1991)
 \end_layout
 
 \begin_layout Standard
@@ -334,15 +314,7 @@ A alta resolução dos perfis de poço é crucial na engenharia de petróleo,
  Essas informações auxiliam geocientistas e engenheiros a recomendar completações de poço adequadas (como intervalos produtivos versus selos) ou mesmo o abandono seguro de trechos sem potencial produtivo.
  Em suma,
  a perfilagem de poços é ferramenta central na caracterização de reservatórios,
- complementando outros métodos geofísicos e geológicos para delineamento estratigráfico e avaliação de reservas 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Asquith2004"
-literal "false"
-
-\end_inset
-
-.
+ complementando outros métodos geofísicos e geológicos para delineamento estratigráfico e avaliação de reservas (Asquith,2004).
 \end_layout
 
 \begin_layout Subsection
@@ -367,15 +339,7 @@ Os perfis de poço registram diversas propriedades físicas das rochas sedimenta
  por exemplo,
  o perfil de raios gama detecta as emissões de elementos radioativos naturais (como K,
  U e Th) na formação,
- usado sobretudo para distinguir camadas argilosas de arenitos mais “limpos” 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rider1996"
-literal "false"
-
-\end_inset
-
-.
+ usado sobretudo para distinguir camadas argilosas de arenitos mais “limpos” (Rider,1996).
  Já perfis de densidade baseados na atenuação de fótons gama permitem estimar a massa por unidade de volume,
  e perfis nêutron avaliam a quantidade de hidrogênio (e portanto de porosidade) na rocha.
  O perfil sônico mede o tempo de propagação de um pulso acústico através da formação,
@@ -418,7 +382,7 @@ name "fig:Perfilagem-Poço"
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/PerfilagemPoço.PNG
+	filename imagens/PerfilagemPoço.PNG
 	lyxscale 70
 	width 40text%
 
@@ -429,15 +393,8 @@ name "fig:Perfilagem-Poço"
 
 \begin_layout Plain Layout
 \align center
-Fonte 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rider1996"
-literal "true"
-
-\end_inset
-
-
+Fonte:
+ (Rider,1996)
 \end_layout
 
 \end_inset
@@ -463,15 +420,7 @@ Os perfis de densidade e porosidade são complementares:
  a diferença entre a densidade lítica esperada e a densidade medida dá a porosidade;
  em arenitos,
  sondas nêutron são calibradas para saturação de hidrocarboneto.
- Esses registros permitem avaliar diretamente a porosidade efetiva e inferir saturação de fluidos no reservatório 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Ellis2007"
-literal "false"
-
-\end_inset
-
-.
+ Esses registros permitem avaliar diretamente a porosidade efetiva e inferir saturação de fluidos no reservatório (Ellis,2007).
 \end_layout
 
 \begin_layout Standard
@@ -518,15 +467,7 @@ A interpretação de perfis de poço visa identificar litologias,
  enquanto declínios abruptos de resistividade combinados com picos de porosidade sugerem arenitos saturados de hidrocarbonetos.
  A análise integrada dos perfis – por exemplo,
  cruzando curvas de densidade e nêutron – permite estimar a porosidade efetiva e a saturação de fluidos de cada camada,
- diferenciando here arenitos porosos de camadas compactas
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Asquith2004"
-literal "false"
-
-\end_inset
-
-.
+ diferenciando here arenitos porosos de camadas compactas (Asquith,2004).
  A Figura abaixo exemplifica perfis típicos de poços,
  incluindo raios gama,
  porosidade e resistividade,
@@ -564,9 +505,10 @@ name "fig:Interpretação-Geológica"
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/InterpretaçãoGeológica.PNG
+	filename imagens/InterpretaçãoGeológica.PNG
 	lyxscale 70
 	width 40text%
+	height 10cm
 
 \end_inset
 
@@ -575,15 +517,8 @@ name "fig:Interpretação-Geológica"
 
 \begin_layout Plain Layout
 \align center
-Fonte 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Petrowiki2014"
-literal "false"
-
-\end_inset
-
-
+Fonte:
+ (Petrowiki,2014)
 \end_layout
 
 \end_inset
@@ -618,15 +553,7 @@ Ao correlacionar camadas em diferentes poços,
  Em síntese,
  a interpretação de perfis de poço fornece um detalhamento petrofísico que,
  integrado com outros dados de reservatório,
- permite caracterizar unidades de interesse econômico e otimizar estratégias de produção 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Ellis2007"
-literal "false"
-
-\end_inset
-
-.
+ permite caracterizar unidades de interesse econômico e otimizar estratégias de produção (Ellis,2007).
 \end_layout
 
 \begin_layout Subsection
@@ -656,15 +583,7 @@ Os dados de perfilagem de poço são coletados por meio de procedimentos bem def
  pois dispensa o tempo de espera pela finalização do furo.
  Em ambos os casos,
  o resultado da perfilagem é um conjunto de curvas quantitativas associadas a profundidades no poço,
- que refletem diretamente as propriedades geofísicas calculadas pelos instrumentos de medição 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Schlumberger1991"
-literal "false"
-
-\end_inset
-
-.
+ que refletem diretamente as propriedades geofísicas calculadas pelos instrumentos de medição (Schlumberger,1991).
 \end_layout
 
 \begin_layout Standard
@@ -700,15 +619,7 @@ Em termos práticos,
  alinhadas por profundidade,
  facilitando a análise integrada.
  Dessa forma,
- o formato LAS é fundamental para preservar a integridade dos perfis medidos e viabilizar a manipulação e visualização dos dados de perfilagem por engenheiros e geocientistas 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Asquith2004"
-literal "false"
-
-\end_inset
-
-.
+ o formato LAS é fundamental para preservar a integridade dos perfis medidos e viabilizar a manipulação e visualização dos dados de perfilagem por engenheiros e geocientistas (Asquith,2004).
 \end_layout
 
 \begin_layout Subsection
@@ -1039,6 +950,13 @@ O modelo é amplamente utilizado devido à sua base experimental sólida e simpl
 
 \begin_layout Section
 Identificação de pacotes – assuntos
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Identificação de pacotes - assuntos"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -1129,7 +1047,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeAssuntos.png
+	filename imagens/DiagramaDeAssuntos.png
 	lyxscale 50
 	width 100text%
 

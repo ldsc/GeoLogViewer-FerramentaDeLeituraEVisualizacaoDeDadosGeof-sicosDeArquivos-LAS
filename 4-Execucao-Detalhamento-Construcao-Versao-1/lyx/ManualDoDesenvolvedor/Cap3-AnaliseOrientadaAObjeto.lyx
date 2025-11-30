@@ -8,12 +8,35 @@
 \begin_preamble
 \usepackage {graphicx}
 \usepackage {longtable}
-
 \usepackage {indentfirst}
 \renewenvironment{center}{\par\centering}{\par}
+
+% Comentar linhas abaixo se não estiver usando pacote abntex
+% ou se o pacote ainda não foi instalado.
+% neste caso sugere-se usar citações no padrão apalike (lembra o da anbt).
+% para usar abnt tem de instalar os arquivos: dnf install texlive-abnt2
+% verificar onde os mesmos estão: rpm -ql texlive-abntex2
+% reconfigurar o latex e o lyx (lyx->ferramentas->reconfigurar). E ativar linhas abaixo.
+% na aba de configuração do lyx, mude a classe de documento para abnt.
+%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
+%\usepackage {helvet}
+%\renewcommand {\familydefault}{\sfdefault}
+
+% Para uso de listagens de código
+\usepackage{color}
+\definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
+% Informa que vai usar o pacote listings, 
+% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
+
+%Fonte: https://github.com/abntex/abntex2/wiki/HowToFormatarCodigoFonte
+\usepackage{listings}
+%\renewcommand{\lstlistingname}{Listagem}
+% Altera o nome padrão do rótulo usado no comando \autoref{}
+\renewcommand{\lstlistingname}{Código}
+% Altera o rótulo a ser usando no elemento pré-textual "Lista de código"
+%\renewcommand{\lstlistlistingname}{Lista de códigos}
 \end_preamble
 \use_default_options false
-\master /home2/andreduartebueno/workdir/ModeloDocumento-ProjetoEngenharia-ProgramacaoPratica/doc/manualDesenvolvedor-lyx/DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
 \maintain_unincluded_children no
 \language brazilian
 \language_package auto
@@ -173,15 +196,7 @@ Neste capítulo são apresentadas as classes desenvolvidas no projeto,
  além do diagrama de classes,
  os diagramas de sequência,
  de comunicação,
- de máquina de estado e de atividades
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bueno2003"
-literal "false"
-
-\end_inset
-
-.
+ de máquina de estado e de atividades (Bueno,2003).
 \end_layout
 
 \begin_layout Section
@@ -205,10 +220,7 @@ nolink "false"
 \end_inset
 
 .
- Ele tem como objetivo apresentar todas as classes,
- seus atributos,
- métodos,
- heranças e relações entre as classes.
+ 
 \begin_inset Float figure
 placement document
 alignment document
@@ -219,7 +231,7 @@ status collapsed
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeClasses.png
+	filename imagens/DiagramaDeClasses.png
 	lyxscale 50
 	width 55text%
 	rotateAngle 90
@@ -439,12 +451,12 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeSequencia.png
+	filename imagens/DiagramaDeSequencia.png
 	lyxscale 50
 	width 100text%
 
@@ -535,10 +547,7 @@ name "par:Diagrama-de-colaboração:"
 Veja o diagrama de comunicação na Figura 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "cap:Diagrama-de-comunicação"
-plural "false"
-caps "false"
-noprefix "false"
+reference "subsec:Diagrama-de-Comunicação"
 nolink "false"
 
 \end_inset
@@ -567,12 +576,12 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeComunicação.png
+	filename imagens/DiagramaDeComunicação.png
 	lyxscale 85
 	width 100text%
 
@@ -606,7 +615,7 @@ name "cap:Diagrama-de-comunicação"
 \end_layout
 
 \begin_layout Section
-Diagrama de máquina de estado
+Diagrama de estado
 \begin_inset Index idx
 range none
 pageformat default
@@ -654,7 +663,7 @@ nolink "false"
 
 \end_inset
 
- o diagrama de máquina de estado.
+ o diagrama de máquina de estado..
 \end_layout
 
 \begin_layout Itemize
@@ -683,13 +692,13 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeMaquinaDeEstado.png
-	lyxscale 50
+	filename imagens/DiagramaDeMaquinaDeEstado.png
+	lyxscale 85
 	width 100text%
 
 \end_inset
@@ -742,6 +751,7 @@ nolink "false"
 \end_inset
 
  o diagrama de atividades correspondente a uma atividade específica do diagrama de máguina de estado.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -770,12 +780,12 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeAtividades.png
+	filename imagens/DiagramaDeAtividades.png
 	lyxscale 85
 	width 100text%
 

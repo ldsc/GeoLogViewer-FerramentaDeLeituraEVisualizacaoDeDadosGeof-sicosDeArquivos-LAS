@@ -1,0 +1,579 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extbook
+\begin_preamble
+\usepackage {graphicx}
+\usepackage {longtable}
+\usepackage {indentfirst}
+\renewenvironment{center}{\par\centering}{\par}
+
+% Comentar linhas abaixo se não estiver usando pacote abntex
+% ou se o pacote ainda não foi instalado.
+% neste caso sugere-se usar citações no padrão apalike (lembra o da anbt).
+%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
+%\usepackage {helvet}
+%\renewcommand {\familydefault}{\sfdefault}
+
+% Para uso de listagens de código
+\usepackage{color}
+\definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
+% Informa que vai usar o pacote listings, 
+% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
+\usepackage{listings}
+\end_preamble
+\use_default_options false
+\master DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
+\maintain_unincluded_children no
+\language brazilian
+\language_package auto
+\inputencoding auto-legacy
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement h
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize a4
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style apalike
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 210mm
+\paperheight 297mm
+\leftmargin 30mm
+\topmargin 25mm
+\rightmargin 20mm
+\bottommargin 20mm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle fancy
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Introdução
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Introdução"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lhead{
+\backslash
+thechapter
+\backslash
+space - Introdução}  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%
+\backslash
+fancyhead[L]{
+\backslash
+thechapter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[C]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{
+\backslash
+thepage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyfoot[L]{NomeProfessor-Cliente}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyfoot[C]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyfoot[R]{
+\backslash
+today}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Substitua "SeuNomeAqui" por seu nome e sobrenome
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Jamais retire o 
+\backslash
+today ele vai colocar data no material impresso
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A elaboração de projetos constitui uma das atribuições fundamentais que diferencia o engenheiro do tecnólogo,
+ exigindo a aplicação integrada de bases científicas,
+ técnicas e computacionais na resolução de problemas reais.
+ Nesse cenário,
+ propõe-se o desenvolvimento de um projeto de engenharia de software direcionado à área de Engenharia de Petróleo,
+ com foco na manipulação e interpretação de dados geofísicos empregados na caracterização de formações e reservatórios.Este projeto propõe o desenvolvimento do GeoLogViewer,
+ um software educacional interativo destinado à leitura,
+ interpretação e visualização de perfis de poços registrados em arquivos LAS (Log ASCII Standard).
+ A ferramenta tem como finalidade facilitar o aprendizado de conceitos de petrofísica e geologia aplicada,
+ permitindo que estudantes interajam diretamente com dados reais utilizados na indústria,
+ visualizando curvas como Gamma Ray (GR),
+ densidade (RHOB) e porosidade (NPHI),
+ de forma simples,
+ leve e acessível.
+\end_layout
+
+\begin_layout Standard
+Com base no diagnóstico da realidade acadêmica,
+ observa-se que os softwares atualmente disponíveis para essa finalidade,
+ como Techlog,
+ Petra e WellCAD,
+ são caros,
+ complexos e restritos ao ambiente corporativo,
+ tornando-se inviáveis para o uso didático em instituições de ensino.
+ O GeoLogViewer busca preencher essa lacuna ao oferecer uma plataforma gratuita e de código aberto aproximando o estudante das práticas profissionais da indústria do petróleo e gás.Em síntese,
+ o GeoLogViewer visa democratizar o acesso à análise de perfis de poços no ambiente acadêmico,
+ contribuindo para o desenvolvimento técnico e científico dos futuros engenheiros de petróleo,
+ fortalecendo a integração entre teoria,
+ prática e tecnologia.
+\end_layout
+
+\begin_layout Section
+Escopo do problema
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Escopo-do-Problema"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O GeoLogViewer é um software acadêmico desenvolvido para auxiliar estudantes e professores de Engenharia de Petróleo na análise e visualização de dados geofísicos provenientes de arquivos LAS (Log ASCII Standard).
+ O sistema foi concebido com o objetivo de tornar acessível o estudo de perfis de poços,
+ promovendo o entendimento de parâmetros petrofísicos e geológicos essenciais à caracterização de reservatórios e à formação técnica dos futuros engenheiros.
+\end_layout
+
+\begin_layout Standard
+Diferentemente de softwares comerciais complexos e de alto custo,
+ o GeoLogViewer oferece uma solução gratuita,
+ leve e didática,
+ especialmente voltada para o ambiente acadêmico.
+ Sua interface intuitiva e suas funcionalidades permitem que o usuário compreenda e interprete dados de forma prática e interativa,
+ fortalecendo o vínculo entre teoria e aplicação profissional.
+\end_layout
+
+\begin_layout Standard
+Entre suas principais funcionalidades,
+ destacam-se:
+\end_layout
+
+\begin_layout Standard
+• Leitura estruturada de arquivos LAS,
+ com identificação automática de seções e parâmetros geofísicos;
+\end_layout
+
+\begin_layout Standard
+• Visualização gráfica interativa de curvas logarítmicas,
+ como radiação gama (GR),
+ densidade (RHOB) e porosidade neutrônica (NPHI);
+\end_layout
+
+\begin_layout Standard
+• Ferramentas de cálculo,
+ incluindo normalização de curvas,
+ volume de argila,
+ porosidade e saturação de água;
+\end_layout
+
+\begin_layout Standard
+• Interface de uso simples,
+ voltada para o aprendizado em disciplinas como Perfilagem e Petrofísica;
+\end_layout
+
+\begin_layout Standard
+• Exportação de gráficos e arquivos CSV e PNG;
+\end_layout
+
+\begin_layout Standard
+• Arquitetura modular e de código aberto,
+ permitindo futuras expansões e adaptações por outras instituições.
+\end_layout
+
+\begin_layout Standard
+O escopo do sistema abrange,
+ portanto,
+ a leitura,
+ interpretação,
+ cálculo e visualização de dados de poços,
+ proporcionando um ambiente integrado de aprendizado técnico e computacional.
+ O GeoLogViewer visa democratizar o acesso a ferramentas de análise geofísica,
+ tornando o ensino de Engenharia de Petróleo mais interativo,
+ prático e alinhado às tecnologias utilizadas na indústria.
+\end_layout
+
+\begin_layout Section
+Objetivos
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Objetivos"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Os objetivos deste projeto de engenharia são:
+\end_layout
+
+\begin_layout Itemize
+Objetivo geral:
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Desenvolver um software educacional completo para leitura,
+ análise e visualização de dados geofísicos provenientes de arquivos LAS,
+ proporcionando aos estudantes de Engenharia de Petróleo um ambiente interativo que favoreça a compreensão prática da interpretação de perfis de poços,
+ relacionando parâmetros petrofísicos e suas implicações na caracterização de reservatórios,
+ de forma acessível,
+ intuitiva e tecnicamente consistente.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Objetivos específicos:
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Implementar a leitura estruturada de arquivos LAS.
+\end_layout
+
+\begin_layout Itemize
+Garantir a plotagem de curvas de diferentes perfis de poços de petróleo.
+\end_layout
+
+\begin_layout Itemize
+Sobreposição e comparação de registros para identificação de padrões e anomalias.
+\end_layout
+
+\begin_layout Itemize
+Interpretar as curvas dos perfis de poços,
+ indicando possíveis regiões de interesse.
+\end_layout
+
+\begin_layout Itemize
+Destaque visual de intervalos de interesse;
+\end_layout
+
+\begin_layout Itemize
+Ser capaz de exportar as imagens geradas dos perfis.
+\end_layout
+
+\begin_layout Itemize
+Garantir o entendimento do estudante sobre a leitura e interpretação de perfis de poços de petróleo.
+\end_layout
+
+\begin_layout Itemize
+Elaborar documentação técnica e manual de uso simplificado,
+ com foco didático,
+ explicando o funcionamento,
+ a instalação e as principais funcionalidades do software.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Metodologia utilizada
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Metodologia-utilizada"
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Metodologia utilizada
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A metodologia adotada para o desenvolvimento do GeoLogViewer foi estruturada com o objetivo de solucionar o problema central identificado:
+ a falta de ferramentas acessíveis e didáticas para leitura e interpretação de perfis de poços em ambiente acadêmico.
+ Assim,
+ o processo metodológico articulou fundamentos conceituais da Engenharia de Petróleo com práticas de engenharia de software,
+ de modo a garantir tanto rigor técnico quanto usabilidade.
+\end_layout
+
+\begin_layout Standard
+Inicialmente,
+ realizou-se uma análise conceitual do problema,
+ identificando quais parâmetros geofísicos são mais relevantes no ensino de petrofísica e perfilagem de poços (como GR,
+ RHOB e NPHI) e como eles se relacionam com processos físicos reais no interior do reservatório.
+ Essa etapa incluiu o estudo da estrutura dos arquivos LAS e das interpretações geológicas associadas aos perfis,
+ assegurando que a ferramenta desenvolvida refletisse corretamente o significado técnico das curvas representadas.
+\end_layout
+
+\begin_layout Standard
+Em seguida,
+ passou-se à modelagem da solução,
+ definindo uma arquitetura modular capaz de separar claramente três dimensões essenciais:
+\end_layout
+
+\begin_layout Enumerate
+Entrada e leitura dos dados (parser do arquivo LAS),
+\end_layout
+
+\begin_layout Enumerate
+Visualização gráfica (representação interativa e intuitiva das informações),
+\end_layout
+
+\begin_layout Enumerate
+Interpretação quantitativa e qualitativa das curvas.
+\end_layout
+
+\begin_layout Standard
+Essa modelagem permitiu isolar responsabilidades,
+ facilitando futuras melhorias e garantindo a clareza estrutural do código.
+ A visualização das curvas foi planejada de modo a reforçar a compreensão dos conceitos subjacentes,
+ permitindo ao usuário observar tendências,
+ contrastes e variações geológicas a partir das representações gráficas.
+ A fase de implementação seguiu um ciclo incremental,
+ no qual funcionalidades eram adicionadas gradualmente,
+ testadas e ajustadas conforme objetivos pedagógicos.
+ Essa estratégia garantiu que decisões de desenvolvimento fossem guiadas não apenas por viabilidade técnica,
+ mas também pela clareza didática —
+ ou seja,
+ por como o aluno interage com os dados e compreende o fenômeno físico representado.
+\end_layout
+
+\begin_layout Standard
+Por fim,
+ a metodologia incorporou etapas de validação prática,
+ envolvendo testes com estudantes em exercícios supervisionados,
+ permitindo observar como a ferramenta era utilizada e quais elementos poderiam dificultar ou facilitar o aprendizado.
+ A partir desse retorno,
+ ajustes foram feitos tanto na interface quanto na forma de apresentação dos dados.
+\end_layout
+
+\begin_layout Standard
+Em síntese,
+ a metodologia combinou:
+\end_layout
+
+\begin_layout Itemize
+Entendimento conceitual do fenômeno geofísico,
+\end_layout
+
+\begin_layout Itemize
+Modelagem computacional clara e modular,
+\end_layout
+
+\begin_layout Itemize
+Desenvolvimento incremental orientado ao usuário,
+ e
+\end_layout
+
+\begin_layout Itemize
+Validação pedagógica e prática,
+\end_layout
+
+\begin_layout Standard
+garantindo que o software não apenas funcionasse tecnicamente,
+ mas servisse efetivamente como instrumento de aprendizado e formação em Engenharia de Petróleo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement document
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagens/EngenhariaSoftware-Geral.png
+	lyxscale 25
+	width 100text%
+	keepAspectRatio
+	special height=0.85\textheight
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Etapas para o desenvolvimento do software
+\shape italic
+ - projeto de engenharia
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Etapas para o desenvolvimento do software"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

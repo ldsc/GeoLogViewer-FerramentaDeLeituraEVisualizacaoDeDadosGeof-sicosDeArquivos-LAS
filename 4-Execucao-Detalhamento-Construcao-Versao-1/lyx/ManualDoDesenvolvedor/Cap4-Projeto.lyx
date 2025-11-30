@@ -1,0 +1,2624 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extbook
+\begin_preamble
+\usepackage {graphicx}
+\usepackage {longtable}
+\usepackage {indentfirst}
+\renewenvironment{center}{\par\centering}{\par}
+
+% Comentar linhas abaixo se não estiver usando pacote abntex
+% ou se o pacote ainda não foi instalado.
+% neste caso sugere-se usar citações no padrão apalike (lembra o da anbt).
+%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
+%\usepackage {helvet}
+%\renewcommand {\familydefault}{\sfdefault}
+
+% Para uso de listagens de código
+\usepackage{color}
+\definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
+% Informa que vai usar o pacote listings, 
+% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
+\usepackage{listings}
+\end_preamble
+\use_default_options false
+\master DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
+\maintain_unincluded_children no
+\language brazilian
+\language_package auto
+\inputencoding auto-legacy
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement p
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize a4
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 210mm
+\paperheight 297mm
+\leftmargin 30mm
+\topmargin 25mm
+\rightmargin 20mm
+\bottommargin 20mm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Projeto 
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Projeto-do-Sistema"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lhead{
+\backslash
+thechapter - Projeto} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Neste capítulo do projeto de engenharia veremos questões associadas ao projeto do sistema,
+ incluindo protocolos,
+ recursos,
+ plataformas suportadas,
+ inplicações nos diagramas feitos anteriormente,
+ diagramas de componentes e implantação.
+ Na segunda parte revisamos os diagramas levando em conta as decisões do projeto do sistema.
+\end_layout
+
+\begin_layout Section
+Projeto do Sistema
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Projeto do sistema
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Projeto-do-sistema"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O projeto do sistema GeoLogViewer foi estruturado com base na análise orientada a objeto e nas demandas específicas do processamento de dados geofísicos em Engenharia de Petróleo.
+ A aplicação foi concebida como um software desktop leve e autônomo,
+ desenvolvido em C++ e integrado ao Gnuplot para a visualização gráfica das curvas e interpretações petrofísicas.
+\end_layout
+
+\begin_layout Enumerate
+Protocolos
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Protocolos
+\end_layout
+
+\end_inset
+
+
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Entre elementos externos:
+ O GeoLogViewer não depende de dispositivos físicos nem APIs remotas.
+ A única interação externa ocorre com o Gnuplot,
+ por meio do envio de comandos e dados através de pipes ou arquivos temporários para geração de gráficos.
+ Fora isso,
+ a aplicação opera de forma totalmente local.
+\end_layout
+
+\begin_layout Itemize
+Entre elementos internos:
+ A comunicação entre os módulos ocorre por chamadas diretas de métodos entre objetos C++.
+ Cada classe expõe sua funcionalidade principal por meio de sua interface pública,
+ e os dados trafegam por referências,
+ ponteiros inteligentes (smart pointers) e containers da STL.
+\end_layout
+
+\begin_layout Itemize
+Interface das classes:
+ As APIs internas são descritas nos arquivos .h,
+ onde são definidos os métodos públicos,
+ atributos essenciais e contratos das classes como CWellLog,
+ CLogCurve,
+ CInterpreter,
+ CPlotter e CLASReader.
+ Essas interfaces documentam o que cada módulo oferece ao restante do sistema.
+\end_layout
+
+\begin_layout Itemize
+Formato de arquivos:
+ O software trabalha principalmente com arquivos LAS (entrada),
+ seguindo o padrão Log ASCII Standard,
+ e gera arquivos CSV contendo curvas interpretadas e intervalos calculados.
+ Para gráficos,
+ são produzidos arquivos PNG ou SVG gerados por Gnuplot.
+ Todos os formatos são abertos e facilmente manipuláveis.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Recursos
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Recursos
+\end_layout
+
+\end_inset
+
+
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Uso de memória:
+ O gerenciamento é feito pela STL,
+ utilizando std::vector,
+ std::map e smart pointers (std::unique_ptr,
+ std::shared_ptr).
+ Os dados das curvas são mantidos em estruturas contíguas para eficiência em cálculos numéricos.
+\end_layout
+
+\begin_layout Itemize
+Banco de dados:
+ Não é utilizado banco de dados.
+ Todas as informações são carregadas diretamente de arquivos LAS e exportadas para CSV.
+\end_layout
+
+\begin_layout Itemize
+Armazenamento:
+ Todos os dados são salvos localmente pelo usuário.
+ A leveza dos arquivos LAS e CSV garante alta portabilidade e facilidade de versionamento.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Controle
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Controle
+\end_layout
+
+\end_inset
+
+
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Baseado em execução sequencial:
+ O fluxo principal segue uma ordem definida:
+ leitura do arquivo → armazenamento dos dados → interpretação → plotagem.
+ A aplicação não utiliza event loop gráfico,
+ mas possui um controle centralizado pelo CGeoLogViewerApp.
+\end_layout
+
+\begin_layout Itemize
+Condições extremas:
+ O sistema trata cenários como arquivos LAS mal-formados,
+ curvas ausentes ou valores inconsistentes.
+ O parser do LAS (CLASReader) verifica seções obrigatórias e notifica erros.
+ Funções de interpretação validam tamanhos e unidades das curvas antes dos cálculos.
+\end_layout
+
+\begin_layout Itemize
+Escalas de tempo:
+ O processamento é imediato,
+ com operações realizadas assim que o usuário solicita leitura,
+ interpretação ou plotagem.
+ As curvas interpretadas são geradas e exportadas logo após a execução dos cálculos.
+\end_layout
+
+\begin_layout Itemize
+Concorrência:
+ A aplicação é leve e realiza cálculos relativamente rápidos,
+ portanto a concorrência ainda não é necessária.
+ Contudo,
+ o projeto permite futura implementação com std::thread ou std::async para paralelizar cálculos petrofísicos.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Plataformas
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Plataformas
+\end_layout
+
+\end_inset
+
+
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Arquitetura:
+ O software utiliza uma estrutura modular clara,
+ organizada em camadas:
+ entrada,
+ modelo,
+ processamento e visualização.
+\end_layout
+
+\begin_layout Itemize
+Plataformas suportadas:
+ O sistema foi projetado para compilar em Windows e Linux,
+ utilizando apenas recursos padrão do C++ e ferramentas externas simples (Gnuplot),
+ garantindo portabilidade.
+\end_layout
+
+\begin_layout Itemize
+Bibliotecas utilizadas:
+ STL - containers,
+ algoritmos e gestão de memória;
+ Gnuplot - geração dos gráficos interpretados
+\end_layout
+
+\begin_layout Itemize
+IDE:
+ O projeto pode ser desenvolvido em qualquer editor,
+ mas utiliza CMake,
+ permitindo integração com Visual Studio,
+ VSCode,
+ CLion ou qualquer outra IDE moderna.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Padrões de projeto
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Modularidade:
+ cada classe possui uma responsabilidade única —
+ leitura,
+ armazenamento,
+ cálculo ou plotagem.
+\end_layout
+
+\begin_layout Itemize
+Baixo acoplamento e alta coesão:
+ o fluxo de dados é linear e cada módulo conhece somente o necessário sobre os demais.
+ As interfaces são limpas e bem definidas.
+\end_layout
+
+\begin_layout Itemize
+Padrões usados:
+\end_layout
+
+\begin_layout Itemize
+– Facade:
+ CGeoLogViewerApp atua como fachada coordenando todas as operações.
+\end_layout
+
+\begin_layout Itemize
+– Strategy:
+ os algoritmos de interpretação podem ser trocados ou estendidos sem alterar o núcleo do sistema.
+\end_layout
+
+\begin_layout Itemize
+– Adapter:
+ a interação com o Gnuplot é encapsulada dentro do CPlotter.
+\end_layout
+
+\begin_layout Itemize
+– Creator/Factory (implícito):
+ criação de curvas e poços é centralizada para manter consistência.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Projeto orientado a objeto – POO
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+POO
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Projeto orientado a objeto
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Projeto-orientado-a-objeto"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O projeto orientado a objeto do GeoLogViewer foi desenvolvido considerando os recursos da linguagem C++,
+ suas bibliotecas padrão (STL) e a integração com ferramentas externas como o Gnuplot.
+ As classes definidas durante a análise foram refinadas com novos atributos,
+ métodos e estruturas necessárias para atender aos requisitos arquiteturais determinados no projeto do sistema.
+ Nesta etapa,
+ são incorporadas decisões práticas sobre algoritmos,
+ estruturas de dados,
+ manipulação de arquivos,
+ otimização de desempenho e controle do fluxo de execução.
+ O modelo conceitual passa a considerar as particularidades da plataforma escolhida (hardware,
+ SO e compilador),
+ além de acrescentar classes e métodos específicos para resolver problemas não identificados na análise inicial.
+\end_layout
+
+\begin_layout Subsubsection
+Efeitos do projeto no modelo
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+modelo
+\end_layout
+
+\end_inset
+
+ estrutural
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Efeito-do-projeto-no-modelo-estrutural"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Atualização dos diagramas de pacotes:
+ O sistema foi organizado em subsistemas claros —
+ Leitura,
+ Modelo,
+ Interpretação,
+ Plotagem e App Central.
+ Essa separação permite modularidade e facilita a manutenção.
+\end_layout
+
+\begin_layout Itemize
+Refinamento dos diagramas de classes:
+ As classes receberam novos atributos como std::vector<float>,
+ std::map<std::string,
+ CLogCurve> e std::vector<Interval>.
+ Também foram acrescentados métodos concretos como ParseLAS(),
+ PlotCurve(),
+ ComputeDerivedWI(),
+ GetCurvesInterpretadas() e controladores centrais como Execute() dentro do CGeoLogViewerApp.
+\end_layout
+
+\begin_layout Itemize
+Inclusão de classes auxiliares:
+ O projeto adicionou estruturas como CFormationZone,
+ Derived,
+ Interval,
+ entre outras,
+ para suportar cálculos petrofísicos e detalhar intervalos e propriedades.
+\end_layout
+
+\begin_layout Subsubsection
+Efeitos do projeto no modelo
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+modelo
+\end_layout
+
+\end_inset
+
+ dinâmico
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Efeito-do-projeto-no-modelo-dinamico"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Atualização dos diagramas de sequência:
+ Os diagramas agora refletem o fluxo real de execução,
+ incluindo chamadas aos métodos de parsing,
+ cálculo e plotagem.
+\end_layout
+
+\begin_layout Itemize
+Aprimoramento do diagrama de comunicação:
+ Cada classe passa a interagir conforme seus métodos concretos,
+ evidenciando compartilhamento de dados entre CWellLog,
+ CLogCurve,
+ CInterpreter e CPlotter.
+\end_layout
+
+\begin_layout Itemize
+Completar diagramas de atividades:
+ O fluxo agora inclui etapas como validação do arquivo LAS,
+ normalização das curvas,
+ seleção das curvas de interpretação e exportação para CSV.
+\end_layout
+
+\begin_layout Subsubsection
+Efeitos do projeto nos atributos
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+atributos
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Efeito-do-projeto-nos-atributos"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Novos atributos adicionados para implementação real:
+\end_layout
+
+\begin_layout Itemize
+– Vetores de profundidade (std::vector<float> vDepth)
+\end_layout
+
+\begin_layout Itemize
+– Armazenamento de curvas (std::map<std::string,
+ CLogCurve> mapCurves)
+\end_layout
+
+\begin_layout Itemize
+– Zona de formação (std::map<std::string,
+ double> mProps)
+\end_layout
+
+\begin_layout Itemize
+– Flags internas (bool mLASCarregado,
+ bool mInterpretacaoPronta)
+\end_layout
+
+\begin_layout Itemize
+– Ponteiros ou referências para classes centrais (ex:
+ ponteiro para CLASReader dentro de CGeoLogViewerApp)
+\end_layout
+
+\begin_layout Itemize
+Esses atributos foram acrescentados para otimizar cálculos,
+ melhorar o acesso aos dados e minimizar conversões redundantes.
+\end_layout
+
+\begin_layout Subsubsection
+Efeitos do projeto nos métodos
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+métodos
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Efeitos do projeto nos métodos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Métodos refinados ou criados especificamente para a implementação:
+\end_layout
+
+\begin_layout Itemize
+– bool LoadFromFile()
+\end_layout
+
+\begin_layout Itemize
+– AddCurveValue()
+\end_layout
+
+\begin_layout Itemize
+– ComputeDerivedWI()
+\end_layout
+
+\begin_layout Itemize
+– PickReservoirs()
+\end_layout
+
+\begin_layout Itemize
+– PlotCurve()
+\end_layout
+
+\begin_layout Itemize
+– WriteCSV()
+\end_layout
+
+\begin_layout Itemize
+– Métodos de controle:
+ Menu(),
+ Execute(),
+ AcaoListarCurvas()
+\end_layout
+
+\begin_layout Itemize
+– Métodos auxiliares de verificação e normalização.
+\end_layout
+
+\begin_layout Itemize
+Os métodos recebem parâmetros específicos (vetores,
+ referências,
+ nomes de curva,
+ parâmetros petrofísicos),
+ algo não detalhado na análise,
+ mas essencial para implementação real.
+\end_layout
+
+\begin_layout Subsubsection
+Efeitos do projeto nas heranças
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+heranças
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Efeitos do projeto nas heranças
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Heranças
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Heranças funcionais:
+\end_layout
+
+\begin_layout Itemize
+Embora o sistema utilize principalmente composição,
+ algumas classes adotam herança para especializar comportamentos,
+ como:
+\end_layout
+
+\begin_layout Itemize
+– CGeoLogViewerApp especializando o comportamento de controle geral,
+ agregando outros módulos.
+\end_layout
+
+\begin_layout Itemize
+– Classes auxiliares de cálculo podem herdar de tipos base conceituais (ex:
+ famílias de cálculos petrofísicos),
+ permitindo extensões futuras.
+\end_layout
+
+\begin_layout Itemize
+Heranças conceituais:
+\end_layout
+
+\begin_layout Itemize
+As classes seguem princípios de agrupamento hierárquico —
+ uma curva (CLogCurve) pertence a um poço (CWellLog),
+ e zonas de formação são tratadas como componentes naturais do poço.
+\end_layout
+
+\begin_layout Subsubsection
+Efeitos do projeto nas associações
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Efeitos do projeto nas associações
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Associações
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Associações implementadas por containers STL:
+\end_layout
+
+\begin_layout Itemize
+– Poço → curvas:
+ std::map<std::string,
+ CLogCurve>
+\end_layout
+
+\begin_layout Itemize
+– Curva → dados:
+ std::vector<float>
+\end_layout
+
+\begin_layout Itemize
+– Interpretação → resultados:
+ std::vector<Derived> ou std::vector<Interval>
+\end_layout
+
+\begin_layout Itemize
+Associações diretas entre módulos principais:
+ CGeoLogViewerApp mantém associações diretas com CLASReader,
+ CWellLog,
+ CInterpreter e CPlotter,
+ controlando o fluxo completo.
+\end_layout
+
+\begin_layout Itemize
+Uso de referências ou ponteiros:
+ Permite reduzir cópias e trabalhar com objetos grandes (como curvas com milhares de amostras).
+\end_layout
+
+\begin_layout Subsubsection
+Efeitos do projeto nas otimizações
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+otimizações
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Desempenho:
+\end_layout
+
+\begin_layout Itemize
+– Vetores contíguos (std::vector) foram priorizados para cálculos numéricos eficientes.
+\end_layout
+
+\begin_layout Itemize
+– Erros são detectados cedo para evitar desperdício de processamento.
+\end_layout
+
+\begin_layout Itemize
+– Gnuplot é chamado apenas com dados necessários,
+ minimizando overhead.
+\end_layout
+
+\begin_layout Itemize
+Organização:
+\end_layout
+
+\begin_layout Itemize
+– Classes auxiliares foram criadas para separar parsing,
+ armazenamento,
+ cálculo e visualização.
+\end_layout
+
+\begin_layout Itemize
+– O código foi estruturado para minimizar acoplamento e facilitar manutenção.
+\end_layout
+
+\begin_layout Itemize
+Escalabilidade:
+\end_layout
+
+\begin_layout Itemize
+– O projeto permite adicionar novos algoritmos de interpretação.
+\end_layout
+
+\begin_layout Itemize
+– A estrutura facilita futura inclusão de interfaces gráficas,
+ novos formatos de arquivo ou paralelização dos cálculos.
+\end_layout
+
+\begin_layout Itemize
+– O núcleo petrofísico pode evoluir para incluir métodos avançados como Neural Logs ou inversão.
+\end_layout
+
+\begin_layout Section
+Diagrama de componentes
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Diagrama de componentes
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Diagrama-de-componentes"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O diagrama de componentes mostra as relações entre todos os componentes do software e é apresentado na Figura
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cap:Diagrama-de-componentes"
+nolink "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O diagrama de componentes apresentado evidencia a organização estrutural do sistema e as dependências existentes entre os módulos que o compõem.
+ Ele destaca como cada componente participa da solução,
+ mostrando de que forma as funcionalidades são distribuídas e como o fluxo de informações se estabelece entre eles.
+ No centro da arquitetura encontra-se o componente CGeoLogViewerApp,
+ responsável por coordenar as operações principais da aplicação e atuar como ponto de integração entre os demais módulos.
+\end_layout
+
+\begin_layout Standard
+A partir dele,
+ observam-se dependências direcionadas para três componentes essenciais:
+ CLASReader,
+ encarregado da leitura e interpretação inicial dos arquivos LAS;
+ CInterpreter,
+ que atua como intermediário na preparação e organização dos dados interpretados;
+ e CPetrophysicsCalculator,
+ responsável pelo cálculo dos parâmetros derivados utilizados na análise petrofísica.
+ Além disso,
+ o componente CPlotter mantém uma relação de dependência com a aplicação principal,
+ sendo ele o responsável pela renderização gráfica das curvas processadas.
+ Assim,
+ o diagrama apresenta claramente uma arquitetura modular,
+ na qual cada componente possui responsabilidades bem definidas e colabora para garantir a funcionalidade completa do sistema.
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagens/DiagramaDeComponentes.png
+	lyxscale 90
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Diagrama de componentes
+\begin_inset CommandInset label
+LatexCommand label
+name "cap:Diagrama-de-componentes"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Diagrama de implantação
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Diagrama de implantação
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status open
+
+\begin_layout Plain Layout
+Diagrama de execução
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Diagrama-de-execução"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O diagrama de implantação é apresentado na Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cap:Diagrama-de-implantação."
+nolink "false"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+O diagrama de implantação demonstra como o software de perfilagem GeoLogViewer é disponibilizado e executado dentro da infraestrutura física do sistema.
+ Esse tipo de diagrama tem foco na arquitetura computacional em nível físico,
+ evidenciando os nós de hardware envolvidos,
+ a alocação dos componentes de software e as interações que ocorrem entre eles em tempo de execução.
+ Nele,
+ o computador é representado como o nó principal,
+ dentro do qual se encontra o Disco Rígido,
+ responsável por armazenar tanto o Sistema Operacional quanto o software de perfilagem.
+ O sistema operacional exerce papel fundamental,
+ uma vez que fornece o ambiente necessário para a execução do programa,
+ gerenciando os recursos físicos e realizando a intermediação entre hardware e aplicação.
+\end_layout
+
+\begin_layout Standard
+Após ser carregado pelo sistema operacional,
+ o GeoLogViewer inicia o processamento dos dados de perfis,
+ realizando cálculos e gerando curvas para visualização.
+ Esse processamento é efetuado pelo Processador (CPU),
+ que recebe as instruções geradas pelo software e realiza as operações necessárias,
+ enviando os resultados para o monitor,
+ onde são exibidos graficamente ao usuário.
+ Além disso,
+ o diagrama também apresenta o teclado como dispositivo de entrada responsável pela interação do usuário com o sistema,
+ possibilitando a inserção de comandos e dados que são encaminhados ao processador para continuidade do fluxo de execução.
+ Também é representada a relação entre o processador e o disco rígido,
+ indicando o acesso constante a arquivos e ao sistema conforme a aplicação trabalha.
+\end_layout
+
+\begin_layout Standard
+Dessa forma,
+ o diagrama de implantação evidencia todos os elementos essenciais para o funcionamento do software,
+ incluindo componentes físicos como computador,
+ CPU,
+ teclado,
+ monitor e disco rígido,
+ bem como a organização e comunicação entre eles.
+ Além disso,
+ representa claramente as dependências e associações necessárias para execução do programa,
+ mostrando como o ambiente computacional suporta o processamento e a exibição dos dados visualizados.
+ Assim,
+ este diagrama cumpre seu propósito ao descrever com clareza a arquitetura física do sistema,
+ demonstrando o fluxo de execução,
+ funcionamento dos dispositivos e relação entre hardware e software dentro do ambiente operacional.
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagens/DiagramaDeImplantação.png
+	lyxscale 50
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Diagrama de implantação
+\begin_inset CommandInset label
+LatexCommand label
+name "cap:Diagrama-de-implantação."
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Lista de características <<features>>
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec: Lista de características <<features>>"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Versão v0.1 – Núcleo de Leitura e Estruturação dos Dados LAS
+\end_layout
+
+\begin_layout Standard
+Nesta primeira fase,
+ o desenvolvimento concentrou-se na implementação do núcleo de dados do GeoLogViewer.
+ O objetivo foi estabelecer a base do sistema,
+ com foco na leitura,
+ organização e armazenamento das curvas e metadados contidos em arquivos LAS.
+ Essa etapa fornece o alicerce para as funcionalidades posteriores de interpretação e plotagem.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Features v0.1:
+\end_layout
+
+\begin_layout Itemize
+Implementação da classe CLASReader,
+ responsável pela leitura estruturada de arquivos LAS.
+\end_layout
+
+\begin_layout Itemize
+Extração e armazenamento de profundidades,
+ curvas geofísicas e metadados do poço.
+\end_layout
+
+\begin_layout Itemize
+Criação da classe CLogCurve,
+ representando uma curva individual com nome,
+ unidade e vetor de valores.
+\end_layout
+
+\begin_layout Itemize
+Implementação da classe CWellLog,
+ contendo todas as curvas e informações gerais do poço.
+\end_layout
+
+\begin_layout Itemize
+Validação inicial do arquivo LAS (checagem de seções obrigatórias e tamanho dos dados).
+\end_layout
+
+\begin_layout Itemize
+Construção das estruturas de dados principais (std::vector,
+ std::map) para armazenar e acessar curvas de forma eficiente.
+\end_layout
+
+\begin_layout Itemize
+Testes iniciais de consistência entre o número de profundidades e o número de amostras das curvas.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Versão v0.2 – Módulo de Plotagem Inicial e Integração com Gnuplot
+\end_layout
+
+\begin_layout Standard
+Na segunda fase,
+ foram desenvolvidas as funcionalidades essenciais de visualização das curvas lidas.
+ O sistema passou a gerar gráficos utilizando o Gnuplot,
+ integrando o backend de dados com a camada de plotagem,
+ tornando possível ao usuário visualizar perfis completos ou curvas selecionadas.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Features v0.2:
+\end_layout
+
+\begin_layout Itemize
+Implementação da classe CPlotter,
+ responsável por preparar dados e comandos para o Gnuplot.
+\end_layout
+
+\begin_layout Itemize
+Integração com a ferramenta Gnuplot para geração de gráficos em PNG e SVG.
+\end_layout
+
+\begin_layout Itemize
+Plotagem de curvas individuais selecionadas pelo usuário.
+\end_layout
+
+\begin_layout Itemize
+Plotagem simultânea de múltiplas curvas em um único gráfico.
+\end_layout
+
+\begin_layout Itemize
+Exportação de gráficos para arquivos externos.
+\end_layout
+
+\begin_layout Itemize
+Criação de opções iniciais de plotagem (limites de eixo,
+ cores padrão,
+ espessura de linha).
+\end_layout
+
+\begin_layout Itemize
+Testes de plotagem com arquivos LAS reais,
+ garantindo compatibilidade e estabilidade.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Versão v0.3 – Interpretação Petrofísica e Visualização Avançada
+\end_layout
+
+\begin_layout Standard
+A etapa final introduziu funcionalidades de interpretação,
+ tornando o GeoLogViewer uma ferramenta não apenas de visualização,
+ mas também analítica.
+ Foram implementados cálculos petrofísicos básicos,
+ intervalos interpretados,
+ curvas derivadas e recursos avançados de visualização.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Features v0.3:
+\end_layout
+
+\begin_layout Itemize
+Implementação da classe CInterpreter,
+ responsável pela interpretação automática de curvas.
+\end_layout
+
+\begin_layout Itemize
+Integração com o módulo CPetroPhysicsCalculator,
+ incluindo:
+\end_layout
+
+\begin_layout Itemize
+– Cálculo de Vshale (Larionov / Linear).
+\end_layout
+
+\begin_layout Itemize
+– Cálculo de porosidade (densidade,
+ neutrão e densidade-neutrão).
+\end_layout
+
+\begin_layout Itemize
+– Geração de curvas derivadas.
+\end_layout
+
+\begin_layout Itemize
+Identificação preliminar de zonas de interesse e intervalos potenciais de reservatório.
+\end_layout
+
+\begin_layout Itemize
+Implementação da classe CFormationZone,
+ armazenando topo,
+ base,
+ espessura e propriedades interpretadas.
+\end_layout
+
+\begin_layout Itemize
+Plotagem de interpretações sobrepostas às curvas originais.
+\end_layout
+
+\begin_layout Itemize
+Exportação de resultados interpretativos em arquivo CSV.
+\end_layout
+
+\begin_layout Itemize
+Testes com múltiplos arquivos LAS para validar robustez das interpretações e variações entre curvas.
+\end_layout
+
+\begin_layout Subsection
+Tabela classificação sistema
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Tabela-classificação-sistema"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A Tabela a seguir é utilizada para classificação do sistema desenvolvido.
+ Deve ser preenchida na etapa de projeto e revisada no final,
+ quando o software for entregue na sua versão final.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+A tabela esta preenchida com dados de um dos exemplos de projeto;
+ você deve preencher de acordo com o problema específico que esta resolvendo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="22" columns="2">
+<features islongtable="true" longtabularalignment="center">
+<column alignment="center" valignment="top" width="3cm">
+<column alignment="center" valignment="top" width="12cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Licença:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] livre GPL-v3 [ ] proprietária
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Engenharia de software:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[ ]
+\color blue
+ 
+\color inherit
+tradicional [X] ágil [ ] outras
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Paradigma de programação:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[ ] estruturada [X] orientado a objeto - POO [ ] funcional
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Modelagem UML:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] básica 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Diagramas de caso de uso,
+ de componentes(assuntos/pacotes/componentes),
+ de classes,
+ de sequência,
+ de distribuição
+\end_layout
+
+\end_inset
+
+[X] intermediária [X] avançada
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Uso de recursos avançados de UML
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Algoritmos
+\color inherit
+:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] alto nível 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\color blue
+:
+
+\color inherit
+ são algoritmos que são implementados utilizando instruções mais complexas.
+\end_layout
+
+\end_inset
+
+[X] baixo nível
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\color blue
+:
+
+\color inherit
+ são algoritmos que são implementados utilizando instruções mais básicas e essenciais.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Implementação
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[ ] recursivo ou [X] iterativo
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+\color blue
+:
+
+\series default
+ 
+\color inherit
+um algoritmo iterativo utiliza estruturas de repetição,
+ fazendo com que determinadas atividades sejam repetidas tantas vezes quanto necessárias,
+ normalmente temos algum critério de parada.
+ Já um algoritmo recursivo é um algoritmo que chama a sí mesmo.
+ Note que chamar a sí mesmo é uma forma de iteração.
+ O exemplo do pagamento dos salários é iterativo,
+ foi do empregado 1 ao empregado 10000.
+\end_layout
+
+\end_inset
+
+;
+ [X] determinístico 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\color blue
+:
+
+\color inherit
+ é determinístico quando o caminho para solução é exato e não-determinístico quando usamos mecanismos de busca/estimativas para encontrar uma solução.
+\end_layout
+
+\end_inset
+
+ou [ ] não-determinístico;
+ [ ] exato ou [X] aproximado
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\color blue
+:
+ 
+\color inherit
+muitas vezes tenho a equação que me dá uma solução exata,
+ quando utilizo esta equação meu algoritmo é exato.
+ Mas em muitas situações eu não tenho a soluição exata,
+ tenho apenas equações aproximadas,
+ quando uso uma equação inexata ou empírica,
+ sei que meu algoritmo é aproximado.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Concorrências:
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] serial [X] concorrente [X] paralelo
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Paradigma:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] dividir para conquistar
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+
+\series bold
+\color blue
+:
+
+\series default
+ 
+\color inherit
+são algoritmos que trabalham com a divisão e subdivisão de um problema em partes menores;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Exemplo:
+ escrever seu TCC - Trabalho de Conclusão de Curso,
+ você irá dividir o mesmo em vários capítulos,
+ os capítulos em seções e as seções em subseções.
+ De forma que então conseguirá desenvolver seu trabalho,
+ pois as partes pequenas tornam-se viáveis de serem feitas.
+\end_layout
+
+\end_deeper
+\end_inset
+
+ [ ] programação linear
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+\color blue
+:
+
+\series default
+\color inherit
+ o problema é resolvido através de programação linear envolvendo a busca de máximos e mínimos
+\end_layout
+
+\end_inset
+
+ [ ] transformação/ redução
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+
+\series bold
+\color blue
+:
+
+\series default
+\color inherit
+ são algoritmos que mudam o problema fazendo associações com outros,
+ geralmente eu conheço a solução deste outro problema,
+ resolvo o mesmo,
+ e então retorno;
+ é exatamente o que fazemos por exemplo quando usamos uma transformada matemática para resolver um problema.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Exemplo:
+ não sei resolver estas equações professor.
+ Faça uma transformada de Laplace,
+ resolva no espaço de Laplace e então volte.
+\end_layout
+
+\end_deeper
+\end_inset
+
+ [ ] busca e enumeração
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+\color blue
+:
+
+\series default
+\color inherit
+ são algoritmos que usam a teoria dos grafos.
+\end_layout
+
+\end_inset
+
+ [ ] heurístico e probabilístico
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+\color blue
+:
+
+\series default
+\color inherit
+ são algoritmos que trabalham com números aleatórios e heurísticas,
+ aproximações,
+ em busca da solução.
+\end_layout
+
+\end_inset
+
+ [ ] baseados em pilhas
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+\color blue
+:
+
+\series default
+\color inherit
+ são algoritmos de cálculo implementados utilizando o conceito de pilhas e Notação Polonesa Inversa (
+\emph on
+RPN - Reverse Polish Notation
+\emph default
+),
+ também conhecida como notação pós-fixada.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Software:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[ ] de base
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+
+\series bold
+:
+ 
+\series default
+Estão relacionados ao funcionamento do computador e seus recursos (processador,
+ memória,
+ hd,
+ teclado,
+ mouse,
+ portas,
+ etc).
+ Exemplos:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Sistemas operacionais (Windows,
+ GNU/Linux,
+ Mac Os X,
+ Android).
+\end_layout
+
+\begin_layout Itemize
+Suporte ao sistema operacional (
+\emph on
+drivers 
+\emph default
+de dispositivos).
+\end_layout
+
+\begin_layout Itemize
+Suporte ao desenvolvimento de software (compiladores,
+
+\emph on
+ debugers
+\emph default
+,
+ 
+\emph on
+profilers
+\emph default
+,
+ ambientes de desenvolvimento).
+\end_layout
+
+\begin_layout Itemize
+Suporte a manutenção do computador (utilitários).
+\end_layout
+
+\end_deeper
+\end_inset
+
+ [X] aplicados
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+:
+ 
+\series default
+São os demais softwares,
+ os que nos ajudam no dia a dia.
+ Podemos dividir em softwares de cunho geral,
+ específicos e científicos.
+ Esta divisão faz sentido pois os softwares específicos exigem conhecimentos técnicos da área específica e os softwares científicos tem requisitos diferenciados no que se refere a interface,
+ documentação,
+ demandas de otimização,
+ consumo de memória e performance.
+ Exemplos:
+\end_layout
+
+\end_inset
+
+ [ ] de cunho geral
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+Editor de texto,
+ editor de apresentações e planilha eletrônica (ex:
+ Office,
+ Libre Office).
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Aplicativos para ver filmes,
+ ouvir músicas e jogos eletrônicos.
+\end_layout
+
+\begin_layout Itemize
+Aplicações web como navegador de internet,
+ gerenciador de email,
+ gerenciador de tarefas (chrome,
+ gmail).
+\end_layout
+
+\begin_layout Itemize
+Gerenciador de arquivos na rede (ex:
+ dropbox,
+ google drive,
+ github).
+\end_layout
+
+\end_deeper
+\end_inset
+
+ [X] específicos para determinada área
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+Da área de medicina (interpretação de imagens e diagnósticos).
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Da área de direito (gestão de documentos e processos).
+\end_layout
+
+\begin_layout Itemize
+Da área de engenharia (CAD,
+ modeladores,
+ simuladores específicos).
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Com uso de IA - Inteligência Artificial.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_inset
+
+ [X] educativo [X] científico
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Modeladores e simuladores de cunho acadêmico.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Instruções:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] alto nível [ ] baixo nível
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+interrupções/assembler
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Otimização
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] serial não otimizado
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+:
+
+\series default
+ executa uma sequência de instruções de forma serial (não existe antecipação,
+ nem desvios).
+ Não houve preocupação com desempenho.
+ Não foram aproveitadas opções de otimização do compilador e do processador específico.
+ É a forma de programação mais usual!
+\end_layout
+
+\end_inset
+
+ [X] serial otimizado
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+:
+ 
+\series default
+Neste caso houve preocupação com desempenho,
+ com a escolha dos melhores algoritmos,
+ com alocação de memória(ex:
+ uso de ponteiros),
+ com a forma como a linguagem e o sistema operacional lidam com a memória,
+ com a chamada das funções.
+ Foram aproveitadas opções de otimização do compilador e do processador específico.
+ É a forma de otimização mais usual,
+ a primeira a ser adotada.
+\end_layout
+
+\end_inset
+
+ [X] concorrente
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+:
+ 
+\series default
+Neste caso dois ou mais processos/
+\emph on
+threads
+\emph default
+ diferentes rodam ao mesmo tempo e trocam informações entre sí.
+ Um exemplo típico é o caso do produtor/consumidor.
+ O produtor gera dados que são processador pelo consumidor.
+ Note que teremos pelo menos dois núcleos sendo utilizados,
+ cada um fazendo um processamento diferente.
+ Note que os softwares podem ter sido desenvolvidos em linguagens diferentes,
+ a comunicação pode ser feita por exemplo via pipe (um canal de comunicação entre programas).
+\end_layout
+
+\end_inset
+
+ [X] paralelo
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+:
+
+\series default
+ Neste caso dois ou mais processos/
+\emph on
+threads
+\emph default
+ iguais rodam em paralelo.
+ Um exemplo típico em engenharia é pegar um cálculo muito longo e dividir o mesmo.
+ Por exemplo,
+ preciso aplicar um filtro passa baixa sobre uma imagem grande.
+ Se tenho 4 núcleos a disposição divido a imagem em 4 pedaços e processo cada pedaço usando um dos núcleos.
+ Se este processamento for independente é fácil implementar,
+ porém,
+ se tiver intersecções,
+ então terei de usar mecanismos de comunicação entre processos/threads.
+\end_layout
+
+\end_inset
+
+ [ ] vetorial
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+:
+
+\series default
+ alguns hardwares possibilitam o uso de processamento vetorial,
+ antigamente eram muito específicos e caros,
+ mas hoje em dia várias CPUs tem capacidade de processamento vetorial,
+ por exemplo com o uso de SIMD - Uma Instrução Múltiplos Dados.
+ A ideia aqui é que o processador carrega um vetor de dados A,
+ carrega um vetor de dados B,
+ e realiza a operação de soma armazenando o resultado em C.
+ Isto é feito simultaneamente,
+ isto é,
+ as operações C[0] = A[0] + B[0];
+ C[1] = A[1] + B[1];...;
+ C[n] = A[n] + B[n];
+ são todas feitas no mesmo instante (mesmo 
+\emph on
+clock
+\emph default
+).
+ Alguns compiladores já permitem otimizações que viabilizam o uso deste tipo de processamento,
+ notadamente nas bibliotecas padrões.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Interface do usuário
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[ ] kernel numérico [ ] linha de comando [ ] modo texto [X] híbrida (texto e saídas gráficas) [ ] modo gráfico (ex:
+ Qt) [ ] navegador
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Recursos de C++:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] C++ básico (FCC):
+ variáveis padrões da linguagem,
+ estruturas de controle e repetição,
+ estruturas de dados,
+ struct,
+ classes(objetos,
+ atributos,
+ métodos),
+ funções;
+ entrada e saída de dados (
+\emph on
+streams
+\emph default
+),
+ funções de cmath
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] C++ intermediário:
+ funções lambda.
+ Ponteiros,
+ referências,
+ herança,
+ herança múltipla,
+ polimorfismo,
+ sobrecarga de funções e de operadores,
+ tipos genéricos (templates),
+ 
+\emph on
+smarth pointers
+\emph default
+.
+ Diretrizes de pré-processador,
+ classes de armazenamento e modificadores de acesso.
+ Estruturas de dados:
+ enum,
+ uniões.
+ Bibliotecas:
+ entrada e saída acesso com arquivos de disco,
+ redirecionamento.
+ Bibliotecas:
+ 
+\emph on
+filesystem
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] C++ intermediário 2:
+ A biblioteca de gabaritos de C++ (a STL),
+ containers,
+ iteradores,
+ objetos funções e funções genéricas.
+ Noções de processamento paralelo (múltiplas threads,
+ uso de 
+\emph on
+thread,
+ join 
+\emph default
+e 
+\emph on
+mutex
+\emph default
+).
+ Bibliotecas:
+ 
+\emph on
+random,
+ threads
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[ ] C++ avançado:
+ Conversão de tipos do usuário,
+ especializações de templates,
+ excessões.
+ Cluster de computadores,
+ processamento paralelo e concorrente,
+ múltiplos processos (pipes,
+ memória compartilhada,
+ sinais).
+ Bibliotecas:
+ 
+\emph on
+expressões regulares,
+ múltiplos processos
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Bibliotecas de C++:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] Entrada e saída de dados (
+\emph on
+streams
+\emph default
+) [X] cmath [X] 
+\emph on
+filesystem 
+\emph default
+[ ] 
+\emph on
+random 
+\emph default
+[X] 
+\emph on
+threads 
+\emph default
+[ ] 
+\emph on
+expressões regulares 
+\emph default
+[ ] 
+\emph on
+múltiplos processos
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Bibliotecas externas:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] 
+\family typewriter
+CGnuplot 
+\family default
+[X] 
+\family typewriter
+QCustomPlot 
+\family default
+[ ] 
+\family typewriter
+Qt diálogos
+\family default
+ [ ] QT Janelas/menus/BT______
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Ferramentas auxiliares:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Montador:
+
+\family typewriter
+ 
+\family default
+[ ] make
+\family typewriter
+ 
+\family default
+[X] cmake
+\family typewriter
+ 
+\family default
+[ ] qmake
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+IDE:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[X] Editor simples:
+ kate/gedit/emacs
+\family typewriter
+ 
+\family default
+[ ] kdevelop
+\family typewriter
+ 
+\family default
+[ ] QT-Creator
+\family typewriter
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+SCV:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[ ] cvs
+\family typewriter
+ 
+\family default
+[ ] svn
+\family typewriter
+ 
+\family default
+[X] git
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color blue
+Disciplinas correlacionadas
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[ ] estatística
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+[ ] Básica:
+ média,
+ desvio padrão,
+ histogramas,
+ números pseudo randômicos.
+ Estatística descritiva.
+ Probabilidades.
+ Variáveis aleatórias Unidimensionais.
+ Função de variáveis aleatórias.
+ Variáveis aleatórias de duas ou mais dimensões.
+ Caracterização de variáveis aleatórias.
+ Variáveis aleatórias discretas e contínuas.
+ Teorema central do limite.
+ Amostragem
+\end_layout
+
+\begin_layout Itemize
+[ ] Intermediária:
+ Estimação.
+ Teste de hipótese.
+ Correlação e regressão.
+ Distribuições (normal.
+ T-Student,
+ X-quadrado)
+\end_layout
+
+\end_inset
+
+ [X] cálculo numérico 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+[ ] Básico:
+ erros,
+ solver de função (iteração de ponto fixo,
+ método das cordas,
+ Newton-Raphson),
+ integral numérica(trapésio,
+ Simpson,
+ Gauss),
+ interpolação(interpolação polinomial,
+ Lagrange,
+ Newton,
+ funções 
+\emph on
+spline
+\emph default
+),
+ ajuste de curvas(ajuste por polinômios,
+ mínimos quadrados) .
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+[ ] Intermediário:
+ matrizes e sistemas de equações lineares(solver de sistema de equações - TDMA,
+ eliminação gauss,
+ fatoração LU),
+ solução numérica de equações diferenciais(método de Euler,
+ método de Taylor e Runge-Kutta)
+\end_layout
+
+\end_deeper
+\end_inset
+
+ [X]
+\family typewriter
+ 
+\family default
+modelamento numérico 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+[ ] Volume de controle (equações de balanço).
+ [ ] Diferenças finitas.
+ [ ] Elementos finitos
+\end_layout
+
+\end_inset
+
+ [X] análise e processamento de imagens
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

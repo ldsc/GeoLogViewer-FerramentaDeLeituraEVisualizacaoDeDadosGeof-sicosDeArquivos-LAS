@@ -1,0 +1,466 @@
+
+\chapter{Projeto \label{chap:Projeto-do-Sistema}}
+
+\lhead{\thechapter - Projeto} 
+
+Neste capítulo do projeto de engenharia veremos questões associadas
+ao projeto do sistema, incluindo protocolos, recursos, plataformas
+suportadas, inplicações nos diagramas feitos anteriormente, diagramas
+de componentes e implantação. Na segunda parte revisamos os diagramas
+levando em conta as decisões do projeto do sistema.
+
+\section{Projeto do Sistema\index{Projeto do sistema}\label{sec:Projeto-do-sistema}}
+
+O projeto do sistema GeoLogViewer foi estruturado com base na análise
+orientada a objeto e nas demandas específicas do processamento de
+dados geofísicos em Engenharia de Petróleo. A aplicação foi concebida
+como um software desktop leve e autônomo, desenvolvido em C++ e integrado
+ao Gnuplot para a visualização gráfica das curvas e interpretações
+petrofísicas.
+\begin{enumerate}
+\item Protocolos\index{Protocolos}
+
+\begin{itemize}
+\item Entre elementos externos: O GeoLogViewer não depende de dispositivos
+físicos nem APIs remotas. A única interação externa ocorre com o Gnuplot,
+por meio do envio de comandos e dados através de pipes ou arquivos
+temporários para geração de gráficos. Fora isso, a aplicação opera
+de forma totalmente local.
+\item Entre elementos internos: A comunicação entre os módulos ocorre por
+chamadas diretas de métodos entre objetos C++. Cada classe expõe sua
+funcionalidade principal por meio de sua interface pública, e os dados
+trafegam por referências, ponteiros inteligentes (smart pointers)
+e containers da STL.
+\item Interface das classes: As APIs internas são descritas nos arquivos
+.h, onde são definidos os métodos públicos, atributos essenciais e
+contratos das classes como CWellLog, CLogCurve, CInterpreter, CPlotter
+e CLASReader. Essas interfaces documentam o que cada módulo oferece
+ao restante do sistema.
+\item Formato de arquivos: O software trabalha principalmente com arquivos
+LAS (entrada), seguindo o padrão Log ASCII Standard, e gera arquivos
+CSV contendo curvas interpretadas e intervalos calculados. Para gráficos,
+são produzidos arquivos PNG ou SVG gerados por Gnuplot. Todos os formatos
+são abertos e facilmente manipuláveis.
+\end{itemize}
+\item Recursos\index{Recursos}
+
+\begin{itemize}
+\item Uso de memória: O gerenciamento é feito pela STL, utilizando std::vector,
+std::map e smart pointers (std::unique\_ptr, std::shared\_ptr). Os
+dados das curvas são mantidos em estruturas contíguas para eficiência
+em cálculos numéricos.
+\item Banco de dados: Não é utilizado banco de dados. Todas as informações
+são carregadas diretamente de arquivos LAS e exportadas para CSV.
+\item Armazenamento: Todos os dados são salvos localmente pelo usuário.
+A leveza dos arquivos LAS e CSV garante alta portabilidade e facilidade
+de versionamento.
+\end{itemize}
+\item Controle\index{Controle}
+
+\begin{itemize}
+\item Baseado em execução sequencial: O fluxo principal segue uma ordem
+definida: leitura do arquivo \textrightarrow{} armazenamento dos dados
+\textrightarrow{} interpretação \textrightarrow{} plotagem. A aplicação
+não utiliza event loop gráfico, mas possui um controle centralizado
+pelo CGeoLogViewerApp.
+\item Condições extremas: O sistema trata cenários como arquivos LAS mal-formados,
+curvas ausentes ou valores inconsistentes. O parser do LAS (CLASReader)
+verifica seções obrigatórias e notifica erros. Funções de interpretação
+validam tamanhos e unidades das curvas antes dos cálculos.
+\item Escalas de tempo: O processamento é imediato, com operações realizadas
+assim que o usuário solicita leitura, interpretação ou plotagem. As
+curvas interpretadas são geradas e exportadas logo após a execução
+dos cálculos.
+\item Concorrência: A aplicação é leve e realiza cálculos relativamente
+rápidos, portanto a concorrência ainda não é necessária. Contudo,
+o projeto permite futura implementação com std::thread ou std::async
+para paralelizar cálculos petrofísicos.
+\end{itemize}
+\item Plataformas\index{Plataformas}
+
+\begin{itemize}
+\item Arquitetura: O software utiliza uma estrutura modular clara, organizada
+em camadas: entrada, modelo, processamento e visualização.
+\item Plataformas suportadas: O sistema foi projetado para compilar em Windows
+e Linux, utilizando apenas recursos padrão do C++ e ferramentas externas
+simples (Gnuplot), garantindo portabilidade.
+\item Bibliotecas utilizadas: STL - containers, algoritmos e gestão de memória;
+Gnuplot - geração dos gráficos interpretados
+\item IDE: O projeto pode ser desenvolvido em qualquer editor, mas utiliza
+CMake, permitindo integração com Visual Studio, VSCode, CLion ou qualquer
+outra IDE moderna.
+\end{itemize}
+\item Padrões de projeto
+
+\begin{itemize}
+\item Modularidade: cada classe possui uma responsabilidade única --- leitura,
+armazenamento, cálculo ou plotagem.
+\item Baixo acoplamento e alta coesão: o fluxo de dados é linear e cada
+módulo conhece somente o necessário sobre os demais. As interfaces
+são limpas e bem definidas.
+\item Padrões usados:
+\item -- Facade: CGeoLogViewerApp atua como fachada coordenando todas as
+operações.
+\item -- Strategy: os algoritmos de interpretação podem ser trocados ou
+estendidos sem alterar o núcleo do sistema.
+\item -- Adapter: a interação com o Gnuplot é encapsulada dentro do CPlotter.
+\item -- Creator/Factory (implícito): criação de curvas e poços é centralizada
+para manter consistência.
+\end{itemize}
+\end{enumerate}
+
+\section{Projeto orientado a objeto -- POO\index{POO}\index{Projeto orientado a objeto}\label{sec:Projeto-orientado-a-objeto}}
+
+O projeto orientado a objeto do GeoLogViewer foi desenvolvido considerando
+os recursos da linguagem C++, suas bibliotecas padrão (STL) e a integração
+com ferramentas externas como o Gnuplot. As classes definidas durante
+a análise foram refinadas com novos atributos, métodos e estruturas
+necessárias para atender aos requisitos arquiteturais determinados
+no projeto do sistema. Nesta etapa, são incorporadas decisões práticas
+sobre algoritmos, estruturas de dados, manipulação de arquivos, otimização
+de desempenho e controle do fluxo de execução. O modelo conceitual
+passa a considerar as particularidades da plataforma escolhida (hardware,
+SO e compilador), além de acrescentar classes e métodos específicos
+para resolver problemas não identificados na análise inicial.
+
+\subsubsection{Efeitos do projeto no modelo\index{modelo} estrutural\label{subsec:Efeito-do-projeto-no-modelo-estrutural}}
+\begin{itemize}
+\item Atualização dos diagramas de pacotes: O sistema foi organizado em
+subsistemas claros --- Leitura, Modelo, Interpretação, Plotagem e
+App Central. Essa separação permite modularidade e facilita a manutenção.
+\item Refinamento dos diagramas de classes: As classes receberam novos atributos
+como std::vector<float>, std::map<std::string, CLogCurve> e std::vector<Interval>.
+Também foram acrescentados métodos concretos como ParseLAS(), PlotCurve(),
+ComputeDerivedWI(), GetCurvesInterpretadas() e controladores centrais
+como Execute() dentro do CGeoLogViewerApp.
+\item Inclusão de classes auxiliares: O projeto adicionou estruturas como
+CFormationZone, Derived, Interval, entre outras, para suportar cálculos
+petrofísicos e detalhar intervalos e propriedades.
+\end{itemize}
+
+\subsubsection{Efeitos do projeto no modelo\index{modelo} dinâmico\label{subsec:Efeito-do-projeto-no-modelo-dinamico}}
+\begin{itemize}
+\item Atualização dos diagramas de sequência: Os diagramas agora refletem
+o fluxo real de execução, incluindo chamadas aos métodos de parsing,
+cálculo e plotagem.
+\item Aprimoramento do diagrama de comunicação: Cada classe passa a interagir
+conforme seus métodos concretos, evidenciando compartilhamento de
+dados entre CWellLog, CLogCurve, CInterpreter e CPlotter.
+\item Completar diagramas de atividades: O fluxo agora inclui etapas como
+validação do arquivo LAS, normalização das curvas, seleção das curvas
+de interpretação e exportação para CSV.
+\end{itemize}
+
+\subsubsection{Efeitos do projeto nos atributos\index{atributos}\label{subsec:Efeito-do-projeto-nos-atributos}}
+\begin{itemize}
+\item Novos atributos adicionados para implementação real:
+\item -- Vetores de profundidade (std::vector<float> vDepth)
+\item -- Armazenamento de curvas (std::map<std::string, CLogCurve> mapCurves)
+\item -- Zona de formação (std::map<std::string, double> mProps)
+\item -- Flags internas (bool mLASCarregado, bool mInterpretacaoPronta)
+\item -- Ponteiros ou referências para classes centrais (ex: ponteiro para
+CLASReader dentro de CGeoLogViewerApp)
+\item Esses atributos foram acrescentados para otimizar cálculos, melhorar
+o acesso aos dados e minimizar conversões redundantes.
+\end{itemize}
+
+\subsubsection{Efeitos do projeto nos métodos\index{métodos}\index{Efeitos do projeto nos métodos}}
+\begin{itemize}
+\item Métodos refinados ou criados especificamente para a implementação:
+\item -- bool LoadFromFile()
+\item -- AddCurveValue()
+\item -- ComputeDerivedWI()
+\item -- PickReservoirs()
+\item -- PlotCurve()
+\item -- WriteCSV()
+\item -- Métodos de controle: Menu(), Execute(), AcaoListarCurvas()
+\item -- Métodos auxiliares de verificação e normalização.
+\item Os métodos recebem parâmetros específicos (vetores, referências, nomes
+de curva, parâmetros petrofísicos), algo não detalhado na análise,
+mas essencial para implementação real.
+\end{itemize}
+
+\subsubsection{Efeitos do projeto nas heranças\index{heranças}\index{Efeitos do projeto nas heranças}\index{Heranças}}
+\begin{itemize}
+\item Heranças funcionais:
+\item Embora o sistema utilize principalmente composição, algumas classes
+adotam herança para especializar comportamentos, como:
+\item -- CGeoLogViewerApp especializando o comportamento de controle geral,
+agregando outros módulos.
+\item -- Classes auxiliares de cálculo podem herdar de tipos base conceituais
+(ex: famílias de cálculos petrofísicos), permitindo extensões futuras.
+\item Heranças conceituais:
+\item As classes seguem princípios de agrupamento hierárquico --- uma curva
+(CLogCurve) pertence a um poço (CWellLog), e zonas de formação são
+tratadas como componentes naturais do poço.
+\end{itemize}
+
+\subsubsection{Efeitos do projeto nas associações\index{Efeitos do projeto nas associações}\index{Associações}}
+\begin{itemize}
+\item Associações implementadas por containers STL:
+\item -- Poço \textrightarrow{} curvas: std::map<std::string, CLogCurve>
+\item -- Curva \textrightarrow{} dados: std::vector<float>
+\item -- Interpretação \textrightarrow{} resultados: std::vector<Derived>
+ou std::vector<Interval>
+\item Associações diretas entre módulos principais: CGeoLogViewerApp mantém
+associações diretas com CLASReader, CWellLog, CInterpreter e CPlotter,
+controlando o fluxo completo.
+\item Uso de referências ou ponteiros: Permite reduzir cópias e trabalhar
+com objetos grandes (como curvas com milhares de amostras).
+\end{itemize}
+
+\subsubsection{Efeitos do projeto nas otimizações\index{otimizações}}
+\begin{itemize}
+\item Desempenho:
+\item -- Vetores contíguos (std::vector) foram priorizados para cálculos
+numéricos eficientes.
+\item -- Erros são detectados cedo para evitar desperdício de processamento.
+\item -- Gnuplot é chamado apenas com dados necessários, minimizando overhead.
+\item Organização:
+\item -- Classes auxiliares foram criadas para separar parsing, armazenamento,
+cálculo e visualização.
+\item -- O código foi estruturado para minimizar acoplamento e facilitar
+manutenção.
+\item Escalabilidade:
+\item -- O projeto permite adicionar novos algoritmos de interpretação.
+\item -- A estrutura facilita futura inclusão de interfaces gráficas, novos
+formatos de arquivo ou paralelização dos cálculos.
+\item -- O núcleo petrofísico pode evoluir para incluir métodos avançados
+como Neural Logs ou inversão.
+\end{itemize}
+
+\section{Diagrama de componentes\index{Diagrama de componentes}\label{sec:Diagrama-de-componentes}}
+
+O diagrama de componentes mostra as relações entre todos os componentes
+do software e é apresentado na Figura\ref{cap:Diagrama-de-componentes}
+
+O diagrama de componentes apresentado evidencia a organização estrutural
+do sistema e as dependências existentes entre os módulos que o compõem.
+Ele destaca como cada componente participa da solução, mostrando de
+que forma as funcionalidades são distribuídas e como o fluxo de informações
+se estabelece entre eles. No centro da arquitetura encontra-se o componente
+CGeoLogViewerApp, responsável por coordenar as operações principais
+da aplicação e atuar como ponto de integração entre os demais módulos.
+
+A partir dele, observam-se dependências direcionadas para três componentes
+essenciais: CLASReader, encarregado da leitura e interpretação inicial
+dos arquivos LAS; CInterpreter, que atua como intermediário na preparação
+e organização dos dados interpretados; e CPetrophysicsCalculator,
+responsável pelo cálculo dos parâmetros derivados utilizados na análise
+petrofísica. Além disso, o componente CPlotter mantém uma relação
+de dependência com a aplicação principal, sendo ele o responsável
+pela renderização gráfica das curvas processadas. Assim, o diagrama
+apresenta claramente uma arquitetura modular, na qual cada componente
+possui responsabilidades bem definidas e colabora para garantir a
+funcionalidade completa do sistema.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaDeComponentes}
+\par\end{centering}
+\caption{Diagrama de componentes\label{cap:Diagrama-de-componentes}}
+\end{figure}
+
+
+\section{Diagrama de implantação\index{Diagrama de implantação}\index{Diagrama de execução}\label{sec:Diagrama-de-execu=0000E7=0000E3o}}
+
+O diagrama de implantação é apresentado na Figura \ref{cap:Diagrama-de-implanta=0000E7=0000E3o.} 
+
+O diagrama de implantação demonstra como o software de perfilagem
+GeoLogViewer é disponibilizado e executado dentro da infraestrutura
+física do sistema. Esse tipo de diagrama tem foco na arquitetura computacional
+em nível físico, evidenciando os nós de hardware envolvidos, a alocação
+dos componentes de software e as interações que ocorrem entre eles
+em tempo de execução. Nele, o computador é representado como o nó
+principal, dentro do qual se encontra o Disco Rígido, responsável
+por armazenar tanto o Sistema Operacional quanto o software de perfilagem.
+O sistema operacional exerce papel fundamental, uma vez que fornece
+o ambiente necessário para a execução do programa, gerenciando os
+recursos físicos e realizando a intermediação entre hardware e aplicação.
+
+Após ser carregado pelo sistema operacional, o GeoLogViewer inicia
+o processamento dos dados de perfis, realizando cálculos e gerando
+curvas para visualização. Esse processamento é efetuado pelo Processador
+(CPU), que recebe as instruções geradas pelo software e realiza as
+operações necessárias, enviando os resultados para o monitor, onde
+são exibidos graficamente ao usuário. Além disso, o diagrama também
+apresenta o teclado como dispositivo de entrada responsável pela interação
+do usuário com o sistema, possibilitando a inserção de comandos e
+dados que são encaminhados ao processador para continuidade do fluxo
+de execução. Também é representada a relação entre o processador e
+o disco rígido, indicando o acesso constante a arquivos e ao sistema
+conforme a aplicação trabalha.
+
+Dessa forma, o diagrama de implantação evidencia todos os elementos
+essenciais para o funcionamento do software, incluindo componentes
+físicos como computador, CPU, teclado, monitor e disco rígido, bem
+como a organização e comunicação entre eles. Além disso, representa
+claramente as dependências e associações necessárias para execução
+do programa, mostrando como o ambiente computacional suporta o processamento
+e a exibição dos dados visualizados. Assim, este diagrama cumpre seu
+propósito ao descrever com clareza a arquitetura física do sistema,
+demonstrando o fluxo de execução, funcionamento dos dispositivos e
+relação entre hardware e software dentro do ambiente operacional.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaDeImplantação}
+\par\end{centering}
+\caption{Diagrama de implantação\label{cap:Diagrama-de-implanta=0000E7=0000E3o.}}
+\end{figure}
+
+
+\subsection{Lista de características <\textcompwordmark <features>\textcompwordmark >\label{subsec: Lista de caracter=0000EDsticas <<features>>}}
+
+\textbf{Versão v0.1 -- Núcleo de Leitura e Estruturação dos Dados
+LAS}
+
+Nesta primeira fase, o desenvolvimento concentrou-se na implementação
+do núcleo de dados do GeoLogViewer. O objetivo foi estabelecer a base
+do sistema, com foco na leitura, organização e armazenamento das curvas
+e metadados contidos em arquivos LAS. Essa etapa fornece o alicerce
+para as funcionalidades posteriores de interpretação e plotagem.
+
+\textbf{Features v0.1:}
+\begin{itemize}
+\item Implementação da classe CLASReader, responsável pela leitura estruturada
+de arquivos LAS.
+\item Extração e armazenamento de profundidades, curvas geofísicas e metadados
+do poço.
+\item Criação da classe CLogCurve, representando uma curva individual com
+nome, unidade e vetor de valores.
+\item Implementação da classe CWellLog, contendo todas as curvas e informações
+gerais do poço.
+\item Validação inicial do arquivo LAS (checagem de seções obrigatórias
+e tamanho dos dados).
+\item Construção das estruturas de dados principais (std::vector, std::map)
+para armazenar e acessar curvas de forma eficiente.
+\item Testes iniciais de consistência entre o número de profundidades e
+o número de amostras das curvas.
+\end{itemize}
+\textbf{Versão v0.2 -- Módulo de Plotagem Inicial e Integração com
+Gnuplot}
+
+Na segunda fase, foram desenvolvidas as funcionalidades essenciais
+de visualização das curvas lidas. O sistema passou a gerar gráficos
+utilizando o Gnuplot, integrando o backend de dados com a camada de
+plotagem, tornando possível ao usuário visualizar perfis completos
+ou curvas selecionadas.
+
+\textbf{Features v0.2:}
+\begin{itemize}
+\item Implementação da classe CPlotter, responsável por preparar dados e
+comandos para o Gnuplot.
+\item Integração com a ferramenta Gnuplot para geração de gráficos em PNG
+e SVG.
+\item Plotagem de curvas individuais selecionadas pelo usuário.
+\item Plotagem simultânea de múltiplas curvas em um único gráfico.
+\item Exportação de gráficos para arquivos externos.
+\item Criação de opções iniciais de plotagem (limites de eixo, cores padrão,
+espessura de linha).
+\item Testes de plotagem com arquivos LAS reais, garantindo compatibilidade
+e estabilidade.
+\end{itemize}
+\textbf{Versão v0.3 -- Interpretação Petrofísica e Visualização Avançada}
+
+A etapa final introduziu funcionalidades de interpretação, tornando
+o GeoLogViewer uma ferramenta não apenas de visualização, mas também
+analítica. Foram implementados cálculos petrofísicos básicos, intervalos
+interpretados, curvas derivadas e recursos avançados de visualização.
+
+\textbf{Features v0.3:}
+\begin{itemize}
+\item Implementação da classe CInterpreter, responsável pela interpretação
+automática de curvas.
+\item Integração com o módulo CPetroPhysicsCalculator, incluindo:
+\item -- Cálculo de Vshale (Larionov / Linear).
+\item -- Cálculo de porosidade (densidade, neutrão e densidade-neutrão).
+\item -- Geração de curvas derivadas.
+\item Identificação preliminar de zonas de interesse e intervalos potenciais
+de reservatório.
+\item Implementação da classe CFormationZone, armazenando topo, base, espessura
+e propriedades interpretadas.
+\item Plotagem de interpretações sobrepostas às curvas originais.
+\item Exportação de resultados interpretativos em arquivo CSV.
+\item Testes com múltiplos arquivos LAS para validar robustez das interpretações
+e variações entre curvas.
+\end{itemize}
+
+\subsection{Tabela classificação sistema\label{subsec:Tabela-classifica=0000E7=0000E3o-sistema}}
+
+A Tabela a seguir é utilizada para classificação do sistema desenvolvido.
+Deve ser preenchida na etapa de projeto e revisada no final, quando
+o software for entregue na sua versão final.
+
+\begin{longtable}[c]{|>{\centering}p{3cm}|>{\centering}p{12cm}|}
+\hline 
+\textcolor{blue}{Licença:} & {[}X{]} livre GPL-v3 {[} {]} proprietária\tabularnewline
+\hline 
+\textcolor{blue}{Engenharia de software:} & {[} {]}\textcolor{blue}{{} }tradicional {[}X{]} ágil {[} {]} outras\tabularnewline
+\hline 
+\textcolor{blue}{Paradigma de programação:} & {[} {]} estruturada {[}X{]} orientado a objeto - POO {[} {]} funcional\tabularnewline
+\hline 
+\textcolor{blue}{Modelagem UML:} & {[}X{]} básica {[}X{]} intermediária {[}X{]} avançada\tabularnewline
+\hline 
+\textcolor{blue}{Algoritmos}: & {[}X{]} alto nível {[}X{]} baixo nível\tabularnewline
+\hline 
+Implementação & {[} {]} recursivo ou {[}X{]} iterativo; {[}X{]} determinístico ou
+{[} {]} não-determinístico; {[} {]} exato ou {[}X{]} aproximado\tabularnewline
+\hline 
+Concorrências:  & {[}X{]} serial {[}X{]} concorrente {[}X{]} paralelo\tabularnewline
+\hline 
+Paradigma: & {[}X{]} dividir para conquistar {[} {]} programação linear {[} {]}
+transformação/ redução {[} {]} busca e enumeração {[} {]} heurístico
+e probabilístico {[} {]} baseados em pilhas\tabularnewline
+\hline 
+\textcolor{blue}{Software:} & {[} {]} de base {[}X{]} aplicados {[} {]} de cunho geral {[}X{]}
+específicos para determinada área {[}X{]} educativo {[}X{]} científico\tabularnewline
+\hline 
+Instruções: & {[}X{]} alto nível {[} {]} baixo nível\tabularnewline
+\hline 
+Otimização & {[}X{]} serial não otimizado {[}X{]} serial otimizado {[}X{]} concorrente
+{[}X{]} paralelo {[} {]} vetorial\tabularnewline
+\hline 
+Interface do usuário & {[} {]} kernel numérico {[} {]} linha de comando {[} {]} modo texto
+{[}X{]} híbrida (texto e saídas gráficas) {[} {]} modo gráfico (ex:
+Qt) {[} {]} navegador\tabularnewline
+\hline 
+\textcolor{blue}{Recursos de C++:} & {[}X{]} C++ básico (FCC): variáveis padrões da linguagem, estruturas
+de controle e repetição, estruturas de dados, struct, classes(objetos,
+atributos, métodos), funções; entrada e saída de dados (\emph{streams}),
+funções de cmath\tabularnewline
+\hline 
+ & {[}X{]} C++ intermediário: funções lambda. Ponteiros, referências,
+herança, herança múltipla, polimorfismo, sobrecarga de funções e de
+operadores, tipos genéricos (templates), \emph{smarth pointers}. Diretrizes
+de pré-processador, classes de armazenamento e modificadores de acesso.
+Estruturas de dados: enum, uniões. Bibliotecas: entrada e saída acesso
+com arquivos de disco, redirecionamento. Bibliotecas: \emph{filesystem}\tabularnewline
+\hline 
+ & {[}X{]} C++ intermediário 2: A biblioteca de gabaritos de C++ (a STL),
+containers, iteradores, objetos funções e funções genéricas. Noções
+de processamento paralelo (múltiplas threads, uso de \emph{thread,
+join }e \emph{mutex}). Bibliotecas: \emph{random, threads}\tabularnewline
+\hline 
+ & {[} {]} C++ avançado: Conversão de tipos do usuário, especializações
+de templates, excessões. Cluster de computadores, processamento paralelo
+e concorrente, múltiplos processos (pipes, memória compartilhada,
+sinais). Bibliotecas: \emph{expressões regulares, múltiplos processos}\tabularnewline
+\hline 
+\textcolor{blue}{Bibliotecas de C++:} & {[}X{]} Entrada e saída de dados (\emph{streams}) {[}X{]} cmath {[}X{]}
+\emph{filesystem }{[} {]} \emph{random }{[}X{]} \emph{threads }{[}
+{]} \emph{expressões regulares }{[} {]} \emph{múltiplos processos}\tabularnewline
+\hline 
+\textcolor{blue}{Bibliotecas externas:} & {[}X{]} \texttt{CGnuplot }{[}X{]} \texttt{QCustomPlot }{[} {]} \texttt{Qt
+diálogos} {[} {]} QT Janelas/menus/BT\_\_\_\_\_\_\tabularnewline
+\hline 
+\textcolor{blue}{Ferramentas auxiliares:} & Montador:\texttt{ }{[} {]} make\texttt{ }{[}X{]} cmake\texttt{ }{[}
+{]} qmake\tabularnewline
+\hline 
+\textcolor{blue}{IDE:} & {[}X{]} Editor simples: kate/gedit/emacs\texttt{ }{[} {]} kdevelop\texttt{
+}{[} {]} QT-Creator\texttt{ }\tabularnewline
+\hline 
+\textcolor{blue}{SCV:} & {[} {]} cvs\texttt{ }{[} {]} svn\texttt{ }{[}X{]} git\tabularnewline
+\hline 
+\textcolor{blue}{Disciplinas correlacionadas} & {[} {]} estatística {[}X{]} cálculo numérico  {[}X{]}\texttt{ }modelamento
+numérico  {[}X{]} análise e processamento de imagens\tabularnewline
+\hline 
+\end{longtable}

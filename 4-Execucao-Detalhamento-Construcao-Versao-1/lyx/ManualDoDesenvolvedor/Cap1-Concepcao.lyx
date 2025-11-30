@@ -6,86 +6,28 @@
 \origin unavailable
 \textclass extbook
 \begin_preamble
-%-----------------------------------------------------------------
-% Para incluir formatações especificas para apresentações
-%-----------------------------------------------------------------
-%https://tex.stackexchange.com/questions/5894/latex-conditional-expression
-% Abaixo inserimos o pacote etoolbox que permite a gestão de if..else
-\usepackage{etoolbox}
-% Cria o flag
-\newtoggle{FormatoApresentacaoTRUE}
-\newtoggle{IncluirBibliografiaNoCapituloTRUE}
-%Seta o flag - deixe true se for para gerar apresentação de aula e false para formato livro
-%\toggletrue{FormatoApresentacaoTRUE}
-\togglefalse{FormatoApresentacaoTRUE}
-%\toggletrue{IncluirBibliografiaNoCapituloTRUE}
-\togglefalse{IncluirBibliografiaNoCapituloTRUE}
 
-% Para usar no meio dos arquivos do lyx crie um comando latex e cole o texto abaixo
-%\iftoggle{FormatoApresentacaoTRUE}{..verdadeiro..}{..falso..}
-%\iftoggle{FormatoApresentacaoTRUE}{\newpage}{}
+\usepackage {graphicx}
+\usepackage {longtable}
+\usepackage {indentfirst}
+\renewenvironment{center}{\par\centering}{\par}
 
-%---------------------------------------------------------------
-% Para adicionar/excluir uma seção inteira
-%---------------------------------------------------------------
-%https://tex.stackexchange.com/questions/193295/lyx-conditional-sections
-% Abaixo criamos um novo if
-\newif\ifIncluirSecaoProgramacaoAvancada
-%\FormatoApresentacaoWidefalse
-\IncluirSecaoProgramacaoAvancadatrue
-% Para usar
-% \ifIncluirSecaoProgramacaoAvancada no início do blobo
-% \fi para finalizar o bloco
+% Comentar linhas abaixo se não estiver usando pacote abntex
+% ou se o pacote ainda não foi instalado.
+% neste caso sugere-se usar citações no padrão apalike (lembra o da anbt).
+%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
+%\usepackage {helvet}
+%\renewcommand {\familydefault}{\sfdefault}
 
-%---------------------------------------------------------------
-%GERAL
-%---------------------------------------------------------------
-\usepackage{verbatim}
-%%\usepackage{algorithm}
-\usepackage{fancyvrb}
-\usepackage{keyval} 
-\usepackage{indentfirst}
-%\usepackage{color}
-\usepackage{xcolor}
+% Para uso de listagens de código
+\usepackage{color}
 \definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
-\definecolor{BLACK}{rgb}{0,0,0}%   rgb color model
-\definecolor{BLUE}{rgb}{0,0,1}%   rgb color model
-
-%Informa que vai usar o pacote listings, disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
+% Informa que vai usar o pacote listings, 
+% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
 \usepackage{listings}
-
-%Define um novo comando, chamado lst
-%observe que lst chama o comando  lstinputlisting.
-\newcommand{\lst}[2]{%
-    \noindent\rule[-1ex]{\textwidth}{0.3mm}\vspace{-1ex}
-    \lstinputlisting[caption={#2},label={#1},stringspaces=false,frame={tb},lineskip=-1pt,extendedchars=true,%
-    basicstyle=\footnotesize\tt,labelstep=1,labelstyle=\tiny,indent=2em,language=Java,breaklines]{#1}
-    \vspace{1ex}%
-}
-
-%\listfiles
-%\usepackage[]{hyperref}
-
-%\usepackage{mathptmx}  % instead of package times
-
-%\usepackage[scaled=0.9]{helvet} % or [scaled=0.92], if you like
-
-%% Pacote de citações para formato abnt
-%%\usepackage[num]{abntcite}
-%%\usepackage[alf]{abntcite}
-
-%%\usepackage[cam,a4,center]{crop}
-%% a4 é o tamanho físico
-%% center é para centralizar
-%% cam inclui quatro marcas diferentes
-
-%%\usepackage[cam,width=20truecm,height=28truecm,center]{crop}
-%\usepackage[cam,width=18truecm,height=26truecm,center]{crop}
-
-%\noindent
 \end_preamble
 \use_default_options false
-\master 3-Projeto-ModelosDeEngenharia-Master.lyx
+\master DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
 \maintain_unincluded_children no
 \language brazilian
 \language_package auto
@@ -186,20 +128,6 @@ lhead{
 thechapter
 \backslash
 space - Especificação}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-chead{}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-rhead{}  
 \end_layout
 
 \end_inset
@@ -426,76 +354,10 @@ Plotar gráficos usando biblioteca externa CGnuplot (tem livro do gnuplot na bib
 \end_layout
 
 \begin_layout Section
-Metodologia
+Nome do sistema/produto
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Metodologia"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A Figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig: Metodologia utilizada no desenvolvimento do sistema"
-nolink "false"
-
-\end_inset
-
- apresenta a metodologia a ser utilizada no desenvolvimento do sistema.
-\begin_inset Float figure
-placement document
-alignment document
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename ../../imagens/ProjetoEngenharia-Etapas-Geral-wide.png
-	lyxscale 50
-	width 100text%
-	keepAspectRatio
-	special height=0.8\textheight
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Metodologia utilizada no desenvolvimento do sistema
-\begin_inset CommandInset label
-LatexCommand label
-name "fig: Metodologia utilizada no desenvolvimento do sistema"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Nome do Sistema/Produto
-\begin_inset CommandInset label
-LatexCommand label
-name "sec: Nome do sistema/produto"
+name "sec:2.2 Nome do sistema/produto"
 
 \end_inset
 
@@ -548,7 +410,8 @@ Componentes principais
 \begin_layout Plain Layout
 Módulo de Leitura de Arquivos LAS,
  Módulo de Processamento e Análise,
- Módulo de Visualização Gráfica e Módulo de Exportação.
+ Módulo de Visualização Gráfica,
+ Módulo de Interpretação e Módulo de Exportação.
 \end_layout
 
 \end_inset
@@ -1031,7 +894,7 @@ RNF-01
 \begin_inset Text
 
 \begin_layout Plain Layout
-O sistema deve possuir interface intuitiva e acessível para estudantes com pouca familiaridade com softwares geofísicos.
+O sistema deve possuir uma interação com o usuário intuitiva e acessível para estudantes com pouca familiaridade com softwares geofísicos.
 \end_layout
 
 \end_inset
@@ -1214,12 +1077,8 @@ O sistema deve ser disponibilizado como projeto open-source,
 
 \end_layout
 
-\begin_layout Standard
-
-\end_layout
-
 \begin_layout Section
-Casos de Uso
+Casos de uso
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Casos-de-uso"
@@ -1261,6 +1120,9 @@ nolink "false"
 \end_inset
 
  mostra a descrição de um caso de uso.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float table
 placement H
 alignment document
@@ -1446,67 +1308,27 @@ status open
 O diagrama de caso de uso geral da Figura
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "cap:CasoDeUsoGeral"
+reference "cap:DiagramaDeCasoDeUsoGeral"
 nolink "false"
 
 \end_inset
 
- oferece uma visão abrangente das interações principais entre o Usuário e o sistema GeoLogViewer,
- descrevendo de forma clara e estruturada todas as etapas fundamentais do processo de leitura,
+ representa uma visão global das interações fundamentais entre o usuário e o sistema GeoLogViewer,
+ destacando as principais funcionalidades necessárias para leitura,
  seleção,
- análise e visualização de dados geofísicos provenientes de arquivos LAS.
- Trata-se de um diagrama de alto nível cujo propósito é sintetizar o fluxo central de operações do software,
- evidenciando como o usuário utiliza o sistema para transformar dados brutos de perfilagem de poços em informações visualmente interpretáveis.
-\end_layout
-
-\begin_layout Standard
-No centro do diagrama encontra-se o Usuário,
- que representa o agente principal do sistema —
- geralmente estudantes,
- pesquisadores ou profissionais que necessitam interpretar curvas geofísicas para fins acadêmicos ou didáticos.
- A partir dele se ramificam os principais casos de uso,
- iniciando pelo Escolher arquivo LAS,
- etapa inicial que permite ao usuário selecionar o arquivo de entrada contendo os dados de perfis.
- A seguir,
- o caso de uso Leitura do arquivo representa o processo interno de parsing e interpretação da estrutura LAS,
- que viabiliza a extração de metadados,
- descrições das curvas e seus respectivos valores.
-\end_layout
-
-\begin_layout Standard
-Uma vez carregado o arquivo,
- o usuário pode acessar a Listagem de curvas,
- funcionalidade que apresenta todas as curvas disponíveis no LAS,
- permitindo escolher quais delas serão visualizadas.
- A escolha é formalizada no caso de uso Seleção das curvas de plot,
- que prepara os dados para representação gráfica.
-\end_layout
-
-\begin_layout Standard
-A Plotagem das curvas constitui um dos casos de uso centrais,
- responsável pela geração dos gráficos que representam visualmente os perfis geofísicos.
- Esse caso de uso possui interação direta com o ator secundário Gnuplot,
- que surge no diagrama como o componente responsável pela renderização gráfica,
- demonstrando que o GeoLogViewer utiliza ferramentas externas especializadas para a criação dos plots.
-\end_layout
-
-\begin_layout Standard
-Além disso,
- o diagrama inclui o caso de uso Interpretação automática,
- que representa um conjunto de rotinas analíticas capazes de identificar padrões básicos nos dados,
- auxiliando o usuário na compreensão preliminar das curvas.
- Por fim,
- o caso de uso Exportação de resultados ilustra a capacidade do sistema de gerar arquivos ou imagens contendo as curvas plotadas,
- permitindo que o usuário utilize os resultados em relatórios,
- estudos ou apresentações.
-\end_layout
-
-\begin_layout Standard
-Assim,
- o diagrama sintetiza de maneira clara o funcionamento geral do GeoLogViewer,
- destacando as principais funcionalidades e evidenciando como cada etapa contribui para transformar dados geofísicos complexos em informações acessíveis e visualmente compreensíveis.
+ interpretação e plotagem de curvas provenientes de arquivos LAS.
+ Trata-se de um diagrama de caso de uso de alto nível,
+ cujo objetivo é ilustrar as ações essenciais que permitem ao usuário manipular dados geofísicos de forma estruturada dentro do software.
+ No centro do diagrama encontra-se o ator Usuário,
+ representando estudantes,
+ professores ou qualquer indivíduo interessado em visualizar perfis de poços.
+ Um ator secundário,
+ Gnuplot,
+ aparece no diagrama representando uma possível ferramenta ou biblioteca gráfica que o sistema utiliza para gerar os gráficos.
+ Ele participa especificamente do caso de uso Plotagem das curvas,
+ indicando que a geração visual depende de componentes externos especializados.
 \begin_inset Float figure
-placement H
+placement document
 alignment document
 wide false
 sideways false
@@ -1515,10 +1337,12 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeCasoDeUsoGeral.png
+	filename imagens/DiagramaDeCasoDeUsoGeral.png
 	lyxscale 50
 	width 100text%
-	special height=0.3\textheight
+	height 0.01cm
+	keepAspectRatio
+	special height=0.8\textheight
 
 \end_inset
 
@@ -1529,10 +1353,10 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Diagrama de caso de uso – Caso de uso geral
+Diagrama de caso de uso
 \begin_inset CommandInset label
 LatexCommand label
-name "cap:CasoDeUsoGeral"
+name "cap:DiagramaDeCasoDeUsoGeral"
 
 \end_inset
 
@@ -1550,7 +1374,7 @@ name "cap:CasoDeUsoGeral"
 \end_layout
 
 \begin_layout Subsection
-Diagramas de caso de uso específico
+Diagrama de caso de uso específico
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec: Diagrama de caso de uso específico"
@@ -1580,7 +1404,7 @@ Diagrama de Caso de Uso Específico de Comparação entre as Curvas
 O diagrama de caso de uso específico da Figura 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "cap:CasoDeUsoEspecificoCurvas"
+reference "cap:DiagramaCasoDeUsoEspecificoCurvas"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1641,12 +1465,12 @@ placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaCasoDeUsoEspecificoCurvas.png
+	filename imagens/DiagramaCasoDeUsoEspecificoCurvas.png
 	width 100text%
 
 \end_inset
@@ -1661,7 +1485,7 @@ status open
 Diagrama de caso de uso específico de comparação entre curvas
 \begin_inset CommandInset label
 LatexCommand label
-name "cap:CasoDeUsoEspecificoCurvas"
+name "cap:DiagramaCasoDeUsoEspecificoCurvas"
 
 \end_inset
 
@@ -1688,7 +1512,7 @@ Diagrama de Caso de Uso Específico de tipos de plotagem
 O diagrama de caso de uso específico da Figura 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "cap:CasoDeUsoEspecificoPlot"
+reference "cap:DiagramaDeCasoDeUsoEspecificoPlot"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1696,71 +1520,59 @@ nolink "false"
 
 \end_inset
 
- ilustra as diferentes formas de plotagem disponíveis no sistema GeoLogViewer,
- destacando como o Usuário pode interagir com o software para gerar representações gráficas variadas de curvas geofísicas.
- Este diagrama aprofunda funcionalidades que,
- embora derivadas do caso de uso geral,
- representam operações mais detalhadas e especializadas voltadas à visualização dos dados de perfis de poços.
+ as formas pelas quais o usuário pode interagir com o GeoLogViewer para gerar diferentes representações gráficas das curvas geofísicas contidas em arquivos LAS.
+ No centro do diagrama encontra-se o ator Usuário,
+ responsável por iniciar cada uma das ações de plotagem disponíveis no sistema.
+ A partir desse ator,
+ quatro casos de uso são destacados,
+ cada um representando um tipo particular de visualização que o software oferece.
 \end_layout
 
 \begin_layout Standard
-No centro do diagrama está o ator Usuário,
- que inicia os diferentes tipos de plotagem conforme sua necessidade de análise.
- O primeiro caso de uso,
- Plotar todas as curvas,
- permite gerar uma visualização completa,
- exibindo simultaneamente todos os perfis contidos no arquivo LAS.
- Essa funcionalidade é especialmente útil quando se deseja obter uma visão ampla do comportamento geral do poço,
- comparando tendências e identificando padrões de forma global.
+O primeiro caso de uso,
+ Plot Curve,
+ refere-se à funcionalidade que permite ao usuário selecionar e visualizar uma única curva de forma isolada,
+ representada individualmente em uma trilha gráfica.
+ Essa opção é útil quando se deseja realizar uma análise mais detalhada de um log específico,
+ como radiação gama ou densidade.
+ Em seguida,
+ o caso de uso Plot Multiple representa a capacidade do sistema de permitir a visualização simultânea de múltiplas curvas,
+ possibilitando ao usuário observar a relação entre diferentes logs no mesmo intervalo de profundidade,
+ recurso essencial para interpretações petrofísicas e correlações litológicas.
 \end_layout
 
 \begin_layout Standard
-O caso de uso Plotar curvas selecionadas refina essa ação,
- permitindo que o usuário escolha apenas curvas específicas para visualização.
- Essa modalidade é comum quando se quer concentrar a análise em parâmetros particulares,
- como densidade (RHOB),
- neutrão (NPHI) ou raio gama (GR),
- reduzindo a complexidade visual do gráfico.
+O caso de uso Plot Selected Tracks indica que o sistema também permite ao usuário definir quais trilhas deseja visualizar,
+ compondo um layout personalizado de análise.
+ Essa funcionalidade aproxima o GeoLogViewer de softwares profissionais usados na indústria,
+ nos quais o intérprete organiza manualmente as trilhas de interesse conforme os objetivos da avaliação.
+ Por fim,
+ o caso de uso Plot Compare Curves representa a funcionalidade destinada à comparação formal entre curvas,
+ permitindo ao usuário avaliar semelhanças,
+ contrastes,
+ padrões comuns e divergências entre logs distintos,
+ seja por sobreposição visual,
+ ajustes de escala ou outros mecanismos internos de comparação.
 \end_layout
 
 \begin_layout Standard
-A seguir,
- o caso de uso Plotar comparação de curvas selecionadas representa a funcionalidade que permite comparar diretamente duas ou mais curvas em um mesmo eixo ou em eixos normalizados.
- Esse tipo de visualização é essencial para análises petrofísicas,
- como correlação entre curvas,
- identificação de limites litológicos ou avaliação de possíveis zonas de interesse.
-\end_layout
-
-\begin_layout Standard
-Por fim,
- o caso de uso Plotar interpretação de reservatório apresenta uma funcionalidade mais analítica,
- na qual o sistema utiliza combinações de curvas —
- como densidade,
- neutrão e raio gama —
- para auxiliar o usuário na identificação preliminar de contatos entre fluidos,
- zonas porosas ou possíveis níveis de reservatório.
- Embora não substitua interpretações avançadas,
- essa plotagem fornece uma representação visual organizada que simplifica a análise inicial de dados.
-\end_layout
-
-\begin_layout Standard
-Assim,
- o diagrama evidencia,
- de forma clara e estruturada,
- que o GeoLogViewer oferece múltiplas formas de visualização gráfica,
- atendendo tanto a análises gerais quanto a estudos comparativos e interpretações preliminares de reservatórios,
- ampliando significativamente a utilidade acadêmica e prática do software.
+De forma geral,
+ o diagrama evidencia que o GeoLogViewer oferece um conjunto diversificado e flexível de modos de plotagem,
+ permitindo que o usuário escolha a abordagem mais adequada à sua análise.
+ Assim,
+ o diagrama demonstra que o sistema atende às necessidades típicas do ambiente acadêmico de Engenharia de Petróleo,
+ fornecendo múltiplas ferramentas para visualização gráfica e interpretação preliminar de dados geofísicos de perfis de poço.
 \begin_inset Float figure
 placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeCasoDeUsoEspecificoPlot.png
+	filename imagens/DiagramaDeCasoDeUsoEspecificoPlot.png
 	width 100text%
 
 \end_inset
@@ -1775,7 +1587,7 @@ status open
 Diagrama de caso de uso específico de tipos de plotagem 
 \begin_inset CommandInset label
 LatexCommand label
-name "cap:CasoDeUsoEspecificoPlot"
+name "cap:DiagramaDeCasoDeUsoEspecificoPlot"
 
 \end_inset
 

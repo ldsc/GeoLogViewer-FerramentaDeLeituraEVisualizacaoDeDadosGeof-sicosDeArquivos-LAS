@@ -1,0 +1,96 @@
+
+\chapter{Ciclos de Planejamento/Detalhamento\index{Ciclos de Planejamento/Detalhamento}
+\label{chap: Ciclos de Planejamento/Detalhamento}}
+
+Apresentam-se neste capítulo os ciclos de planejamento e detalhamento
+das diferentes versões desenvolvidas ao longo do projeto GeoLogViewer.
+Cada versão corresponde a um conjunto incremental de funcionalidades,
+evoluindo desde a estruturação inicial do sistema até a incorporação
+dos mecanismos de análise e visualização das curvas geofísicas extraídas
+dos arquivos LAS.
+
+\section{Versão 0.1\label{sec:Vers=0000E3o-0.1} - Núcleo de Leitura e Estruturação
+dos Dados LAS}
+
+\textbf{Versão v0.1 -- Núcleo de Leitura e Estruturação dos Dados
+LAS}
+
+Nesta primeira fase, o desenvolvimento concentrou-se na implementação
+do núcleo de dados do GeoLogViewer. O objetivo foi estabelecer a base
+do sistema, com foco na leitura, organização e armazenamento das curvas
+e metadados contidos em arquivos LAS. Essa etapa fornece o alicerce
+para as funcionalidades posteriores de interpretação e plotagem.
+
+\textbf{Funcionalidades da v0.1:}
+\begin{itemize}
+\item Implementação da classe CLASReader, responsável pela leitura estruturada
+de arquivos LAS.
+\item Extração e armazenamento de profundidades, curvas geofísicas e metadados
+do poço.
+\item Criação da classe CLogCurve, representando uma curva individual com
+nome, unidade e vetor de valores.
+\item Implementação da classe CWellLog, contendo todas as curvas e informações
+gerais do poço.
+\item Validação inicial do arquivo LAS (checagem de seções obrigatórias
+e tamanho dos dados).
+\item Construção das estruturas de dados principais (std::vector, std::map)
+para armazenar e acessar curvas de forma eficiente.
+\item Testes iniciais de consistência entre o número de profundidades e
+o número de amostras das curvas.
+\end{itemize}
+
+\section{Versão 0.2\label{sec:Vers=0000E3o-0.2} - Módulo de Plotagem Inicial
+e Integração com Gnuplot}
+
+\textbf{Versão v0.2 -- Módulo de Plotagem Inicial e Integração com
+Gnuplot}
+
+Na segunda fase, foram desenvolvidas as funcionalidades essenciais
+de visualização das curvas lidas. O sistema passou a gerar gráficos
+utilizando o Gnuplot, integrando o backend de dados com a camada de
+plotagem, tornando possível ao usuário visualizar perfis completos
+ou curvas selecionadas.
+
+\textbf{Funcionalidades da v0.2:}
+\begin{itemize}
+\item Implementação da classe CPlotter, responsável por preparar dados e
+comandos para o Gnuplot.
+\item Integração com a ferramenta Gnuplot para geração de gráficos em PNG
+e SVG.
+\item Plotagem de curvas individuais selecionadas pelo usuário.
+\item Plotagem simultânea de múltiplas curvas em um único gráfico.
+\item Exportação de gráficos para arquivos externos.
+\item Criação de opções iniciais de plotagem (limites de eixo, cores padrão,
+espessura de linha).
+\item Testes de plotagem com arquivos LAS reais, garantindo compatibilidade
+e estabilidade.
+\end{itemize}
+
+\section{Versão 0.3\label{sec:Vers=0000E3o-0.3} - Interpretação Petrofísica
+e Visualização Avançada}
+
+\textbf{Versão v0.3 -- Expansão das Análises e Exportação dos Resultados}
+
+A etapa final introduziu funcionalidades de interpretação, tornando
+o GeoLogViewer uma ferramenta não apenas de visualização, mas também
+analítica. Foram implementados cálculos petrofísicos básicos, intervalos
+interpretados, curvas derivadas e recursos avançados de visualização.
+
+\textbf{Funcionalidades da v0.3:}
+\begin{itemize}
+\item Implementação da classe CInterpreter, responsável pela interpretação
+automática de curvas.
+\item Integração com o módulo CPetroPhysicsCalculator, incluindo:
+\item -- Cálculo de Vshale (Larionov / Linear).
+\item -- Cálculo de porosidade (densidade, neutrão e densidade-neutrão).
+\item -- Geração de curvas derivadas.
+\item Identificação preliminar de zonas de interesse e intervalos potenciais
+de reservatório.
+\item Implementação da classe CFormationZone, armazenando topo, base, espessura
+e propriedades interpretadas.
+\item Plotagem de interpretações sobrepostas às curvas originais.
+\item Exportação de resultados interpretativos em arquivo CSV.
+\item Testes com múltiplos arquivos LAS para validar robustez das interpretações
+e variações entre curvas.
+\end{itemize}
+

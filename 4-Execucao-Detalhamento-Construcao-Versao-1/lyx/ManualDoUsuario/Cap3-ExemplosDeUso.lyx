@@ -1,0 +1,785 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extbook
+\begin_preamble
+\usepackage {graphicx}
+\usepackage {longtable}
+\usepackage {indentfirst}
+\renewenvironment{center}{\par\centering}{\par}
+
+% Comentar linhas abaixo se não estiver usando pacote abntex
+% ou se o pacote ainda não foi instalado.
+% neste caso sugere-se usar citações no padrão apalike (lembra o da anbt).
+%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
+%\usepackage {helvet}
+%\renewcommand {\familydefault}{\sfdefault}
+
+% Para uso de listagens de código
+\usepackage{color}
+\definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
+% Informa que vai usar o pacote listings, 
+% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
+\usepackage{listings}
+\end_preamble
+\use_default_options false
+\master DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
+\maintain_unincluded_children no
+\language brazilian
+\language_package auto
+\inputencoding auto-legacy
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement p
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize a4
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 210mm
+\paperheight 297mm
+\leftmargin 30mm
+\topmargin 25mm
+\rightmargin 20mm
+\bottommargin 20mm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Exemplos de Uso
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Exemplos de Uso"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lhead{
+\backslash
+thechapter - Teste} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nesta parte do projeto apresentamos alguns exemplos de uso do software.
+\end_layout
+
+\begin_layout Section
+Exemplo 1
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Exemplo-1"
+
+\end_inset
+
+:
+ Leitura do arquivo LAS e verificação dos perfis
+\end_layout
+
+\begin_layout Standard
+O primeiro exemplo teve por objetivo validar o procedimento de carregamento e parsing de um arquivo LAS de entrada e confirmar que o parser extrai corretamente metadados e curvas para posterior processamento.
+ A Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Lendo Arquivo LAS"
+nolink "false"
+
+\end_inset
+
+ apresenta a execução do binário do GeoLogViewer em ambiente Windows,
+ exibindo o menu principal do sistema.
+ A sequência demonstrada inclui a seleção da opção "1) Carregar LAS",
+ a indicação do caminho relativo do arquivo de teste (../data/1-KPGL-1D-SPS_GR-RES.las) e a mensagem de confirmação apresentada pelo programa:
+ "Arquivo lido com sucesso!".
+ Essa mensagem sinaliza que o CLASReader completou o parsing sem erros críticos e que os dados foram aceitos pela estrutura interna (CWellLog) para as etapas seguintes.
+\end_layout
+
+\begin_layout Standard
+A Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Listar curvas presente no arquivo LAS"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+ complementa a validação ao mostrar o resultado da operação de listagem de curvas (opção "2) Listar curvas").
+ O console apresenta a lista de mnemonic codes das curvas detectadas no LAS —
+ por exemplo:
+ AP,
+ ATMP,
+ ECD,
+ GR,
+ ROP,
+ RPD2,
+ RPM2,
+ RPS2,
+ TVAXAVG,
+ TVD,
+ entre outras —
+ demonstrando que o leitor identificou corretamente os nomes,
+ preservou a ordem e organizou as curvas em estruturas consultáveis.
+ A exibição dessas curvas confirma que o sistema extraiu tanto as curvas quanto seus vetores de amostras,
+ o que é condição necessária para operações posteriores como normalização,
+ comparação,
+ interpretação e plotagem.
+\end_layout
+
+\begin_layout Standard
+As duas figuras evidenciam o comportamento esperado do subsistema de I/O:
+ o GeoLogViewer é capaz de localizar e abrir um arquivo LAS,
+ realizar parse das seções relevantes e disponibilizar ao usuário o inventário de curvas encontradas.
+ A mensagem de sucesso e a listagem das curvas são indicadores de que o núcleo de leitura (CLASReader → CWellLog → CLogCurve) está operacional e robusto para arquivos com a estrutura exemplificada.
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Lendo Arquivo LAS.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt executando a leitura do arquivo LAS 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Lendo Arquivo LAS"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Listar curvas presente no arquivo LAS.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt listando curvas do arquivo LAS 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Listar curvas presente no arquivo LAS"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Exemplo 2
+\begin_inset CommandInset label
+LatexCommand label
+name "sec: Exemplo-2"
+
+\end_inset
+
+:
+ Plotagem dos perfis do poço
+\end_layout
+
+\begin_layout Standard
+O segundo teste teve como objetivo validar o módulo de plotagem do GeoLogViewer,
+ responsável por converter os dados lidos do arquivo LAS em perfis visuais interpretáveis.
+ A Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Plotagem de todos os gráficos"
+nolink "false"
+
+\end_inset
+
+.
+ mostra a execução da funcionalidade “3) Plotar tracks selecionadas (multiplot)”,
+ na qual o usuário pode optar por visualizar todas as curvas simultaneamente ou selecionar apenas algumas delas.
+ Neste caso,
+ a plotagem de todos os perfis foi realizada utilizando o backend gráfico do Gnuplot,
+ gerando uma interface visual com múltiplas faixas verticais,
+ cada uma correspondente a uma curva do arquivo.
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Plotagem de todos os gráficos.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt ilustrando os perfis do arquivo
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Plotagem de todos os gráficos"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+O resultado exibido confirma que o sistema organizou corretamente cada curva em seu respectivo track,
+ preservando escalas individuais conforme os valores originais registrados no LAS.
+ Observa-se também que o eixo vertical representa a profundidade em metros,
+ enquanto cada track possui seu próprio eixo horizontal de amplitude,
+ variando de acordo com a unidade da curva (como GAPI,
+ PSI,
+ OHMM,
+ LB/G,
+ entre outras).
+ A consistência na exibição dos valores,
+ a estabilidade na renderização das curvas e a ausência de artefatos visuais indicam que o módulo CPlotter está convertendo corretamente os vetores numéricos armazenados em CLogCurve para vetores gráficos.
+\end_layout
+
+\begin_layout Standard
+As Figuras .
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Curvas com overlay e normalizadas"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+ ,
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Curvas com overlay e sem normalização"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+ e 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Curvas sem overlay"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+ complementarão este teste,
+ demonstrando cenários específicos de visualização respectivamente:
+\end_layout
+
+\begin_layout Itemize
+Plotagem com overlay e normalização,
+ onde duas curvas são ajustadas para a mesma escala e sobrepostas no mesmo track,
+ facilitando análises comparativas;
+\end_layout
+
+\begin_layout Itemize
+Plotagem com overlay sem normalização,
+ na qual as curvas são sobrepostas mantendo suas escalas originais,
+ destacando diferenças absolutas entre magnitudes;
+\end_layout
+
+\begin_layout Itemize
+Plotagem sem overlay,
+ exibindo as curvas selecionadas em tracks individuais para inspeção isolada.
+\end_layout
+
+\begin_layout Standard
+Esses modos de plotagem asseguram flexibilidade para análises de perfis geofísicos,
+ atendendo tanto a interpretações rápidas quanto a estudos comparativos mais detalhados.
+ O teste confirma que o módulo gráfico do GeoLogViewer está funcional,
+ responsivo e adequado para o fluxo de trabalho de visualização de dados de poços.
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Comparação curvas GR e RPS2 com overlay e normalizadas.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt ilustrando os perfis com overlay e normalização
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Curvas com overlay e normalizadas"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Comparação das curvas GR e RPS2 com overlay e sem normalizar.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt ilustrando perfis com overlay e sem normalização
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Curvas com overlay e sem normalização"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Comparação das curvas GR e PRS2 sem overlay.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt ilustrando perfis sem overlay
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Curvas sem overlay"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Exemplo 3
+\begin_inset CommandInset label
+LatexCommand label
+name "sec: Exemplo-3"
+
+\end_inset
+
+:
+ Interpretação automática,
+ exportação de dados e encerramento do aplicativo
+\end_layout
+
+\begin_layout Standard
+O terceiro teste tem como finalidade validar o módulo de interpretação petrofísica,
+ a exportação de intervalos interpretados e o comportamento do sistema durante o encerramento.
+ A primeira imagem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Interpretação automática do reservatório"
+nolink "false"
+
+\end_inset
+
+.
+ demonstra a execução da funcionalidade “5) Interpretação básica (GR | VSH | dR/RR) + shading”,
+ responsável por realizar automaticamente uma análise preliminar dos perfis geofísicos.
+ Nesse processo,
+ o usuário seleciona curvas como GR e RPS2 e o programa aplica algoritmos de interpretação —
+ como cálculo de volume de argila,
+ contraste resistivo e análises simples de possíveis zonas de reservatório.
+ O gráfico exibido mostra a curva interpretada sobreposta ao shading gerado pelo cálculo automático,
+ destacando trechos onde há maior probabilidade de presença de rocha reservatório.
+ A integração entre os módulos CInterpreter,
+ CPlotter e CPetrophysicsCalculator é evidenciada pela correta renderização dos resultados e pela coerência visual entre dados brutos e parâmetros interpretados.
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Interpretação automática do reservatório.png
+	lyxscale 25
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt ilustando a intertação do reservatório
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Interpretação automática do reservatório"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+A Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Arquivo CSV gerado"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+ apresenta o funcionamento do módulo “6) Exportar intervalos (CSV)”,
+ no qual o usuário solicita que os intervalos interpretados sejam gravados em um arquivo .csv.
+ Esse recurso permite que os resultados do GeoLogViewer sejam utilizados em análises externas,
+ relatórios acadêmicos ou importados para outros softwares de geologia e petrofísica.
+ O teste validará se o arquivo é gerado corretamente,
+ se os dados seguem o formato padronizado e se os valores exportados são consistentes com aqueles exibidos na interpretação gráfica.
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Arquivo CSV gerado com os dados da interpretação automática.png
+	lyxscale 25
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt ilustando o arquivo CSV gerado
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Arquivo CSV gerado"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+A 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Saindo do aplicativo"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+ mostrará o procedimento de encerramento do sistema através da opção “0) Sair”.
+ Esse teste garante que o aplicativo finaliza suas operações de forma limpa,
+ liberando corretamente memória,
+ fechando arquivos utilizados e evitando erros ou travamentos.
+ O comportamento esperado é que,
+ após o comando de saída,
+ o GeoLogViewer retorne ao terminal sem mensagens de erro,
+ confirmando que todos os módulos foram encerrados adequadamente.
+ 
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../ManualDoDesenvolvedor/imagens/Saindo do aplicativo após análises.png
+	lyxscale 25
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tela do prompt ilustando a saída do aplicativo
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Saindo do aplicativo"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

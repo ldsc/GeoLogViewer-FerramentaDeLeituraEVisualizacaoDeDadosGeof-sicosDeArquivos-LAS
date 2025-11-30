@@ -1,0 +1,373 @@
+\lhead{\thechapter\space - Especificação}  
+
+\chapter{Concepção\label{chap:Concep=0000E7=0000E3o}\index{Concepção}}
+
+Apresenta-se neste capítulo a concepção e a especificação do GeoLogViewer,
+um sistema computacional destinado à leitura, interpretação e visualização
+de dados geofísicos provenientes de arquivos LAS (Log ASCII Standard).
+O projeto surge da necessidade significativa observada no contexto
+acadêmico da Engenharia de Petróleo: a ausência de ferramentas acessíveis,
+intuitivas e adequadas ao ensino para a análise de perfis de poços,
+recurso essencial na formação de engenheiros de reservatórios, engenheiros
+de poço e geofísicos.
+
+Durante a graduação, é comum que estudantes tenham contato com dados
+reais de perfis de poços, mas enfrentem dificuldades ao tentar analisá-los
+devido ao uso restrito de softwares comerciais como Techlog, WellCAD
+e Petra --- ferramentas robustas, porém caras, complexas e pouco
+acessíveis no ambiente universitário. Muitas vezes, o aprendizado
+prático torna-se limitado a exemplos estáticos, capturas de tela ou
+atividades teóricas que não proporcionam ao aluno a experiência de
+manipular e visualizar curvas em tempo real. O GeoLogViewer busca
+suprir essa lacuna por meio de uma solução leve, gratuita e voltada
+exclusivamente ao uso didático.
+
+A concepção do sistema considerou os seguintes pontos fundamentais:
+\begin{itemize}
+\item Leitura estruturada de arquivos LAS, identificando metadados, curvas
+logarítmicas e unidades de medida;
+\item Visualização gráfica clara e interativa das curvas geofísicas, como
+GR, RHOB, NPHI e outras disponíveis no arquivo;
+\item Ferramentas de navegação e interpretação, incluindo zoom vertical,
+destaque de regiões de interesse e análise básica de tendências;
+\item Exportação de gráficos e captura das curvas visualizadas em formatos
+de imagem para uso em relatórios e atividades acadêmicas;
+\item Interface intuitiva, adequada para estudantes que ainda estão iniciando
+seu contato com softwares geológicos ou petrofísicos;
+\item Estrutura modular, permitindo que o sistema seja expandido com novos
+logs, algoritmos de interpretação ou cálculos petrofísicos.
+\end{itemize}
+A especificação do sistema engloba funcionalidades integradas que
+respondem em tempo real às ações do usuário, trabalhando a partir
+dos dados brutos presentes nos arquivos LAS. A modelagem conceitual
+e computacional foi realizada por meio de diagramas UML --- incluindo
+casos de uso, classes, pacotes e interações --- que definem a lógica
+interna do software, seus módulos principais e a comunicação entre
+eles. A implementação utiliza C++, garantindo desempenho elevado na
+manipulação de grandes volumes de dados e proporcionando uma interface
+gráfica estruturada, responsiva e visualmente clara.
+
+O projeto foi concebido de forma flexível e expandível, permitindo
+sua futura adaptação a outras disciplinas, cursos ou contextos acadêmicos
+que utilizem dados de perfilagem, bem como sua evolução para incluir
+cálculos petrofísicos mais avançados, integração com bancos de dados
+e ferramentas de análise estatística. Dessa forma, o GeoLogViewer
+não se limita a uma solução momentânea, mas configura-se como uma
+plataforma educacional contínua, com potencial de crescimento e adoção
+em diferentes instituições de ensino.
+
+
+\section{Nome do sistema/produto\label{sec:2.2 Nome do sistema/produto}}
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|>{\centering}p{8cm}|}
+\hline 
+\textbf{Nome} & GeoLogViewer\tabularnewline
+\hline 
+\textbf{Componentes principais} & Módulo de Leitura de Arquivos LAS, Módulo de Processamento e Análise,
+Módulo de Visualização Gráfica, Módulo de Interpretação e Módulo de
+Exportação.\tabularnewline
+\hline 
+\textbf{Missão} & A missão do GeoLogViewer é democratizar o acesso ao estudo e à interpretação
+de perfis de poços no ambiente acadêmico, oferecendo uma ferramenta
+educacional gratuita, intuitiva e tecnicamente consistente.\tabularnewline
+\hline 
+\end{tabular*}
+
+\section{Especificação\label{sec:Especifica=0000E7=0000E3o}\index{Especificação}\index{especificação}}
+
+O GeoLogViewer é um software educacional interativo desenvolvido para
+auxiliar estudantes de Engenharia de Petróleo, Geofísica e áreas correlatas
+na leitura, análise e visualização de perfis de poços registrados
+em arquivos LAS (Log ASCII Standard). O sistema oferece uma plataforma
+acessível e intuitiva para manipulação de dados geofísicos reais,
+promovendo o aprendizado prático de conceitos como radiação gama,
+densidade, porosidade, litologia e caracterização de formações.
+
+O software permite ao usuário carregar arquivos LAS de diferentes
+origens, interpretar automaticamente suas seções (versão do arquivo,
+informações do poço, parâmetros, curvas, dados), e visualizar graficamente
+os perfis contidos. A leitura é realizada diretamente a partir do
+arquivo original, respeitando sua estrutura, metadados, unidades e
+cabeçalhos, garantindo fidelidade e consistência dos dados visualizados.
+
+A interface gráfica possibilita a visualização simultânea de múltiplas
+curvas, distribuídas em trilhas ajustáveis, com funcionalidades como
+zoom vertical, deslocamento, comparação lado a lado e personalização
+dos eixos. O usuário pode destacar regiões de interesse, exportar
+imagens dos gráficos gerados e alternar entre diferentes conjuntos
+de curvas disponíveis no arquivo.
+
+O sistema também inclui ferramentas básicas de análise, permitindo
+ao usuário identificar variações significativas nas curvas, observar
+tendências e marcar possíveis zonas de reservatório ou camadas selantes,
+reforçando a compreensão dos fenômenos geológicos e petrofísicos representados
+pelos dados.
+
+\section{Requisitos\index{Requisitos}\label{sec:Requisitos} }
+
+\subsection{Requisitos funcionais\index{Requisitos funcionais}\label{subsec:Requisitos-funcionais}}
+
+Apresenta-se a seguir os requisitos funcionais.
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11.5cm}|}
+\hline 
+\textbf{RF-01} & O sistema deve permitir ao usuário carregar arquivos LAS, reconhecendo
+automaticamente suas seções.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11.5cm}|}
+\hline 
+\textbf{RF-02} & O sistema deve identificar todas as curvas presentes no arquivo, incluindo
+nomes, descrições, unidades e valores numéricos.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11.5cm}|}
+\hline 
+\textbf{RF-03} & O sistema deve plotar as curvas selecionadas em trilhas individuais,
+permitindo visualização simultânea de múltiplos logs.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11.5cm}|}
+\hline 
+\textbf{RF-04} & O sistema deve oferecer ferramentas de zoom, rolagem e ajuste de escalas
+nas trilhas.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11.5cm}|}
+\hline 
+\textbf{RF-05} & O usuário deve poder escolher quais curvas deseja visualizar e alterar
+essa seleção dinamicamente.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11.5cm}|}
+\hline 
+\textbf{RF-06} & O sistema deve exportar os gráficos gerados e permitir salvar os dados
+processados em formato padrão.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+
+
+\subsection{Requisitos não funcionais\index{Requisitos não funcionais}\label{subsec:Requisitos-n=0000E3o-funcionais}}
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11cm}|}
+\hline 
+\textbf{RNF-01} & O sistema deve possuir uma interação com o usuário intuitiva e acessível
+para estudantes com pouca familiaridade com softwares geofísicos.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11cm}|}
+\hline 
+\textbf{RNF-02} & O sistema deve ser capaz de carregar e visualizar arquivos LAS de
+tamanho médio (até alguns MB) em poucos segundos.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11cm}|}
+\hline 
+\textbf{RNF-03} & O software deve ser compatível com sistemas Windows e Linux.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11cm}|}
+\hline 
+\textbf{RNF-04} & Os gráficos produzidos devem representar fielmente os dados do arquivo
+LAS, sem distorção ou alteração não intencional.\tabularnewline
+\hline 
+\end{tabular*}
+
+\bigskip{}
+
+\begin{tabular*}{14cm}{@{\extracolsep{\fill}}|c|p{11cm}|}
+\hline 
+\textbf{RNF-05} & O sistema deve ser disponibilizado como projeto open-source, com licença
+que permita modificação e redistribuição.\tabularnewline
+\hline 
+\end{tabular*}
+
+\section{Casos de uso\label{sec:Casos-de-uso}\index{Casos de uso} }
+
+A Tabela \ref{cap:Exemplo-de-um-caso-de-uso (tabela)} mostra a descrição
+de um caso de uso.
+
+\begin{table}[H]
+\caption{Caso de uso 1\label{cap:Exemplo-de-um-caso-de-uso (tabela)}}
+
+~
+\centering{}%
+\begin{tabular}{|c|p{10cm}|}
+\hline 
+Nome do caso de uso: & Carregar Arquivo LAS\tabularnewline
+\hline 
+\hline 
+Resumo/descrição: & Permite ao usuário selecionar e carregar um arquivo LAS para leitura,
+interpretação e visualização das curvas geofísicas.\tabularnewline
+\hline 
+Etapas: & 1. Escolher o arquivo LAS desejado
+
+2. Realizar a leitura dos dados contidos no arquivo
+
+3. Selecionar as curvas de interesse de plot
+
+4. Plotar os perfis do poço
+
+5. Interpretar os intervalos de interesse\tabularnewline
+\hline 
+\hline 
+Cenários alternativos: & \begin{enumerate}
+\item Arquivo inválido ou corrompido: o sistema exibe mensagem de erro e
+solicita nova seleção.
+\item Formato desconhecido: o sistema alerta que o arquivo não segue o padrão
+LAS suportado.
+\end{enumerate}
+\tabularnewline
+\hline 
+\end{tabular}
+\end{table}
+
+
+\subsection{Diagrama de caso de uso geral\label{subsec: Diagrama de caso de uso geral}}
+
+O diagrama de caso de uso geral da Figura\ref{cap:DiagramaDeCasoDeUsoGeral}
+representa uma visão global das interações fundamentais entre o usuário
+e o sistema GeoLogViewer, destacando as principais funcionalidades
+necessárias para leitura, seleção, interpretação e plotagem de curvas
+provenientes de arquivos LAS. Trata-se de um diagrama de caso de uso
+de alto nível, cujo objetivo é ilustrar as ações essenciais que permitem
+ao usuário manipular dados geofísicos de forma estruturada dentro
+do software. No centro do diagrama encontra-se o ator Usuário, representando
+estudantes, professores ou qualquer indivíduo interessado em visualizar
+perfis de poços. Um ator secundário, Gnuplot, aparece no diagrama
+representando uma possível ferramenta ou biblioteca gráfica que o
+sistema utiliza para gerar os gráficos. Ele participa especificamente
+do caso de uso Plotagem das curvas, indicando que a geração visual
+depende de componentes externos especializados.
+\begin{figure}[ph]
+\begin{centering}
+\includegraphics[width=1\textwidth,totalheight=0.01cm,keepaspectratio,height=0.8\textheight]{imagens/DiagramaDeCasoDeUsoGeral}
+\par\end{centering}
+\caption{Diagrama de caso de uso\label{cap:DiagramaDeCasoDeUsoGeral}}
+\end{figure}
+
+
+\subsection{Diagrama de caso de uso específico\label{subsec: Diagrama de caso de uso espec=0000EDfico}}
+
+\textbf{Diagrama de Caso de Uso Específico de Comparação entre as
+Curvas}
+
+O diagrama de caso de uso específico da Figura \ref{cap:DiagramaCasoDeUsoEspecificoCurvas}
+apresenta as opções que o usuário possui dentro do GeoLogViewer para
+analisar curvas geofísicas de maneiras distintas, conforme o objetivo
+da interpretação. No centro do diagrama encontra-se o ator Usuário,
+representando o estudante ou profissional que manipula o software.
+A partir dele, ramificam-se três casos de uso principais, cada um
+correspondendo a uma forma diferente de realizar comparações visuais
+entre as curvas registradas no arquivo LAS.
+
+O primeiro caso de uso, Curvas Sobrepostas e Normalizadas, refere-se
+à funcionalidade na qual o sistema exibe duas ou mais curvas simultaneamente
+em uma mesma trilha, após normalização dos valores. Esse método é
+particularmente útil quando as curvas possuem escalas muito distintas,
+pois a normalização coloca todas em uma escala comum, permitindo uma
+visualização comparativa mais clara e facilitando a identificação
+de padrões conjuntos, correlações e tendências geológicas.
+
+O segundo caso de uso, Curvas Sobrepostas e Não-Normalizadas, mostra
+que o usuário pode também comparar curvas sobrepostas mantendo suas
+unidades e escalas originais. Nessa forma de visualização, preserva-se
+a magnitude real dos logs, o que é importante para análises que dependem
+diretamente dos valores absolutos das curvas, como identificação de
+limites petrofísicos, avaliação de cutoffs ou observação de anomalias
+específicas dentro dos registros.
+
+Por fim, o caso de uso Curvas Não-Sobrepostas e Não-Normalizadas representa
+a forma clássica de apresentação de perfis de poços, na qual cada
+curva é exibida em sua trilha individual, com sua escala original
+e sem qualquer tipo de ajuste ou sobreposição. Esse modo de visualização
+é amplamente utilizado em ambientes acadêmicos e profissionais, pois
+permite a leitura isolada de cada parâmetro geofísico, facilitando
+a identificação de variações verticais, mudanças de litologia e interpretação
+estratigráfica.
+
+De maneira geral, o diagrama evidencia que o GeoLogViewer oferece
+diferentes categorias de comparação que atendem tanto a análises qualitativas
+quanto quantitativas, possibilitando ao usuário escolher o tipo de
+visualização mais adequado às necessidades de estudo ou interpretação.
+A diversidade de opções demonstra o caráter didático e flexível do
+software, permitindo que estudantes explorem as curvas de poço sob
+várias perspectivas e compreendam melhor a relação entre diferentes
+logs utilizados na Engenharia de Petróleo e na Geofísica.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaCasoDeUsoEspecificoCurvas}
+\par\end{centering}
+\caption{Diagrama de caso de uso específico de comparação entre curvas\label{cap:DiagramaCasoDeUsoEspecificoCurvas}}
+\end{figure}
+
+\textbf{Diagrama de Caso de Uso Específico de tipos de plotagem}
+
+O diagrama de caso de uso específico da Figura \ref{cap:DiagramaDeCasoDeUsoEspecificoPlot}
+as formas pelas quais o usuário pode interagir com o GeoLogViewer
+para gerar diferentes representações gráficas das curvas geofísicas
+contidas em arquivos LAS. No centro do diagrama encontra-se o ator
+Usuário, responsável por iniciar cada uma das ações de plotagem disponíveis
+no sistema. A partir desse ator, quatro casos de uso são destacados,
+cada um representando um tipo particular de visualização que o software
+oferece.
+
+O primeiro caso de uso, Plot Curve, refere-se à funcionalidade que
+permite ao usuário selecionar e visualizar uma única curva de forma
+isolada, representada individualmente em uma trilha gráfica. Essa
+opção é útil quando se deseja realizar uma análise mais detalhada
+de um log específico, como radiação gama ou densidade. Em seguida,
+o caso de uso Plot Multiple representa a capacidade do sistema de
+permitir a visualização simultânea de múltiplas curvas, possibilitando
+ao usuário observar a relação entre diferentes logs no mesmo intervalo
+de profundidade, recurso essencial para interpretações petrofísicas
+e correlações litológicas.
+
+O caso de uso Plot Selected Tracks indica que o sistema também permite
+ao usuário definir quais trilhas deseja visualizar, compondo um layout
+personalizado de análise. Essa funcionalidade aproxima o GeoLogViewer
+de softwares profissionais usados na indústria, nos quais o intérprete
+organiza manualmente as trilhas de interesse conforme os objetivos
+da avaliação. Por fim, o caso de uso Plot Compare Curves representa
+a funcionalidade destinada à comparação formal entre curvas, permitindo
+ao usuário avaliar semelhanças, contrastes, padrões comuns e divergências
+entre logs distintos, seja por sobreposição visual, ajustes de escala
+ou outros mecanismos internos de comparação.
+
+De forma geral, o diagrama evidencia que o GeoLogViewer oferece um
+conjunto diversificado e flexível de modos de plotagem, permitindo
+que o usuário escolha a abordagem mais adequada à sua análise. Assim,
+o diagrama demonstra que o sistema atende às necessidades típicas
+do ambiente acadêmico de Engenharia de Petróleo, fornecendo múltiplas
+ferramentas para visualização gráfica e interpretação preliminar de
+dados geofísicos de perfis de poço.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{imagens/DiagramaDeCasoDeUsoEspecificoPlot}
+\par\end{centering}
+\caption{Diagrama de caso de uso específico de tipos de plotagem \label{cap:DiagramaDeCasoDeUsoEspecificoPlot}}
+\end{figure}
+

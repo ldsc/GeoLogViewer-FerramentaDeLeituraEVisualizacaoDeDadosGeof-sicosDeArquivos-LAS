@@ -123,10 +123,6 @@ UNIVERSIDADE ESTADUAL DO NORTE FLUMINENSE
 \end_inset
 
 LABORATÓRIO DE ENGENHARIA E EXPLORAÇÃO DE PETRÓLEO
-\begin_inset Newline newline
-\end_inset
-
-CENTRO DE CIÊNCIA E TECNOLOGIA
 \end_layout
 
 \begin_layout Standard
@@ -148,7 +144,7 @@ O título deve ser o mais claro possível,
 \end_layout
 
 \begin_layout Standard
-\begin_inset VSpace 3cm
+\begin_inset VSpace 5cm
 \end_inset
 
 
@@ -171,7 +167,7 @@ Setor de Modelagem Matemática Computacional
 \end_layout
 
 \begin_layout Standard
-\begin_inset VSpace 3cm
+\begin_inset VSpace 5cm
 \end_inset
 
 
@@ -236,19 +232,7 @@ MACAÉ - RJ
 \begin_inset Newline newline
 \end_inset
 
-NOVEMBRO 2025
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\size large
-Corrigir a data
-\end_layout
-
-\end_inset
-
-
+NOVEMBRO - 2025
 \end_layout
 
 \end_body

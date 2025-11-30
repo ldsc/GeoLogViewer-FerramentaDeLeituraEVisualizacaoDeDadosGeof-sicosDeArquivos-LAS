@@ -1,0 +1,186 @@
+
+\chapter{Teste\label{chap:Teste}}
+
+\lhead{\thechapter - Teste} 
+
+Todo projeto de engenharia passa por uma etapa de testes. Neste capítulo,
+apresentamos alguns testes do software GeoLogViewer. Esses testes
+têm o objetivo de validar as funcionalidades do sistema, verificando
+se os resultados obtidos estão de acordo com os requisitos definidos
+nos diagramas de caso de uso. Cada teste foi estruturado com dados
+de entrada, resultados esperados e análise de comportamento da aplicação.
+
+\section{Teste 1\label{sec:Teste-1}: Leitura do arquivo LAS e verificação
+dos perfis}
+
+O primeiro teste teve por objetivo validar o procedimento de carregamento
+e parsing de um arquivo LAS de entrada e confirmar que o parser extrai
+corretamente metadados e curvas para posterior processamento. A Figura
+\ref{fig:Lendo Arquivo LAS} apresenta a execução do binário do GeoLogViewer
+em ambiente Windows, exibindo o menu principal do sistema. A sequência
+demonstrada inclui a seleção da opção \textquotedbl 1) Carregar LAS\textquotedbl ,
+a indicação do caminho relativo do arquivo de teste (../data/1-KPGL-1D-SPS\_GR-RES.las)
+e a mensagem de confirmação apresentada pelo programa: \textquotedbl Arquivo
+lido com sucesso!\textquotedbl . Essa mensagem sinaliza que o CLASReader
+completou o parsing sem erros críticos e que os dados foram aceitos
+pela estrutura interna (CWellLog) para as etapas seguintes.
+
+A Figura \ref{fig:Listar curvas presente no arquivo LAS} complementa
+a validação ao mostrar o resultado da operação de listagem de curvas
+(opção \textquotedbl 2) Listar curvas\textquotedbl ). O console
+apresenta a lista de mnemonic codes das curvas detectadas no LAS ---
+por exemplo: AP, ATMP, ECD, GR, ROP, RPD2, RPM2, RPS2, TVAXAVG, TVD,
+entre outras --- demonstrando que o leitor identificou corretamente
+os nomes, preservou a ordem e organizou as curvas em estruturas consultáveis.
+A exibição dessas curvas confirma que o sistema extraiu tanto as curvas
+quanto seus vetores de amostras, o que é condição necessária para
+operações posteriores como normalização, comparação, interpretação
+e plotagem.
+
+As duas figuras evidenciam o comportamento esperado do subsistema
+de I/O: o GeoLogViewer é capaz de localizar e abrir um arquivo LAS,
+realizar parse das seções relevantes e disponibilizar ao usuário o
+inventário de curvas encontradas. A mensagem de sucesso e a listagem
+das curvas são indicadores de que o núcleo de leitura (CLASReader
+\textrightarrow{} CWellLog \textrightarrow{} CLogCurve) está operacional
+e robusto para arquivos com a estrutura testada
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Lendo Arquivo LAS\string".png}
+\par\end{centering}
+\caption{Tela do prompt executando a leitura do arquivo LAS \label{fig:Lendo Arquivo LAS}}
+\end{figure}
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Listar curvas presente no arquivo LAS\string".png}
+\par\end{centering}
+\caption{Tela do prompt listando curvas do arquivo LAS \label{fig:Listar curvas presente no arquivo LAS}}
+\end{figure}
+
+
+\section{Teste 2\label{sec:Teste-2}: Plotagem dos perfis do poço}
+
+O segundo teste teve como objetivo validar o módulo de plotagem do
+GeoLogViewer, responsável por converter os dados lidos do arquivo
+LAS em perfis visuais interpretáveis. A Figura \ref{fig:Plotagem de todos os gr=0000E1ficos}.
+mostra a execução da funcionalidade \textquotedblleft 3) Plotar tracks
+selecionadas (multiplot)\textquotedblright , na qual o usuário pode
+optar por visualizar todas as curvas simultaneamente ou selecionar
+apenas algumas delas. Neste caso, a plotagem de todos os perfis foi
+realizada utilizando o backend gráfico do Gnuplot, gerando uma interface
+visual com múltiplas faixas verticais, cada uma correspondente a uma
+curva do arquivo.
+
+O resultado exibido confirma que o sistema organizou corretamente
+cada curva em seu respectivo track, preservando escalas individuais
+conforme os valores originais registrados no LAS. Observa-se também
+que o eixo vertical representa a profundidade em metros, enquanto
+cada track possui seu próprio eixo horizontal de amplitude, variando
+de acordo com a unidade da curva (como GAPI, PSI, OHMM, LB/G, entre
+outras). A consistência na exibição dos valores, a estabilidade na
+renderização das curvas e a ausência de artefatos visuais indicam
+que o módulo CPlotter está convertendo corretamente os vetores numéricos
+armazenados em CLogCurve para vetores gráficos.
+
+As Figuras .\ref{fig:Plotagem de todos os gr=0000E1ficos} ,\ref{fig:Plotagem de todos os gr=0000E1ficos}
+e \ref{fig:Plotagem de todos os gr=0000E1ficos} complementarão este
+teste, demonstrando cenários específicos de visualização respectivamente:
+\begin{itemize}
+\item Plotagem com overlay e normalização, onde duas curvas são ajustadas
+para a mesma escala e sobrepostas no mesmo track, facilitando análises
+comparativas;
+\item Plotagem com overlay sem normalização, na qual as curvas são sobrepostas
+mantendo suas escalas originais, destacando diferenças absolutas entre
+magnitudes;
+\item Plotagem sem overlay, exibindo as curvas selecionadas em tracks individuais
+para inspeção isolada.
+\end{itemize}
+Esses modos de plotagem asseguram flexibilidade para análises de perfis
+geofísicos, atendendo tanto a interpretações rápidas quanto a estudos
+comparativos mais detalhados. O teste confirma que o módulo gráfico
+do GeoLogViewer está funcional, responsivo e adequado para o fluxo
+de trabalho de visualização de dados de poços.
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Plotagem de todos os gráficos\string".png}
+\par\end{centering}
+\caption{Tela do prompt ilustrando os perfis do arquivo\label{fig:Plotagem de todos os gr=0000E1ficos}}
+\end{figure}
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Comparação curvas GR e RPS2 com overlay e normalizadas\string".png}
+\par\end{centering}
+\caption{Tela do prompt ilustrando os perfis com overlay e normalização\label{fig:Curvas com overlay e normalizadas}}
+\end{figure}
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Comparação das curvas GR e RPS2 com overlay e sem normalizar\string".png}
+\par\end{centering}
+\caption{Tela do prompt ilustrando perfis com overlay e sem normalização\label{fig:Curvas com overlay e sem normaliza=0000E7=0000E3o}}
+\end{figure}
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Comparação das curvas GR e PRS2 sem overlay\string".png}
+\par\end{centering}
+\caption{Tela do prompt ilustrando perfis sem overlay\label{fig:Curvas sem overlay}}
+\end{figure}
+
+
+\section{Teste 3\label{sec:Teste-3}: Interpretação automática, exportação
+de dados e encerramento do aplicativo}
+
+O terceiro teste tem como finalidade validar o módulo de interpretação
+petrofísica, a exportação de intervalos interpretados e o comportamento
+do sistema durante o encerramento. A primeira imagem \ref{fig:Interpreta=0000E7=0000E3o autom=0000E1tica do reservat=0000F3rio}.
+demonstra a execução da funcionalidade \textquotedblleft 5) Interpretação
+básica (GR | VSH | dR/RR) + shading\textquotedblright , responsável
+por realizar automaticamente uma análise preliminar dos perfis geofísicos.
+Nesse processo, o usuário seleciona curvas como GR e RPS2 e o programa
+aplica algoritmos de interpretação --- como cálculo de volume de
+argila, contraste resistivo e análises simples de possíveis zonas
+de reservatório. O gráfico exibido mostra a curva interpretada sobreposta
+ao shading gerado pelo cálculo automático, destacando trechos onde
+há maior probabilidade de presença de rocha reservatório. A integração
+entre os módulos CInterpreter, CPlotter e CPetrophysicsCalculator
+é evidenciada pela correta renderização dos resultados e pela coerência
+visual entre dados brutos e parâmetros interpretados.
+
+A Figura \ref{fig:Arquivo CSV gerado} apresenta o funcionamento do
+módulo \textquotedblleft 6) Exportar intervalos (CSV)\textquotedblright ,
+no qual o usuário solicita que os intervalos interpretados sejam gravados
+em um arquivo .csv. Esse recurso permite que os resultados do GeoLogViewer
+sejam utilizados em análises externas, relatórios acadêmicos ou importados
+para outros softwares de geologia e petrofísica. O teste validará
+se o arquivo é gerado corretamente, se os dados seguem o formato padronizado
+e se os valores exportados são consistentes com aqueles exibidos na
+interpretação gráfica.
+
+A \ref{fig:Saindo do aplicativo} mostrará o procedimento de encerramento
+do sistema através da opção \textquotedblleft 0) Sair\textquotedblright .
+Esse teste garante que o aplicativo finaliza suas operações de forma
+limpa, liberando corretamente memória, fechando arquivos utilizados
+e evitando erros ou travamentos. O comportamento esperado é que, após
+o comando de saída, o GeoLogViewer retorne ao terminal sem mensagens
+de erro, confirmando que todos os módulos foram encerrados adequadamente. 
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Interpretação automática do reservatório\string".png}
+\par\end{centering}
+\caption{Tela do prompt ilustando a intertação do reservatório\label{fig:Interpreta=0000E7=0000E3o autom=0000E1tica do reservat=0000F3rio}}
+\end{figure}
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Arquivo CSV gerado com os dados da interpretação automática\string".png}
+\par\end{centering}
+\caption{Tela do prompt ilustando o arquivo CSV gerado\label{fig:Arquivo CSV gerado}}
+\end{figure}
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=1\textwidth]{\string"imagens/Saindo do aplicativo após análises\string".png}
+\par\end{centering}
+\caption{Tela do prompt ilustando a saída do aplicativo\label{fig:Saindo do aplicativo}}
+\end{figure}
+

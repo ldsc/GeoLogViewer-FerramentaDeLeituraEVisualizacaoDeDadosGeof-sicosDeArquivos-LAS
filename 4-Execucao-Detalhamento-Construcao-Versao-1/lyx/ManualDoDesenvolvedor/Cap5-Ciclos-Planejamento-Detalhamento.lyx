@@ -115,14 +115,22 @@
 \begin_body
 
 \begin_layout Chapter
-Lista das Características/
-\emph on
-Features
-\emph default
+Ciclos de Planejamento/Detalhamento
+\begin_inset Index idx
+range none
+pageformat default
+status open
 
+\begin_layout Plain Layout
+Ciclos de Planejamento/Detalhamento
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset CommandInset label
 LatexCommand label
-name "chap:Lista-das-Características"
+name "chap: Ciclos de Planejamento/Detalhamento"
 
 \end_inset
 
@@ -130,33 +138,22 @@ name "chap:Lista-das-Características"
 \end_layout
 
 \begin_layout Standard
-Neste capítulo apresenta-se a lista de funcionalidades (features) implementadas no sistema GeoLogViewer,
- estruturadas com base na abordagem de análise e desenvolvimento orientado a objetos,
- com entregas incrementais.
-\end_layout
-
-\begin_layout Standard
-As funcionalidades foram organizadas em versões correspondentes aos ciclos de desenvolvimento (v0.1,
- v0.3,
- v0.7),
- refletindo a maturação gradual do sistema e o avanço da equipe na construção dos módulos planejados.
-\end_layout
-
-\begin_layout Standard
-Cada feature foi pensada para ser desenvolvida em um único ciclo,
- permitindo progresso contínuo,
- revisões constantes e validação prática em cada etapa.
+Apresentam-se neste capítulo os ciclos de planejamento e detalhamento das diferentes versões desenvolvidas ao longo do projeto GeoLogViewer.
+ Cada versão corresponde a um conjunto incremental de funcionalidades,
+ evoluindo desde a estruturação inicial do sistema até a incorporação dos mecanismos de análise e visualização das curvas geofísicas extraídas dos arquivos LAS.
 \end_layout
 
 \begin_layout Section
-Lista de características <<features>>
+Versão 0.1
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Lista-de-características"
+name "sec:Versão-0.1"
 
 \end_inset
 
-
+ - 
+\series bold
+Núcleo de Leitura e Estruturação dos Dados LAS
 \end_layout
 
 \begin_layout Standard
@@ -177,7 +174,7 @@ Nesta primeira fase,
 \begin_layout Standard
 
 \series bold
-Features v0.1:
+Funcionalidades da v0.1:
 \end_layout
 
 \begin_layout Itemize
@@ -214,6 +211,19 @@ Construção das estruturas de dados principais (std::vector,
 Testes iniciais de consistência entre o número de profundidades e o número de amostras das curvas.
 \end_layout
 
+\begin_layout Section
+Versão 0.2
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Versão-0.2"
+
+\end_inset
+
+ - 
+\series bold
+Módulo de Plotagem Inicial e Integração com Gnuplot
+\end_layout
+
 \begin_layout Standard
 
 \series bold
@@ -231,7 +241,7 @@ Na segunda fase,
 \begin_layout Standard
 
 \series bold
-Features v0.2:
+Funcionalidades da v0.2:
 \end_layout
 
 \begin_layout Itemize
@@ -266,10 +276,23 @@ Testes de plotagem com arquivos LAS reais,
  garantindo compatibilidade e estabilidade.
 \end_layout
 
+\begin_layout Section
+Versão 0.3
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Versão-0.3"
+
+\end_inset
+
+ -
+\series bold
+ Interpretação Petrofísica e Visualização Avançada
+\end_layout
+
 \begin_layout Standard
 
 \series bold
-Versão v0.3 – Interpretação Petrofísica e Visualização Avançada
+Versão v0.3 – Expansão das Análises e Exportação dos Resultados
 \end_layout
 
 \begin_layout Standard
@@ -284,7 +307,7 @@ A etapa final introduziu funcionalidades de interpretação,
 \begin_layout Standard
 
 \series bold
-Features v0.3:
+Funcionalidades da v0.3:
 \end_layout
 
 \begin_layout Itemize

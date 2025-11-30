@@ -6,66 +6,31 @@
 \origin unavailable
 \textclass extbook
 \begin_preamble
-\usepackage {graphicx}
-\usepackage {longtable}
-\usepackage {indentfirst}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{indentfirst}
 \renewenvironment{center}{\par\centering}{\par}
 
-% Comentar linhas abaixo se não estiver usando pacote abntex
-% ou se o pacote ainda não foi instalado.
-% neste caso sugere-se usar citações no padrão apalike (lembra o da anbt).
-% para usar abnt tem de instalar os arquivos: dnf install texlive-abnt2
-% verificar onde os mesmos estão: rpm -ql texlive-abntex2
-% reconfigurar o latex e o lyx (lyx->ferramentas->reconfigurar). E ativar linhas abaixo.
-% na aba de configuração do lyx, mude a classe de documento para abnt.
-%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
-%\usepackage {helvet}
-%\renewcommand {\familydefault}{\sfdefault}
-
-% Para uso de listagens de código
-\usepackage{color}
-\definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
-% Informa que vai usar o pacote listings, 
-% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
-
-%Fonte: https://github.com/abntex/abntex2/wiki/HowToFormatarCodigoFonte
+% Para códigos-fonte
+\usepackage{xcolor}
 \usepackage{listings}
-%\renewcommand{\lstlistingname}{Listagem}
-% Altera o nome padrão do rótulo usado no comando \autoref{}
-\renewcommand{\lstlistingname}{Código}
-% Altera o rótulo a ser usando no elemento pré-textual "Lista de código"
-%\renewcommand{\lstlistlistingname}{Lista de códigos}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 
-\usepackage{listings}
-\usepackage{newunicodechar}
-\usepackage{caption}
-
-% Permitir UTF-8 dentro de listings
 \lstset{
     inputencoding=utf8,
     extendedchars=true,
     literate=
-      {á}{{\'a}}1
-      {à}{{\`a}}1
-      {ã}{{\~a}}1
-      {â}{{\^a}}1
-      {é}{{\'e}}1
-      {ê}{{\^e}}1
-      {í}{{\'i}}1
-      {ó}{{\'o}}1
-      {ô}{{\^o}}1
-      {õ}{{\~o}}1
-      {ú}{{\'u}}1
-      {ç}{{\c{c}}}1
-      {Á}{{\'A}}1
-      {É}{{\'E}}1
-      {Í}{{\'I}}1
-      {Ó}{{\'O}}1
-      {Ú}{{\'U}}1
-      {Ç}{{\c{C}}}1
-      {→}{{$\rightarrow$}}1
+        {á}{{\'a}}1 {Á}{{\'A}}1
+        {à}{{\`a}}1 {À}{{\`A}}1
+        {ã}{{\~a}}1 {Ã}{{\~A}}1
+        {â}{{\^a}}1 {Â}{{\^A}}1
+        {é}{{\'e}}1 {É}{{\'E}}1
+        {ê}{{\^e}}1 {Ê}{{\^E}}1
+        {í}{{\'i}}1 {Í}{{\'I}}1
+        {ó}{{\'o}}1 {Ó}{{\'O}}1
+        {ô}{{\^o}}1 {Ô}{{\^O}}1
+        {õ}{{\~o}}1 {Õ}{{\~O}}1
+        {ú}{{\'u}}1 {Ú}{{\'U}}1
+        {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
 }
 \end_preamble
 \options normaltoc, sumarioincompleto

@@ -6,28 +6,17 @@
 \origin unavailable
 \textclass extbook
 \begin_preamble
-\usepackage {graphicx}
-\usepackage {longtable}
-\usepackage {indentfirst}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{indentfirst}
 \renewenvironment{center}{\par\centering}{\par}
 
-% Comentar linhas abaixo se não estiver usando pacote abntex
-% ou se o pacote ainda não foi instalado.
-% neste caso sugere-se usar citações no padrão apalike (lembra o da anbt).
-%\usepackage[alf ,abnt-etal-cite=2 , abnt-year-extra-label=yes , abnt-etal-list=0]{abntcite}
-%\usepackage {helvet}
-%\renewcommand {\familydefault}{\sfdefault}
-
-% Para uso de listagens de código
-\usepackage{color}
-\definecolor{azulclaro}{rgb}{0.6,1,1}%   rgb color model
-% Informa que vai usar o pacote listings, 
-% disponibilizado em /usr/share/texmf/doc/latex/styles/listings.dvi
-\usepackage{listings}
-
-\usepackage{listings}
+% Para códigos-fonte
 \usepackage{xcolor}
-\UseRawInputEncoding
+\usepackage{listings}
+
+
+
 \lstset{
     inputencoding=utf8,
     extendedchars=true,

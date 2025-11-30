@@ -214,12 +214,12 @@ placement document
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeClasses.png
+	filename C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeClasses.png
 	lyxscale 50
 	width 55text%
 	rotateAngle 90
@@ -439,12 +439,12 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeSequencia.png
+	filename C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeSequencia.png
 	lyxscale 50
 	width 100text%
 
@@ -567,12 +567,12 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeComunicação.png
+	filename C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeComunicação.png
 	lyxscale 85
 	width 100text%
 
@@ -683,12 +683,12 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeMaquinaDeEstado.png
+	filename C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeMaquinaDeEstado.png
 	lyxscale 50
 	width 100text%
 
@@ -770,12 +770,12 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeAtividades.png
+	filename C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeAtividades.png
 	lyxscale 85
 	width 100text%
 

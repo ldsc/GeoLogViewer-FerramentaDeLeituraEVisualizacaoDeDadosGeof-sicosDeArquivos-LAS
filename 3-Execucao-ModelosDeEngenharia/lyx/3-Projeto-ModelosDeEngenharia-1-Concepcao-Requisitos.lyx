@@ -1510,12 +1510,12 @@ placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeCasoDeUsoGeral.png
+	filename C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeCasoDeUsoGeral.png
 	lyxscale 50
 	width 100text%
 	special height=0.3\textheight
@@ -1646,7 +1646,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaCasoDeUsoEspecificoCurvas.png
+	filename C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaCasoDeUsoEspecificoCurvas.png
 	width 100text%
 
 \end_inset
@@ -1760,7 +1760,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/Notebook/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeCasoDeUsoEspecificoPlot.png
+	filename C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/3-Execucao-ModelosDeEngenharia/uml/DiagramaDeCasoDeUsoEspecificoPlot.png
 	width 100text%
 
 \end_inset

@@ -1,0 +1,202 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extbook
+\begin_preamble
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{indentfirst}
+\renewenvironment{center}{\par\centering}{\par}
+
+% Para códigos-fonte
+\usepackage{xcolor}
+\usepackage{listings}
+
+
+
+\lstset{
+    inputencoding=utf8,
+    extendedchars=true,
+    literate=
+        {á}{{\'a}}1 {Á}{{\'A}}1
+        {à}{{\`a}}1 {À}{{\`A}}1
+        {ã}{{\~a}}1 {Ã}{{\~A}}1
+        {â}{{\^a}}1 {Â}{{\^A}}1
+        {é}{{\'e}}1 {É}{{\'E}}1
+        {ê}{{\^e}}1 {Ê}{{\^E}}1
+        {í}{{\'i}}1 {Í}{{\'I}}1
+        {ó}{{\'o}}1 {Ó}{{\'O}}1
+        {ô}{{\^o}}1 {Ô}{{\^O}}1
+        {õ}{{\~o}}1 {Õ}{{\~O}}1
+        {ú}{{\'u}}1 {Ú}{{\'U}}1
+        {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+}
+\end_preamble
+\use_default_options false
+\master DocumentoMestre-Trabalho-ProgramacaoPratica.lyx
+\maintain_unincluded_children no
+\language brazilian
+\language_package auto
+\inputencoding auto-legacy
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement p
+\float_alignment class
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize a4
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 210mm
+\paperheight 297mm
+\leftmargin 30mm
+\topmargin 25mm
+\rightmargin 20mm
+\bottommargin 20mm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Ciclos Construção
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Ciclos-Construção-Implementacao"
+
+\end_inset
+
+- Implementação
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Implementação"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lhead{
+\backslash
+thechapter - Implementação}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Neste capítulo,
+ são apresentados os códigos fonte implementados.
+\end_layout
+
+\begin_layout Section
+Código fonte
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Codigo-fonte"
+
+\end_inset
+
+
+\begin_inset Index idx
+range none
+pageformat default
+status collapsed
+
+\begin_layout Plain Layout
+Implementação
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O código fonte ainda será anexado ao relatório do projeto em um momento posterior.
+ Aguardem.....
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document

@@ -5,41 +5,66 @@
 #include <vector>
 
 class CWellLog;
+class CFormationZone;
+
+//-------------------- Parâmetros de cálculo de VSH --------------------
 
 struct VshParams {
-    double p_clean = 5.0;    // percentil da “areia”
-    double p_shale = 95.0;   // percentil do “xisto”
-    enum class Method { Linear, LarionovTertiary, LarionovOlder } method = Method::LarionovTertiary;
-    int    smooth_window_samples = 0;      // 0 = sem suavização
+    // Percentis para “areia limpa” e “xisto”
+    double p_clean = 5.0;     // percentil da areia
+    double p_shale = 95.0;    // percentil do xisto
+
+    enum class Method {
+        Linear,
+        LarionovTertiary,
+        LarionovOlder
+    } method = Method::LarionovTertiary;
+
+    // Suavização opcional na amostra (0 = sem suavização)
+    int smooth_window_samples = 0;
+
+    // Nome da curva de GR
     std::string gr_curve = "GR";
 };
 
+//-------------------- Parâmetros para resistividades --------------------
+
 struct SepParams {
-    std::string rdeep = "RPD2";   // deep resistivity
-    std::string rmed  = "RPM2";   // medium (opcional)
-    std::string rshal = "RPS2";   // shallow
+    // Nomes padrão, ajuste conforme seu LAS
+    std::string rdeep_curve = "RT";   // resistividade profunda
+    std::string rmed_curve  = "RMD";  // média
+    std::string rshal_curve = "RS";   // rasa
 };
 
-struct Derived {
-    std::vector<double> depth;     // eixo Y alinhado
-    std::vector<double> vsh;       // 0..1
-    std::vector<double> rdeep, rmed, rshal;
-    std::vector<double> dR;        // Rdeep - Rshal
-    std::vector<double> RR;        // Rdeep / Rshal (onde >0)
-};
+//-------------------- Parâmetros de “pay” / triagem de reservatório --------------------
 
 struct PayParams {
-    double vsh_max   = 0.40;   // “limpo” se VSH < vsh_max
-    double rr_min    = 1.40;   // permeabilidade por RR
-    int    dr_pctl   = 90;     // permeabilidade por dR > P{dr_pctl}
-    double rt_min    = 5.0;    // resistividade mínima (ohm·m)
-    double merge_gap = 0.5;    // (m) gaps internos que podem ser unidos
-    double min_thick = 1.0;    // (m) espessura mínima do intervalo final
+    double vsh_max       = 0.5;   // corte máximo de Vsh
+    double RR_min        = 2.0;   // mínimo de Rdeep/Rshal
+    double dR_min        = 0.0;   // mínimo de separação (Rdeep - Rshal)
+    double min_thickness = 1.0;   // espessura mínima em metros
 };
 
+//-------------------- Derivados calculados por profundidade --------------------
+
+struct Derived {
+    std::vector<double> depth;   // md (mesma amostragem do poço)
+
+    std::vector<double> vsh;     // volume de argila
+    std::vector<double> rdeep;   // resistividade profunda
+    std::vector<double> rmed;    // média
+    std::vector<double> rshal;   // rasa
+
+    std::vector<double> dR;      // separação Rdeep - Rshal
+    std::vector<double> RR;      // razão Rdeep / Rshal
+};
+
+//-------------------- Intervalo interpretado --------------------
+
 struct Interval {
-    double top  = 0.0;   // m
-    double base = 0.0;   // m
+    double top   = 0.0;   // topo (m)
+    double base  = 0.0;   // base (m)
+
     double vsh_mean   = 0.0;
     double rdeep_mean = 0.0;
     double dR_mean    = 0.0;
@@ -48,18 +73,25 @@ struct Interval {
     double h() const { return base - top; }
 };
 
+//-------------------- Classe principal de interpretação --------------------
+
 class CInterpreter {
 public:
-    // Derivados: VSH + Rdeep/med/shal + dR + RR (alinhados ao mesmo depth).
+    // Derivados: VSH + Rdeep/med/shal + dR + RR (alinhados ao mesmo depth)
     static Derived ComputeDerived(const CWellLog& wl,
-                                  const VshParams& vp = {},
-                                  const SepParams& sp = {});
+                                  const VshParams& vp = VshParams{},
+                                  const SepParams& sp = SepParams{});
 
-    // Picks automáticos de “reservatório (screening)”.
-    static std::vector<Interval> PickReservoirs(const Derived& D, const PayParams& pp);
+    // Picks automáticos de “reservatório” (screening)
+    static std::vector<Interval> PickReservoirs(const Derived& D,
+                                                const PayParams& pp = PayParams{});
 
-    // Exporta CSV simples de intervalos.
-    static void WriteCSV(const std::string& path, const std::vector<Interval>& ivals);
+    // Exporta CSV simples de intervalos
+    static void WriteCSV(const std::string& path,
+                         const std::vector<Interval>& ivals);
+
+    // Converte Interval -> CFormationZone (para uso posterior)
+    static std::vector<CFormationZone> ToFormationZones(const std::vector<Interval>& ivals);
 };
 
 #endif

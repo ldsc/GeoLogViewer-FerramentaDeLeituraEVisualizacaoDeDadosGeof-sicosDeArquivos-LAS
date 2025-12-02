@@ -108,7 +108,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
             //  GR.API        : GAMMA RAY
             //  RPD2.OHM-M    : RES 2MHz (Deep)
             //  ROP.M/HR
-            // Regra: texto antes do '.' e o mnemonic; apos o '.' ate espaco/':' e a unidade
+            // Regra: texto antes do '.' é o mnemonic; após o '.' até espaço/':' é a unidade
             std::string mnemonic, unit;
 
             auto posDot = line.find('.');
@@ -118,7 +118,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
                 size_t endu = rest.find_first_of(" \t:");
                 unit = (endu == std::string::npos) ? rest : rest.substr(0, endu);
             } else {
-                // sem ponto -> sem unidade explicita
+                // sem ponto → sem unidade explícita
                 size_t endm = line.find_first_of(" \t:");
                 mnemonic = (endm == std::string::npos) ? line : line.substr(0, endm);
                 unit.clear();
@@ -126,7 +126,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
 
             mnemonic = UpperNoSpace(mnemonic);
 
-            // DEPT/DEPTH e tratado como indice de profundidade
+            // DEPT/DEPTH é tratado como índice de profundidade
             if (mnemonic == "DEPT" || mnemonic == "DEPTH") {
                 curveNames.push_back(mnemonic);
             } else {

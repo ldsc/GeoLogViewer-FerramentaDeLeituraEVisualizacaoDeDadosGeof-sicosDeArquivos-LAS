@@ -14,6 +14,7 @@
 #include "CWellLog.h"
 #include "CLogCurve.h"
 #include "CGnuplot.h"
+#include "CLogCurveUtilities.h"
 
 // =====================
 // Helpers internos
@@ -66,18 +67,6 @@
             xout.push_back(vx);
             yout.push_back(yin[i]);
         }
-    }
-
-    // Normaliza vetor para [0,1]; se (max==min), devolve zeros
-    static void Normalize01(const std::vector<double>& in, std::vector<double>& out)
-    {
-        out.resize(in.size());
-        if (in.empty()) return;
-        auto [mnIt, mxIt] = std::minmax_element(in.begin(), in.end());
-        double mn = *mnIt, mx = *mxIt;
-        if (mx == mn) { std::fill(out.begin(), out.end(), 0.0); return; }
-        double inv = 1.0 / (mx - mn);
-        for (size_t i = 0; i < in.size(); ++i) out[i] = (in[i] - mn) * inv;
     }
 
     // Gera um .dat (x y) para uma série e retorna o caminho do arquivo
@@ -364,32 +353,58 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
     // Seleção das curvas (mantém ordem pedida; se vazio, usa todas)
     std::vector<std::string> curves = curvesIn;
     if (curves.empty()) {
-        for (const auto& kv : well.GetCurves()) curves.push_back(kv.first);
+        for (const auto& kv : well.GetCurves())
+            curves.push_back(kv.first);
+    }
+    if (curves.empty()) {
+        std::cerr << "[PlotCompareCurves] Nenhuma curva selecionada.\n";
+        return;
     }
 
-    // Coleta/filtra cada curva
-    struct Series { std::string name, unit, datPath; std::vector<double> x, y; };
-    std::vector<Series> S;
+    struct Serie {
+        std::string name;
+        std::string unit;
+        std::string datPath;
+        std::vector<double> x;
+        std::vector<double> y;
+    };
+
+    std::vector<Serie> S;
     S.reserve(curves.size());
 
+    // monta as séries
     for (const auto& nm : curves) {
         auto it = well.GetCurves().find(nm);
         if (it == well.GetCurves().end()) {
             std::cerr << "[PlotCompareCurves] Curva nao encontrada: " << nm << "\n";
             continue;
         }
-        const auto& vf = it->second.GetData();
-        if (vf.size() != depthY.size()) {
+
+        const auto& data = it->second.GetData();
+        if (data.size() != depthY.size()) {
             std::cerr << "[PlotCompareCurves] Tamanho incompatível: " << nm << "\n";
             continue;
         }
-        std::vector<double> xs(vf.begin(), vf.end()), ys(depthY.begin(), depthY.end());
-        std::vector<double> xsf, ysf;
-        FilterNulls(xs, ys, nullOpt, xsf, ysf);
-        if (xsf.empty()) {
+
+        std::vector<double> xs; xs.reserve(data.size());
+        std::vector<double> ys; ys.reserve(data.size());
+        for (size_t i = 0; i < data.size(); ++i) {
+            double v = data[i];
+            double y = depthY[i];
+            if (!std::isfinite(v)) continue;
+            if (nullOpt &&
+                std::fabs(v - *nullOpt) < 1e-6) continue;
+            xs.push_back(v);
+            ys.push_back(y);
+        }
+        if (xs.empty()) {
             std::cerr << "[PlotCompareCurves] Sem pontos válidos em " << nm << " após NULL.\n";
             continue;
         }
+
+        // se for overlay, usamos o próprio depthY; se for side-by-side, mantemos xs/ys “crus”
+        std::vector<double> xsf = xs;
+        std::vector<double> ysf = ys;
         S.push_back({ nm, it->second.Unit(), /*dat=*/"", std::move(xsf), std::move(ysf) });
     }
 
@@ -397,7 +412,11 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
     if (overlay) {
         // Normalização opcional (0–1) por série
         if (normalize) {
-            for (auto& s : S) { std::vector<double> nx; Normalize01(s.x, nx); s.x.swap(nx); }
+            for (auto& s : S) {
+                std::vector<double> nx;
+                CLogCurveUtilities::Normalize01(s.x, nx);
+                s.x.swap(nx);
+            }
         }
 
         // Ranges globais
@@ -412,21 +431,28 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
         double ymax = *std::max_element(depthY.begin(), depthY.end());
 
         // .dat das séries
-        for (auto& s : S) s.datPath = WriteDat(s.name, s.x, s.y);
+        for (auto& s : S)
+            s.datPath = WriteDat(s.name, s.x, s.y);
 
-        // Larguras em PX -> fração da janela do overlay
+        // Layout em px
+        constexpr int kOverlayTermW = 900;
+        constexpr int kOverlayTermH = 800;
+        constexpr double kOverlayRulerPx = 96.0;
+        constexpr double kOverlayGapPx   = 16.0;
+
         const double rfrac = kOverlayRulerPx / static_cast<double>(kOverlayTermW);
         const double gfrac = kOverlayGapPx   / static_cast<double>(kOverlayTermW);
-        const double tfrac = std::max(0.0, 1.0 - rfrac - gfrac); // track ocupa o restante
+        const double tfrac = std::max(0.0, 1.0 - rfrac - gfrac);
 
         Gnuplot gp;
         gp.Cmd("reset");
+        gp.Cmd("set terminal wxt");
         gp.Cmd(("set terminal windows size " + std::to_string(kOverlayTermW) + "," + std::to_string(kOverlayTermH)).c_str());
         gp.Cmd("set multiplot");
         gp.Cmd("set tmargin at screen 0.95");
         gp.Cmd("set bmargin at screen 0.05");
 
-        // Régua
+        // régua
         {
             const std::string depthDat = WriteDepthRuler(depthY);
             gp.Cmd(("set size " + std::to_string(rfrac) + ",1").c_str());
@@ -436,41 +462,34 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
             gp.Cmd("set ylabel 'Profundidade (m)'");
             gp.Cmd("set xrange [0:1]");
             gp.Cmd(("set yrange [" + std::to_string(ymax) + ":" + std::to_string(ymin) + "]").c_str());
-            gp.Cmd("set style fill solid 1.0");
-            gp.Cmd(("plot '" + depthDat + "' using 1:2 with filledcurves x1 lc rgb 'gray' notitle").c_str());
+            gp.Cmd(("plot '" + depthDat + "' using 1:2 with lines lc rgb '#666666' notitle").c_str());
         }
 
-        // Painel overlay (uma “track” colada na régua)
+        // track overlay
         {
-            const double origin = rfrac + gfrac;
             gp.Cmd(("set size " + std::to_string(tfrac) + ",1").c_str());
-            gp.Cmd(("set origin " + std::to_string(origin) + ",0").c_str());
-            gp.Cmd("unset key"); gp.Cmd("unset label"); gp.Cmd("unset arrow"); gp.Cmd("unset object"); gp.Cmd("unset logscale x");
+            gp.Cmd(("set origin " + std::to_string(rfrac + gfrac) + ",0").c_str());
 
-            std::string xlabel = "Comparacao";
-            if (normalize) xlabel += " (curvas normalizadas 0-1)";
-            gp.Cmd(("set xlabel '" + xlabel + "'").c_str());
-            gp.Cmd("set ylabel ''");
+            gp.Cmd("unset key");
             gp.Cmd(("set xrange [" + std::to_string(xmin) + ":" + std::to_string(xmax) + "]").c_str());
             gp.Cmd(("set yrange [" + std::to_string(ymax) + ":" + std::to_string(ymin) + "]").c_str());
-            gp.Cmd("set grid");
+            gp.Cmd("set xlabel 'Curvas'");
+            gp.Cmd("set ylabel 'Profundidade (m)'");
 
-            if (S.empty()) {
-                gp.Cmd("plot 1/0 notitle");
-            } else {
-                std::ostringstream oss; oss << "plot ";
-                for (size_t i = 0; i < S.size(); ++i) {
-                    const auto& s = S[i];
-                    const char* col = kColors[i % (sizeof(kColors)/sizeof(kColors[0]))];
-                    std::string title = s.name;
-                    if (normalize) title += " (norm.)";
-                    else if (!s.unit.empty()) title += " (" + s.unit + ")";
-                    oss << "'" << s.datPath << "' using 1:2 with lines lc rgb '" << col
-                        << "' title '" << title << "'";
-                    if (i + 1 < S.size()) oss << ", ";
-                }
-                gp.Cmd(oss.str());
+            std::ostringstream oss;
+            oss << "plot ";
+            bool first = true;
+            int colorIdx = 0;
+            for (const auto& s : S) {
+                if (!first) oss << ", ";
+                const char* col = kColors[colorIdx % (sizeof(kColors)/sizeof(kColors[0]))];
+                oss << "'" << s.datPath << "' using 1:2 with lines lc rgb '" << col << "' title '" << s.name << "'";
+                first = false;
+                ++colorIdx;
             }
+            if (first)
+                oss << "plot 1/0 notitle";
+            gp.Cmd(oss.str());
         }
 
         gp.Cmd("unset multiplot");
@@ -576,186 +595,271 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
 void CPlotter::PlotInterpretationBasic(const CWellLog& well,
                                        const VshParams& vp,
                                        const SepParams& sp,
-                                       const PayParams& pp /*= PayParams{}*/)
+                                       const PayParams& pp)
 {
-    // 0) Derivados (alinhados) + picks de reservatório
-    auto D     = CInterpreter::ComputeDerived(well, vp, sp); // vsh, rdeep, rshal, dR, RR...
-    auto picks = CInterpreter::PickReservoirs(D, pp);        // Intervalos top/base etc.
+    // === 0) Derivados e intervalos ===
+    auto D     = CInterpreter::ComputeDerived(well, vp, sp);
+    auto picks = CInterpreter::PickReservoirs(D, pp);
 
     if (D.depth.empty()) {
-        std::cerr << "[PlotInterp] Sem profundidade.\n";
+        std::cerr << "[PlotInterpretationBasic] Sem profundidade.\n";
         return;
     }
 
-    // 1) Vetor de profundidade (Y, invertido no eixo)
-    std::vector<double> y(D.depth.begin(), D.depth.end());
-    const double yMin = *std::min_element(y.begin(), y.end());
-    const double yMax = *std::max_element(y.begin(), y.end());
+    // Depth (eixo Y, invertido)
+    std::vector<double> depth(D.depth.begin(), D.depth.end());
+    const double zMin = *std::min_element(depth.begin(), depth.end());
+    const double zMax = *std::max_element(depth.begin(), depth.end());
 
-    // 2) GR original (track 1)
+    // === 1) GR bruto ===
     std::vector<double> grx, gry;
     {
         auto it = well.GetCurves().find(vp.gr_curve);
         if (it != well.GetCurves().end()) {
             const auto& vF = it->second.GetData();
-            const size_t n = std::min(vF.size(), y.size());
-            grx.reserve(n); gry.reserve(n);
+            const size_t n = std::min(vF.size(), depth.size());
+
+            // 2.1) Coleta valores válidos, já filtrando NULL do LAS
+            std::vector<double> vValid;
+            vValid.reserve(n);
+
+            const bool   hasNull = !std::isnan(well.Info().null);
+            const double nullVal = well.Info().null;
+
             for (size_t i = 0; i < n; ++i) {
                 double v = vF[i];
                 if (!std::isfinite(v)) continue;
-                if (!std::isnan(well.Info().null) &&
-                    std::fabs(v - well.Info().null) < 1e-6) continue;
-                grx.push_back(v); gry.push_back(y[i]);
+                if (hasNull && std::fabs(v - nullVal) < 1e-6) continue;
+                vValid.push_back(v);
+            }
+
+            if (!vValid.empty()) {
+                // 2.2) Percentil
+                auto Percentil = [](std::vector<double> v, double p) -> double {
+                    if (v.empty()) return std::numeric_limits<double>::quiet_NaN();
+                    if (p <= 0.0)  return *std::min_element(v.begin(), v.end());
+                    if (p >= 100.) return *std::max_element(v.begin(), v.end());
+                    std::sort(v.begin(), v.end());
+                    const double pos  = p / 100.0 * (v.size() - 1);
+                    const size_t i0   = static_cast<size_t>(pos);
+                    const double frac = pos - i0;
+                    if (i0 + 1 < v.size())
+                        return v[i0] * (1.0 - frac) + v[i0 + 1] * frac;
+                    else
+                        return v[i0];
+                };
+
+                const double p1  = Percentil(vValid, 1.0);
+                const double p99 = Percentil(vValid, 99.0);
+
+                // 2.3) Monta GRX/GRY só dentro de [P1, P99]
+                grx.reserve(n);
+                gry.reserve(n);
+                for (size_t i = 0; i < n; ++i) {
+                    double v = vF[i];
+                    if (!std::isfinite(v)) continue;
+                    if (hasNull && std::fabs(v - nullVal) < 1e-6) continue;
+                    if (v < p1 || v > p99) continue; // corta spikes
+                    grx.push_back(v);
+                    gry.push_back(depth[i]);
+                }
             }
         }
     }
 
-    // 3) Rdeep e Rshal (para o overlay na segunda track)
+
+    // === 2) Resistividades profundas e rasas (já de D) ===
     std::vector<double> rdx, rdy, rsx, rsy;
     {
-        const size_t n = y.size();
+        const size_t n = depth.size();
         rdx.reserve(n); rdy.reserve(n);
         rsx.reserve(n); rsy.reserve(n);
-        for (size_t i=0;i<n;++i){
+
+        for (size_t i = 0; i < n; ++i) {
             if (i < D.rdeep.size() && std::isfinite(D.rdeep[i]) && D.rdeep[i] > 0.0) {
-                rdx.push_back(D.rdeep[i]); rdy.push_back(y[i]);
+                rdx.push_back(D.rdeep[i]);
+                rdy.push_back(depth[i]);
             }
             if (i < D.rshal.size() && std::isfinite(D.rshal[i]) && D.rshal[i] > 0.0) {
-                rsx.push_back(D.rshal[i]); rsy.push_back(y[i]);
+                rsx.push_back(D.rshal[i]);
+                rsy.push_back(depth[i]);
             }
         }
     }
 
-    if (grx.empty() && rdx.empty() && rsx.empty()){
-        std::cerr << "[PlotInterp] Nao ha dados GR/Rdeep/Rshal validos.\n";
+    if (grx.empty() && rdx.empty() && rsx.empty()) {
+        std::cerr << "[PlotInterpretationBasic] Nao ha dados validos de GR ou resistividade.\n";
         return;
     }
 
-    // 4) Ranges por track
-    auto mm = [](const std::vector<double>& v){
-        double mn=+1e300, mx=-1e300; bool ok=false;
-        for(double x: v){ if(std::isfinite(x)){ ok=true; mn=std::min(mn,x); mx=std::max(mx,x);} }
-        if(!ok){ mn=0.0; mx=1.0; }
-        if(mn==mx){ mn -= 1.0; mx += 1.0; }
-        return std::pair<double,double>(mn,mx);
+    // === 3) Ranges deduzidos dos dados ===
+    auto mm_lin = [](const std::vector<double>& v) {
+        double mn = +1e300, mx = -1e300;
+        bool ok = false;
+        for (double x : v) {
+            if (std::isfinite(x)) { ok = true; mn = std::min(mn, x); mx = std::max(mx, x); }
+        }
+        if (!ok) { mn = 0.0; mx = 1.0; }
+        if (mn == mx) {
+            mn -= 1.0;
+            mx += 1.0;
+        } else {
+            // dá um "respiro" de 5% nas bordas
+            double pad = 0.05 * (mx - mn);
+            mn -= pad;
+            mx += pad;
+        }
+        return std::pair<double,double>(mn, mx);
     };
-    auto [grMin, grMax] = mm(grx);
 
-    auto minmax_pos = [](const std::vector<double>& v){
-        double mn=+1e300, mx=-1e300; bool ok=false;
-        for(double x: v){ if(std::isfinite(x)){ ok=true; mn=std::min(mn,x); mx=std::max(mx,x);} }
-        if(!ok){ mn=0.1; mx=1.0; }
-        if(mn==mx){ mn/=10.0; mx*=10.0; }
-        return std::pair<double,double>(mn,mx);
+    auto mm_pos = [](const std::vector<double>& v) {
+        double mn = +1e300, mx = -1e300;
+        bool ok = false;
+        for (double x : v) {
+            if (std::isfinite(x) && x > 0.0) { ok = true; mn = std::min(mn, x); mx = std::max(mx, x); }
+        }
+        if (!ok) { mn = 0.1; mx = 10.0; }
+        if (mn == mx) {
+            mn /= 10.0;
+            mx *= 10.0;
+        } else {
+            double factor = std::pow(10.0, 0.1); // ~1.26
+            mn /= factor;
+            mx *= factor;
+        }
+        return std::pair<double,double>(mn, mx);
     };
-    auto [rdMin, rdMax] = minmax_pos(rdx);
-    auto [rsMin, rsMax] = minmax_pos(rsx);
-    double rxMin = std::min(rdMin, rsMin), rxMax = std::max(rdMax, rsMax);
 
-    // 5) Arquivos .dat
-    const std::string depthDat = WriteDepthRuler(y);
-    const std::string grDat    = (grx.empty()? std::string() : WriteDat("GR",  grx,  gry));
-    const std::string rdeepDat = (rdx.empty()? std::string() : WriteDat("RDEEP", rdx, rdy));
-    const std::string rshalDat = (rsx.empty()? std::string() : WriteDat("RSHAL", rsx, rsy));
+    auto [grMin, grMax] = mm_lin(grx);
+    auto [rdMin, rdMax] = mm_pos(rdx);
+    auto [rsMin, rsMax] = mm_pos(rsx);
+    double rxMin = std::min(rdMin, rsMin);
+    double rxMax = std::max(rdMax, rsMax);
 
-    // 6) Multiplot (régua + 2 tracks)
-    const int termW = 800, termH = 800;   // janela justa, evita “canvas too small”
-    const double rulerW = 0.12;            // fração da largura
-    const double gapW   = 0.04;
-    const double trackW = (1.0 - rulerW - 2.0*gapW) / 2.0;
+    // === 4) Arquivos .dat ===
+    const std::string depthDat = WriteDepthRuler(depth);
+    const std::string grDat    = WriteDat("GR",     grx, gry);
+    const std::string rdeepDat = WriteDat("RDEEP",  rdx, rdy);
+    const std::string rshalDat = WriteDat("RSHAL",  rsx, rsy);
+
+    // === 5) Layout do multiplot ===
+    const int termH = 800;
+    const double kRulerPx    = 80.0;
+    const double kTrackPx    = 260.0;  // largura de cada track
+    const double kGapPx      = 16.0;
+    const double kRightPadPx = 20.0;
+
+    const int nTracks = 2; // GR + Resistividade
+    int termW = static_cast<int>(std::ceil(kRulerPx + nTracks * kTrackPx + (nTracks - 1) * kGapPx + kRightPadPx));
+
+    const double rulerFrac = kRulerPx / termW;
+    const double trackFrac = kTrackPx / termW;
+    const double gapFrac   = kGapPx   / termW;
 
     Gnuplot gp;
     gp.Cmd("reset");
     gp.Cmd(("set terminal windows size " + std::to_string(termW) + "," + std::to_string(termH)).c_str());
     gp.Cmd("set multiplot");
-    gp.Cmd("set tmargin at screen 0.965");
+    gp.Cmd("set tmargin at screen 0.96");
     gp.Cmd("set bmargin at screen 0.08");
 
-    // --- RÉGUA ---
+    // === 6) Régua de profundidade ===
     {
-    gp.Cmd(("set size " + std::to_string(rulerW) + ",1").c_str());
-    gp.Cmd("set origin 0,0");
+        gp.Cmd(("set size " + std::to_string(rulerFrac) + ",1").c_str());
+        gp.Cmd("set origin 0,0");
 
-    gp.Cmd("unset key"); gp.Cmd("unset label"); gp.Cmd("unset arrow"); gp.Cmd("unset object");
-    gp.Cmd("unset xtics"); gp.Cmd("set ytics nomirror");
+        gp.Cmd("unset key; unset label; unset arrow; unset object");
+        gp.Cmd("unset xtics; set ytics nomirror");
 
-    // Eixos da régua
-    gp.Cmd("set xrange [0:1]");
-    gp.Cmd(("set yrange [" + std::to_string(yMax) + ":" + std::to_string(yMin) + "]").c_str());
+        gp.Cmd("set xrange [0:1]");
+        gp.Cmd(("set yrange [" + std::to_string(zMax) + ":" + std::to_string(zMin) + "]").c_str());
 
-    // Fundo cinza da régua
-    gp.Cmd("set object 999 rect from graph 0,0 to graph 1,1 behind fc rgb '#4b4b4b' fs solid 1.0 noborder");
+        // fundo cinza
+        gp.Cmd("set object 900 rect from graph 0,0 to graph 1,1 behind fc rgb '#545454' fs solid 1.0 noborder");
+        gp.Cmd(("plot '" + depthDat + "' using 1:2 with lines lc rgb '#dddddd' notitle").c_str());
 
-    // >>> Label fora do retângulo, em coordenadas de tela
-    gp.Cmd("set label 900 'Profundidade (m)' at screen 0.015, screen 0.5 rotate by 90 front tc rgb 'black'");
-
-    // força desenho de eixos/grades sem série
-    gp.Cmd("plot 1/0 notitle");
-
-    // limpa para não vazar
-    gp.Cmd("unset object 999");
-    gp.Cmd("unset label 900");
-    gp.Cmd("unset lmargin");
-    gp.Cmd("unset rmargin");
+        gp.Cmd("unset object 900");
     }
 
-    auto add_shading_objects = [&](double xleft, double xright){
-        for (size_t i=0;i<picks.size();++i){
-            const double top  = picks[i].top;
-            const double base = picks[i].base;
-            std::ostringstream os;
-            os << "set object " << (1000 + (int)i)
-               << " rect from " << xleft  << "," << top
-               << " to "       << xright << "," << base
-               << " fc rgb '#fff2b3' fs solid 0.6 border lc rgb '#e0c770'";
-            gp.Cmd(os.str());
+    // === 7) Track GR (apenas GR + sombras de pay) ===
+    {
+        const double originX = rulerFrac + gapFrac;
+        gp.Cmd(("set size " + std::to_string(trackFrac) + ",1").c_str());
+        gp.Cmd(("set origin " + std::to_string(originX) + ",0").c_str());
+
+        gp.Cmd("unset key; unset arrow; unset object");
+        gp.Cmd("set grid xtics ytics");
+        gp.Cmd(("set yrange [" + std::to_string(zMax) + ":" + std::to_string(zMin) + "]").c_str());
+        gp.Cmd(("set xrange [" + std::to_string(grMin) + ":" + std::to_string(grMax) + "]").c_str());
+        gp.Cmd("unset logscale x");
+        gp.Cmd("set xlabel 'GR (GAPI)'");
+
+        // sombras de pay
+        int objId = 1000;
+        for (const auto& iv : picks) {
+            std::ostringstream oss;
+            oss << "set object " << objId++
+                << " rect from graph 0, first " << iv.top
+                << " to graph 1, first " << iv.base
+                << " behind fc rgb '#fff7c2' fs solid 1.0 noborder";
+            gp.Cmd(oss.str());
         }
-    };
 
-    double origin = rulerW;
+        // curva GR fina (linha padrão)
+        std::ostringstream cmd;
+        cmd << "plot ";
+        if (!grx.empty()) {
+            cmd << "'" << grDat << "' using 1:2 with lines lc rgb '#7b68ee' title 'GR'";
+        } else {
+            cmd << "1/0 notitle";
+        }
+        gp.Cmd(cmd.str());
 
-    // --- TRACK 1: GR ---
-    {
-        origin += gapW;
-        auto unit = std::string();
-        auto it = well.GetCurves().find(vp.gr_curve);
-        if (it != well.GetCurves().end()) unit = it->second.Unit();
-
-        PreparePanel(gp, origin, trackW, grMin, grMax, yMin, yMax,
-                     unit.empty()? "GR (GAPI)" : ("GR (" + unit + ")"),
-                     false);
-        add_shading_objects(grMin, grMax);
-
-        if (!grDat.empty())
-            gp.Cmd(("plot '" + grDat + "' using 1:2 with lines lc rgb '#7C3AED' notitle").c_str());
-        else
-            gp.Cmd("plot 1/0 notitle");
-
-        origin += trackW;
+        // opcional: limpar objetos se quiser
+        // gp.Cmd("unset object");
     }
 
-    // --- TRACK 2: Rdeep/Rshal (overlay, log x) ---
+    // === 8) Track Resistividades (Rdeep/Rshal) ===
     {
-        origin += gapW;
+        const double originX = rulerFrac + gapFrac + trackFrac + gapFrac;
+        gp.Cmd(("set size " + std::to_string(trackFrac) + ",1").c_str());
+        gp.Cmd(("set origin " + std::to_string(originX) + ",0").c_str());
 
-        PreparePanel(gp, origin, trackW, rxMin, rxMax, yMin, yMax,
-                     "Rdeep/Rshal (ohm.m)", /*log*/true);
-        add_shading_objects(rxMin, rxMax);
+        gp.Cmd("unset key; unset arrow; unset object");
+        gp.Cmd("set grid xtics ytics");
+        gp.Cmd(("set yrange [" + std::to_string(zMax) + ":" + std::to_string(zMin) + "]").c_str());
+        gp.Cmd(("set xrange [" + std::to_string(rxMin) + ":" + std::to_string(rxMax) + "]").c_str());
+        gp.Cmd("set logscale x");
+        gp.Cmd("set xlabel 'Resistividades (ohm.m)'");
 
-        std::ostringstream oss;
+        // sombras de pay
+        int objId = 2000;
+        for (const auto& iv : picks) {
+            std::ostringstream oss;
+            oss << "set object " << objId++
+                << " rect from graph 0, first " << iv.top
+                << " to graph 1, first " << iv.base
+                << " behind fc rgb '#fff7c2' fs solid 1.0 noborder";
+            gp.Cmd(oss.str());
+        }
+
+        std::ostringstream cmd;
+        cmd << "plot ";
         bool first = true;
-        if(!rdeepDat.empty()){
-            oss << "plot '" << rdeepDat << "' using 1:2 with lines lc rgb '#1f77b4' title 'Rdeep'";
+
+        if (!rdx.empty()) {
+            cmd << "'" << rdeepDat << "' using 1:2 with lines lc rgb '#1f77b4' title 'Rdeep'";
             first = false;
         }
-        if(!rshalDat.empty()){
-            if(!first) oss << ", ";
-            oss << "'" << rshalDat << "' using 1:2 with lines lc rgb '#ff7f0e' title 'Rshal'";
+        if (!rsx.empty()) {
+            if (!first) cmd << ", ";
+            cmd << "'" << rshalDat << "' using 1:2 with lines lc rgb '#ff7f0e' title 'Rshal'";
+            first = false;
         }
-        if(first) oss << "plot 1/0 notitle";
-        gp.Cmd(oss.str());
+        if (first)
+            cmd << "1/0 notitle";
 
-        origin += trackW;
+        gp.Cmd(cmd.str());
     }
 
     gp.Cmd("unset multiplot");
@@ -763,12 +867,17 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
 }
 
 
-// Overload “curto” para manter a assinatura usada pelo app:
+// overload curto: usa cortes de pay “sensatos”
 void CPlotter::PlotInterpretationBasic(const CWellLog& well,
                                        const VshParams& vp,
                                        const SepParams& sp)
 {
-    PayParams pp; // defaults de pay
+    PayParams pp;
+    pp.vsh_max       = 0.35;  // Vsh máximo
+    pp.RR_min        = 3.0;   // mínimo de Rdeep/Rshal
+    pp.dR_min        = 1.0;   // separação mínima
+    pp.min_thickness = 3.0;   // espessura mínima (m)
+
     PlotInterpretationBasic(well, vp, sp, pp);
 }
 

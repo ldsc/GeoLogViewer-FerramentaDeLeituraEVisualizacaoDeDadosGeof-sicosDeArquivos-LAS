@@ -137,16 +137,40 @@ void CGeoLogViewerApp::AcaoCompararCurvas() {
 }
 
 void CGeoLogViewerApp::AcaoInterpretacaoBasica() {
-    if (!mpWell) { std::cout << "Carregue um LAS primeiro.\n"; return; }
-    VshParams vp; SepParams sp;
+    if (!mpWell) {
+        std::cout << "Carregue um LAS primeiro.\n";
+        return;
+    }
+
+    VshParams vp;
+    SepParams sp;
+
+    // >>> Ajuste pros nomes reais do LAS <<<
+    sp.rdeep_curve = "RPD2";  // deep
+    sp.rmed_curve  = "RPM2";  // medium
+    sp.rshal_curve = "RPS2";  // shallow
+
     mpPlotter->PlotInterpretationBasic(*mpWell, vp, sp);
 }
 
 void CGeoLogViewerApp::AcaoExportarCSVIntervalos() {
-    if (!mpWell) { std::cout << "Carregue um LAS primeiro.\n"; return; }
-    VshParams vp; SepParams sp; PayParams pp;
+    if (!mpWell) {
+        std::cout << "Carregue um LAS primeiro.\n";
+        return;
+    }
+
+    VshParams vp;
+    SepParams sp;
+    PayParams pp;
+
+    // >>> Mesmos nomes aqui <<<
+    sp.rdeep_curve = "RPD2";
+    sp.rmed_curve  = "RPM2";
+    sp.rshal_curve = "RPS2";
+
     auto D     = CInterpreter::ComputeDerived(*mpWell, vp, sp);
     auto picks = CInterpreter::PickReservoirs(D, pp);
     CInterpreter::WriteCSV("./out/intervalos.csv", picks);
     std::cout << "intervalos.csv gerado em ./out\n";
 }
+

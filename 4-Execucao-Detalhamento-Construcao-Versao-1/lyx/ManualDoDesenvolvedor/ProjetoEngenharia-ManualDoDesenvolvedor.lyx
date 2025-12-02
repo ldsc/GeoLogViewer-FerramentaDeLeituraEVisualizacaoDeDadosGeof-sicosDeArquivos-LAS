@@ -387,18 +387,18 @@ literal "true"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align block
 \begin_inset CommandInset include
 LatexCommand include
-filename "Cap6-Ciclos-Construcao-Implementacao.lyx"
+filename "Cap6-Ciclos-Construcao-Implementacao-Copia.lyx"
 literal "true"
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\align block
 \begin_inset CommandInset include
 LatexCommand include
 filename "Cap7-Teste.lyx"

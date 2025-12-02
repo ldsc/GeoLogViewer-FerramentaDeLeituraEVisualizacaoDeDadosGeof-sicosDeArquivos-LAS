@@ -8,6 +8,7 @@ include_directories(src)
 include_directories(src/core)
 include_directories(src/plotting)
 include_directories(src/interpretation)
+include_directories(src/petrophysics)
 include_directories(src/app)
 include_directories(src/util)
 

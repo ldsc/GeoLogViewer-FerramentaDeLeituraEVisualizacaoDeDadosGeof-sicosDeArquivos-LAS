@@ -1,0 +1,3 @@
+C:/CODIGO2.0/CODIGO_EDITADO/build/CMakeFiles/WellLogVisualizer.dir
+C:/CODIGO2.0/CODIGO_EDITADO/build/CMakeFiles/edit_cache.dir
+C:/CODIGO2.0/CODIGO_EDITADO/build/CMakeFiles/rebuild_cache.dir

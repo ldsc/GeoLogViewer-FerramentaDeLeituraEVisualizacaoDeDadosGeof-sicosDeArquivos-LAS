@@ -1,0 +1,106 @@
+* Instruções de Versionamento Retroativo (Como "voltar no tempo"):
+** Relatório de Avaliação Atualizado - GeoLogViewer
+Alunos: Pedro Daneluci Cardozo, Rafael Moreira Silva
+Avaliador: Prof. André Duarte Bueno
+Status: Conteúdo Técnico Identificado. Ajustes finais de consistência e repositório necessários. Prazo: 7 dias para ajustes finais.
+
+** Visão Geral
+A revisão dos arquivos PDF anexos (Capítulos 3, 5, 6 e 7) demonstrou que o trabalho técnico foi realizado e documentado. A estrutura de classes, o histórico de versões e os testes estão descritos. O objetivo desta semana de correções é organizar a entrega final para garantir que o projeto seja "passável" para uma próxima equipe, focando na integridade entre o texto escrito e o repositório GitHub.
+
+** 1. Modelagem e Arquitetura (Capítulos 1 e 3)
+Situação Atual: O Capítulo 3 agora apresenta o Dicionário de Classes (CGeoLogViewerApp, CLASReader, CWellLog, etc.) e menciona os diagramas necessários (Classes, Atividades, Sequência).
+
+Ações Necessárias:
+
+Verificação de Imagens: Confirmar se as figuras (Diagramas UML) estão com boa resolução no PDF final. O texto faz referência a elas, mas é vital que sejam legíveis para quem for dar manutenção.
+
+Coerência: Verificar se a classe CGnuplot descrita na modelagem reflete exatamente os métodos implementados no código (vistos no Cap 6). A documentação não pode prometer métodos que não existem.
+
+** 2. Histórico e Versionamento (Capítulo 5 e GitHub)
+Situação Atual: O Capítulo 5 descreve perfeitamente a evolução:
+
+v0.1: Leitura LAS.
+
+v0.2: Plotagem Gnuplot.
+
+v0.3: Interpretação Petrofísica (Vshale/Porosidade).
+
+Ação Crítica (Obrigatória):
+
+Sincronização com GitHub: O texto do relatório está ótimo, mas o repositório GitHub precisa refletir isso.
+
+Vocês devem criar Tags no Git correspondentes a esses marcos descritos no Capítulo 5.
+*** TAG
+
+Vocês precisam registrar a história do projeto no Git. Para marcar a v0.1 na data correta (agosto/2025) sem alterar os arquivos de hoje, sigam estes passos no terminal:
+
+Encontrar o Commit: Busquem o código hash do commit que representa o estado do projeto em 1º de Agosto (ou data próxima).
+
+Comando: git log --before="2025-08-02" -n 10
+
+Copiem os primeiros 7 caracteres do hash (ex: a1b2c3d).
+
+Criar a Tag no Passado:
+
+Comando: git tag -a v0.1 <HASH_DO_COMMIT> -m "Versão 0.1 - Estrutura de Leitura LAS"
+
+Criar a Tag Atual:
+
+Comando: git tag -a v0.3 -m "Versão Final com Interpretação"
+
+Enviar para o GitHub:
+
+Comando: git push origin --tags
+
+** 3. Implementação e Código (Capítulo 6)
+Situação Atual: O Capítulo contém as listagens de código (main.cpp, CGeoLogViewerApp, etc.).
+
+Ações Necessárias:
+
+Limpeza de Comentários: No PDF, verifiquem se não ficaram comentários de debug ou códigos comentados desnecessários nas listagens finais. O código apresentado no relatório deve ser a versão "limpa" e definitiva.
+
+Caminhos de Arquivos: Verifiquem se os includes mostrados no relatório (ex: ../../src/Plotting/CPlotter.h) correspondem à estrutura de pastas real que está no GitHub.
+
+** 4. Testes e Manual do Usuário (Capítulo 7 e Manual)
+Situação Atual: O Capítulo 7 mostra os testes de "Leitura", "Listagem" e "Interpretação".
+
+Ponto de Atenção: As imagens mostradas no PDF (Figuras 1.7, 1.8, etc.) são majoritariamente capturas de tela do Terminal/Prompt de Comando.
+
+Ação Crítica de Melhoria:
+
+Evidência Visual Gráfica: Como o software é um Viewer (Visualizador) e usa o Gnuplot, o relatório de testes (e o Manual do Usuário) PRECISA conter capturas de tela das janelas gráficas geradas.
+
+Mostrar o terminal dizendo que "plotou com sucesso" não é suficiente.
+
+Anexem imagens das curvas (GR, Resistividade) plotadas nas janelas do Gnuplot/Qt para provar que a visualização funciona.
+
+** 5. Repositório e Entrega Final
+Instruções para a aprovação:
+
+README.md: Atualizem o README.md do repositório. Ele deve ser a capa do projeto. Deve conter:
+
+Nome do Projeto e Autores.
+
+Link para baixar os Manuais (Usuário e Desenvolvedor) em PDF.
+
+Instrução simples de como compilar.
+
+Manuais em PDF: Gerem os PDFs finais (sem erros de compilação do LaTeX/LyX) e coloquem na pasta docs/ do repositório ou na área de Releases do GitHub.
+
+Consistência: Garantam que quem baixar o repositório hoje consiga rodar exatamente o que está descrito no Manual do Usuário.
+
+** Instruções para o README (Org Mode e Markdown): O repositório deve ter o README.md atualizado, pois é a "capa" do projeto no site.
+
+Edição: Recomendo editar o arquivo README.org utilizando o VS Code.
+
+Extensão: Instalem a extensão "VS Code Org Mode" para ter o realce de sintaxe correto.
+
+Conversão: Após editar o .org, exportem/convertam para README.md (pode ser feito via Pandoc ou manualmente ajustando a formatação se for simples).
+
+Commit: O GitHub precisa de ambos atualizados.
+
+Comando: git add README.md README.org
+
+Comando: git commit -m "Atualizando documentação do projeto"
+
+Comando: git push

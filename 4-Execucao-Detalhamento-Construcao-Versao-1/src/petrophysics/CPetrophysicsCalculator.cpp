@@ -62,7 +62,7 @@ std::vector<double> CPetroPhysicsCalculator::PorosityND(const std::vector<double
 
     for (size_t i=0;i<N;++i){
         if (fin(nphi[i]) && fin(phiD[i])) {
-            // combinação simples: média aritmética
+            // combinacao simples: media aritmetica
             out[i] = 0.5*(nphi[i] + phiD[i]);
         }
     }

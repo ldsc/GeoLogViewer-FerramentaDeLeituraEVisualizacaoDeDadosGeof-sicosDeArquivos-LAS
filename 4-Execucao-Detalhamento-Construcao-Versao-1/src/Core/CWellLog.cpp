@@ -14,7 +14,7 @@ void CWellLog::AddCurveValue(const std::string& sCurveName, float Val) {
     if (it != mapCurves.end()) {
         it->second.AddValue(Val);
     } else {
-        std::cerr << "Curva não registrada: " << sCurveName << std::endl;
+        std::cerr << "Curva n?o registrada: " << sCurveName << std::endl;
     }
 }
 

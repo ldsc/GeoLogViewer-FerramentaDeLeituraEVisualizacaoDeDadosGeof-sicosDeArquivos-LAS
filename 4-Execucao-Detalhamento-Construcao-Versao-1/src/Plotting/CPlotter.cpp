@@ -19,24 +19,24 @@
 // =====================
 // Helpers internos
 // =====================
-    // Pasta padrão para saída dos arquivos .dat
+    // Pasta padrao para saida dos arquivos .dat
     static std::string s_OutDir = "../out";
 
     // ===== Config do OVERLAY =====
     constexpr int    kOverlayTermW   = 420;   // largura da janela do overlay (px)  [ajuste aqui]
     constexpr int    kOverlayTermH   = 900;   // altura da janela do overlay (px)
-    constexpr double kOverlayRulerPx = 84.0;  // largura da régua no overlay (px)   [mais grossa]
-    constexpr double kOverlayGapPx   = 10.0;  // gap entre régua e track (px)
+    constexpr double kOverlayRulerPx = 84.0;  // largura da regua no overlay (px)   [mais grossa]
+    constexpr double kOverlayGapPx   = 10.0;  // gap entre regua e track (px)
 
     // ------------------ SIDE-BY-SIDE (terminal do tamanho exato) ------------------
-    // Knobs (px) — ajuste ao gosto
+    // Knobs (px) - ajuste ao gosto
     constexpr int    kSideTermH       = 900;   // altura da janela
-    constexpr double kRulerPx         = 96.0;  // largura da régua
+    constexpr double kRulerPx         = 96.0;  // largura da regua
     constexpr double kTrackPxTarget   = 180.0; // largura desejada por track
-    constexpr double kGapPx           = 12.0;  // gap entre painéis (régua→1ª track e entre tracks)
-    constexpr double kRightPadPx      = 16.0;  // respiro à direita (opcional)
+    constexpr double kGapPx           = 12.0;  // gap entre paineis (regua -> 1 track e entre tracks)
+    constexpr double kRightPadPx      = 16.0;  // respiro a direita (opcional)
 
-    // Tolerância para comparar com o valor NULL do LAS
+    // Tolerancia para comparar com o valor NULL do LAS
     constexpr double kNullTol = 1e-4;
 
     // Paleta simples de cores para overlay (hex RGB)
@@ -46,7 +46,7 @@
         "#bcbd22", "#17becf"
     };
 
-    // Filtra pontos inválidos (NULL) e devolve xs/ys filtrados
+    // Filtra pontos invalidos (NULL) e devolve xs/ys filtrados
     static void FilterNulls(const std::vector<double>& xin,
                             const std::vector<double>& yin,
                             std::optional<double> nullVal,
@@ -69,7 +69,7 @@
         }
     }
 
-    // Gera um .dat (x y) para uma série e retorna o caminho do arquivo
+    // Gera um .dat (x y) para uma serie e retorna o caminho do arquivo
     static std::string WriteDat(const std::string& name,
                                 const std::vector<double>& x,
                                 const std::vector<double>& y)
@@ -95,7 +95,7 @@
         return path;
     }
 
-    // Escreve a régua de profundidade (coluna cinza) e retorna o caminho do .dat
+    // Escreve a regua de profundidade (coluna cinza) e retorna o caminho do .dat
     static std::string WriteDepthRuler(const std::vector<double>& depths)
     {
         std::error_code ec;
@@ -162,7 +162,7 @@ void CPlotter::PlotCurve(const CWellLog& rWell, const std::string& curveName)
 
     const auto& vF = it->second.GetData();
     if (vF.size() != depth.size()) {
-        std::cerr << "[PlotCurve] Tamanho incompatível em " << curveName << "\n";
+        std::cerr << "[PlotCurve] Tamanho incompativel em " << curveName << "\n";
         return;
     }
 
@@ -175,7 +175,7 @@ void CPlotter::PlotCurve(const CWellLog& rWell, const std::string& curveName)
     std::vector<double> xsf, ysf;
     FilterNulls(xs, ys, nullOpt, xsf, ysf);
     if (xsf.empty()) {
-        std::cerr << "[PlotCurve] Sem pontos válidos após filtrar NULL em " << curveName << "\n";
+        std::cerr << "[PlotCurve] Sem pontos validos apos filtrar NULL em " << curveName << "\n";
         return;
     }
 
@@ -186,7 +186,7 @@ void CPlotter::PlotCurve(const CWellLog& rWell, const std::string& curveName)
     double ymin = *std::min_element(ysf.begin(), ysf.end());
     double ymax = *std::max_element(ysf.begin(), ysf.end());
 
-    // Decide log X: resistividade OU unidade contendo "OHM", mas só se > 0
+    // Decide log X: resistividade OU unidade contendo "OHM", mas so se > 0
     bool wantLogX = NameLooksLikeResistivity(curveName) ||
                     (it->second.Unit().find("OHM") != std::string::npos);
     if (wantLogX) {
@@ -224,7 +224,7 @@ void CPlotter::PlotSelectedTracks(const CWellLog& rWell,
         return;
     }
 
-    // 1) Lista de curvas (se vazio, usa todas as curvas do poço)
+    // 1) Lista de curvas (se vazio, usa todas as curvas do poco)
     std::vector<std::string> curves = curvesToPlot;
     if (curves.empty()) {
         for (const auto& kv : rWell.GetCurves())
@@ -235,12 +235,12 @@ void CPlotter::PlotSelectedTracks(const CWellLog& rWell,
         return;
     }
 
-    // 2) Profundidades (ys) e estatísticas
+    // 2) Profundidades (ys) e estatisticas
     std::vector<double> ys(vecDepth.begin(), vecDepth.end());
     const double fMinDepth = *std::min_element(ys.begin(), ys.end());
     const double fMaxDepth = *std::max_element(ys.begin(), ys.end());
 
-    // 3) Arquivo da régua de profundidade
+    // 3) Arquivo da regua de profundidade
     const std::string depthDat = WriteDepthRuler(ys);
 
     // 4) Layout do multiplot
@@ -255,7 +255,7 @@ void CPlotter::PlotSelectedTracks(const CWellLog& rWell,
     gp.Cmd("set tmargin at screen 0.95");
     gp.Cmd("set bmargin at screen 0.05");
 
-    // 5) Coluna 0: régua de profundidade
+    // 5) Coluna 0: regua de profundidade
     {
         gp.Cmd(("set size " + std::to_string(trackWidth) + ",1").c_str());
         gp.Cmd(("set origin " + std::to_string(currentOrigin) + ",0").c_str());
@@ -283,7 +283,7 @@ void CPlotter::PlotSelectedTracks(const CWellLog& rWell,
 
         const auto& vF = it->second.GetData();
         if (vF.size() != ys.size()) {
-            std::cerr << "[PlotSelectedTracks] Tamanho incompatível: " << curveName
+            std::cerr << "[PlotSelectedTracks] Tamanho incompativel: " << curveName
                       << " (" << vF.size() << " vs " << ys.size() << ")\n";
             continue;
         }
@@ -296,7 +296,7 @@ void CPlotter::PlotSelectedTracks(const CWellLog& rWell,
         std::vector<double> xsf, ysf;
         FilterNulls(xs, ys, nullOpt, xsf, ysf);
         if (xsf.empty()) {
-            std::cerr << "[PlotSelectedTracks] Sem pontos válidos após filtrar NULL em " << curveName << "\n";
+            std::cerr << "[PlotSelectedTracks] Sem pontos validos apos filtrar NULL em " << curveName << "\n";
             currentOrigin += trackWidth;
             continue;
         }
@@ -321,11 +321,11 @@ void CPlotter::PlotSelectedTracks(const CWellLog& rWell,
         PreparePanel(gp, currentOrigin, trackWidth, xmin, xmax, fMinDepth, fMaxDepth,
                      labelX, wantLogX);
 
-        // .dat explícito e plot único
+        // .dat explicito e plot unico
         const std::string dat = WriteDat(curveName, xsf, ysf);
         gp.Cmd(("plot '" + dat + "' using 1:2 with lines notitle").c_str());
 
-        // avança para o próximo painel
+        // avanca para o proximo painel
         currentOrigin += trackWidth;
     }
 
@@ -350,7 +350,7 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
     const auto nullOpt = (std::isnan(well.Info().null) ? std::optional<double>{}
                                                        : std::optional<double>{well.Info().null});
 
-    // Seleção das curvas (mantém ordem pedida; se vazio, usa todas)
+    // Selecao das curvas (mantem ordem pedida; se vazio, usa todas)
     std::vector<std::string> curves = curvesIn;
     if (curves.empty()) {
         for (const auto& kv : well.GetCurves())
@@ -372,7 +372,7 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
     std::vector<Serie> S;
     S.reserve(curves.size());
 
-    // monta as séries
+    // monta as series
     for (const auto& nm : curves) {
         auto it = well.GetCurves().find(nm);
         if (it == well.GetCurves().end()) {
@@ -382,7 +382,7 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
 
         const auto& data = it->second.GetData();
         if (data.size() != depthY.size()) {
-            std::cerr << "[PlotCompareCurves] Tamanho incompatível: " << nm << "\n";
+            std::cerr << "[PlotCompareCurves] Tamanho incompativel: " << nm << "\n";
             continue;
         }
 
@@ -398,11 +398,11 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
             ys.push_back(y);
         }
         if (xs.empty()) {
-            std::cerr << "[PlotCompareCurves] Sem pontos válidos em " << nm << " após NULL.\n";
+            std::cerr << "[PlotCompareCurves] Sem pontos validos em " << nm << " apos NULL.\n";
             continue;
         }
 
-        // se for overlay, usamos o próprio depthY; se for side-by-side, mantemos xs/ys “crus”
+
         std::vector<double> xsf = xs;
         std::vector<double> ysf = ys;
         S.push_back({ nm, it->second.Unit(), /*dat=*/"", std::move(xsf), std::move(ysf) });
@@ -410,7 +410,7 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
 
     // ------------------ OVERLAY ------------------
     if (overlay) {
-        // Normalização opcional (0–1) por série
+        // Normalizacao opcional (0-1) por serie
         if (normalize) {
             for (auto& s : S) {
                 std::vector<double> nx;
@@ -430,7 +430,7 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
         double ymin = *std::min_element(depthY.begin(), depthY.end());
         double ymax = *std::max_element(depthY.begin(), depthY.end());
 
-        // .dat das séries
+        // .dat das series
         for (auto& s : S)
             s.datPath = WriteDat(s.name, s.x, s.y);
 
@@ -452,7 +452,7 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
         gp.Cmd("set tmargin at screen 0.95");
         gp.Cmd("set bmargin at screen 0.05");
 
-        // régua
+        // regua
         {
             const std::string depthDat = WriteDepthRuler(depthY);
             gp.Cmd(("set size " + std::to_string(rfrac) + ",1").c_str());
@@ -506,18 +506,18 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
     const int n = static_cast<int>(S.size());
 
     // 1) Define o tamanho do terminal a partir de n
-    //    régua + n*track + n*gap + padding
+    //    regua + n*track + n*gap + padding
     int termW = static_cast<int>(
         std::ceil(kRulerPx + n * kTrackPxTarget + n * kGapPx + kRightPadPx)
     );
-    // (se quiser um teto, habilite a próxima linha)
+    // (se quiser um teto, habilite a proxima linha)
     // termW = std::min(termW, 1920);
 
-    // 2) Converte px -> frações do terminal (para set size / set origin)
+    // 2) Converte px -> fracoes do terminal (para set size / set origin)
     const double rfrac = kRulerPx       / static_cast<double>(termW);
     const double tfrac = kTrackPxTarget / static_cast<double>(termW);
     const double gfrac = kGapPx         / static_cast<double>(termW);
-    // (o pequeno padding fica “para fora”, não precisa fração)
+    // (o pequeno padding fica para fora, noo precisa fracao)
 
     // 3) Desenho
     double origin = 0.0;
@@ -529,7 +529,7 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
     gp.Cmd("set tmargin at screen 0.95");
     gp.Cmd("set bmargin at screen 0.05");
 
-    // --- régua com preenchimento ---
+    // --- regua com preenchimento ---
     {
         gp.Cmd(("set size " + std::to_string(rfrac) + ",1").c_str());
         gp.Cmd(("set origin " + std::to_string(origin) + ",0").c_str());
@@ -543,22 +543,22 @@ void CPlotter::PlotCompareCurves(const CWellLog& well,
         // pinta o painel todo antes de plotar (independente do estilo de linhas)
         gp.Cmd("set object 1 rectangle from graph 0,0 to graph 1,1 fc rgb 'gray70' fs solid 1.0 behind");
 
-        // um traço qualquer para materializar o eixo e a moldura
-        // (pode usar o mesmo arquivo da régua, mas agora só com 'lines')
+        // um traco qualquer para materializar o eixo e a moldura
+        // (pode usar o mesmo arquivo da regua, mas agora so com 'lines')
         gp.Cmd(("plot '" + depthDat + "' using 1:2 with lines lc rgb '#666666' notitle").c_str());
 
-        // limpa o objeto para não vazar pro próximo painel
+        // limpa o objeto para nao vazar pro proximo painel
         gp.Cmd("unset object 1");
 
         origin += rfrac + gfrac;
     }
 
-    // --- sem séries válidas? mostra mensagem e sai mantendo janela aberta
+    // --- sem series validas? mostra mensagem e sai mantendo janela aberta
     if (S.empty()) {
         gp.Cmd(("set size " + std::to_string(tfrac) + ",1").c_str());
         gp.Cmd(("set origin " + std::to_string(origin) + ",0").c_str());
         gp.Cmd("unset key"); gp.Cmd("unset label"); gp.Cmd("unset arrow"); gp.Cmd("unset object");
-        gp.Cmd("set xlabel 'Sem curvas válidas para comparar'");
+        gp.Cmd("set xlabel 'Sem curvas validas para comparar'");
         gp.Cmd("set ylabel ''");
         gp.Cmd("set xrange [0:1]");
         gp.Cmd(("set yrange [" + std::to_string(fMaxDepth) + ":" + std::to_string(fMinDepth) + "]").c_str());
@@ -619,7 +619,7 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
             const auto& vF = it->second.GetData();
             const size_t n = std::min(vF.size(), depth.size());
 
-            // 2.1) Coleta valores válidos, já filtrando NULL do LAS
+            // 2.1) Coleta valores validos, ja filtrando NULL do LAS
             std::vector<double> vValid;
             vValid.reserve(n);
 
@@ -652,7 +652,7 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
                 const double p1  = Percentil(vValid, 1.0);
                 const double p99 = Percentil(vValid, 99.0);
 
-                // 2.3) Monta GRX/GRY só dentro de [P1, P99]
+                // 2.3) Monta GRX/GRY so dentro de [P1, P99]
                 grx.reserve(n);
                 gry.reserve(n);
                 for (size_t i = 0; i < n; ++i) {
@@ -668,7 +668,7 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
     }
 
 
-    // === 2) Resistividades profundas e rasas (já de D) ===
+    // === 2) Resistividades profundas e rasas (ja de D) ===
     std::vector<double> rdx, rdy, rsx, rsy;
     {
         const size_t n = depth.size();
@@ -704,7 +704,7 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
             mn -= 1.0;
             mx += 1.0;
         } else {
-            // dá um "respiro" de 5% nas bordas
+            // da um "respiro" de 5% nas bordas
             double pad = 0.05 * (mx - mn);
             mn -= pad;
             mx += pad;
@@ -723,7 +723,7 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
             mn /= 10.0;
             mx *= 10.0;
         } else {
-            double factor = std::pow(10.0, 0.1); // ~1.26
+            double factor = std::pow(10.0, 0.1); // 1.26
             mn /= factor;
             mx *= factor;
         }
@@ -763,7 +763,7 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
     gp.Cmd("set tmargin at screen 0.96");
     gp.Cmd("set bmargin at screen 0.08");
 
-    // === 6) Régua de profundidade ===
+    // === 6) Regua de profundidade ===
     {
         gp.Cmd(("set size " + std::to_string(rulerFrac) + ",1").c_str());
         gp.Cmd("set origin 0,0");
@@ -805,7 +805,7 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
             gp.Cmd(oss.str());
         }
 
-        // curva GR fina (linha padrão)
+        // curva GR fina (linha padrao)
         std::ostringstream cmd;
         cmd << "plot ";
         if (!grx.empty()) {
@@ -867,16 +867,16 @@ void CPlotter::PlotInterpretationBasic(const CWellLog& well,
 }
 
 
-// overload curto: usa cortes de pay “sensatos”
+// overload curto: usa cortes de pay sensatos
 void CPlotter::PlotInterpretationBasic(const CWellLog& well,
                                        const VshParams& vp,
                                        const SepParams& sp)
 {
     PayParams pp;
-    pp.vsh_max       = 0.35;  // Vsh máximo
-    pp.RR_min        = 3.0;   // mínimo de Rdeep/Rshal
-    pp.dR_min        = 1.0;   // separação mínima
-    pp.min_thickness = 3.0;   // espessura mínima (m)
+    pp.vsh_max       = 0.35;  // Vsh maximo
+    pp.RR_min        = 3.0;   // minimo de Rdeep/Rshal
+    pp.dR_min        = 1.0;   // separacao minima
+    pp.min_thickness = 3.0;   // espessura minima (m)
 
     PlotInterpretationBasic(well, vp, sp, pp);
 }
@@ -900,7 +900,7 @@ void CPlotter::PlotWithIntervals(const CWellLog& rWell,
     const double fMinDepth = *std::min_element(ys.begin(), ys.end());
     const double fMaxDepth = *std::max_element(ys.begin(), ys.end());
 
-    // Escreve régua (garante que pelo menos isso plote)
+    // Escreve regua (garante que pelo menos isso plote)
     const std::string depthDat = WriteDepthRuler(ys);
 
     // 3) Layout compacto px
@@ -925,7 +925,7 @@ void CPlotter::PlotWithIntervals(const CWellLog& rWell,
 
     double origin = 0.0;
 
-    // 4) Régua (preenchida) — SEMPRE PLOTA
+    // 4) Regua (preenchida) - SEMPRE PLOTA
     {
         gp.Cmd(("set size " + std::to_string(rfrac) + ",1").c_str());
         gp.Cmd(("set origin " + std::to_string(origin) + ",0").c_str());
@@ -1005,7 +1005,7 @@ void CPlotter::PlotWithIntervals(const CWellLog& rWell,
 
     gp.Cmd("unset multiplot");
 
-    // Segura a janela mesmo se nada foi plotado (além da régua)
+    // Segura a janela mesmo se nada foi plotado (alem da regua)
     gp.Cmd("pause mouse close");
 }
 

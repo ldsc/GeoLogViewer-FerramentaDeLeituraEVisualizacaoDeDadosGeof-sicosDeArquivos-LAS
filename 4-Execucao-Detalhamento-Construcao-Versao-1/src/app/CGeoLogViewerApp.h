@@ -30,7 +30,7 @@ private:
 
     CWellLog*    mpWell;     // ponteiro para o membro mWell
     CWellLog*    mWellStorage;
-    CWellLog&    Well();     // helper para obter referência válida ao well
+    CWellLog&    Well();     // helper para obter referencia valida ao well
 
     std::string  mUltimoLAS;
 };

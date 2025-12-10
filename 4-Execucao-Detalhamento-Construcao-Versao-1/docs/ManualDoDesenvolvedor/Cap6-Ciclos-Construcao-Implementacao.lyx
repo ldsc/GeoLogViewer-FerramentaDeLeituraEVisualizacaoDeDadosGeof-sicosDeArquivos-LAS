@@ -232,48 +232,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo main.cpp},
- label={main-cpp}]{C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/main.cpp}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-Fonte:
- produzido pelo autor.
-\end_layout
-
-\begin_layout Standard
-Apresenta-se na listagem 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-ref{CGeoLogViewerApp-h}
-\end_layout
-
-\end_inset
-
- o arquivo de cabeçalho da classe CGeoLogViewerApp.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinputlisting[caption={Arquivo CGeoLogViewerApp.h},
- label={CGeoLogViewerApp-h}]{C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/app/CGeoLogViewerApp.h}
+ label={main-cpp}]{../../src/main.cpp}
 \end_layout
 
 \end_inset
@@ -312,8 +274,52 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CGeoLogViewerApp.cpp},
- label={lst:CGeoLogViewerApp-cpp}]{C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/app/CGeoLogViewerApp.cpp}
+ label={CGeoLogViewerApp-cpp}]{../../src/app/CGeoLogViewerApp.cpp}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Fonte:
+ produzido pelo autor.
+\end_layout
+
+\begin_layout Standard
+Apresenta-se na listagem 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ref{CGeoLogViewerApp-h}
+\end_layout
+
+\end_inset
+
+ o arquivo de cabeçalho da classe CGeoLogViewerApp.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset{language=C++}
+\backslash
+lstinputlisting[caption={Arquivo CGeoLogViewerApp.h},
+ label={CGeoLogViewerApp-h}]{../../src/app/CGeoLogViewerApp.h}
 \end_layout
 
 \end_inset
@@ -352,16 +358,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CLASReader.h},
- label={CLASReader-h}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Core/CLASReader.h
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CLASReader-h}]{../../src/Core/CLASReader.h}
 \end_layout
 
 \end_inset
@@ -400,16 +400,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CLASReader.cpp},
- label={CLASReader-cpp}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Core/CLASReader.cpp
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CLASReader-cpp}]{../../src/Core/CLASReader.cpp}
 \end_layout
 
 \end_inset
@@ -448,16 +442,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CLogCurve.h},
- label={CLogCurve-h}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Core/CLogCurve.h
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CLogCurve-h}]{../../src/Core/CLogCurve.h}
 \end_layout
 
 \end_inset
@@ -496,16 +484,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CLogCurve.cpp},
- label={CLogCurve-cpp}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Core/CLogCurve.cpp
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CLogCurve-cpp}]{../../src/Core/CLogCurve.cpp}
 \end_layout
 
 \end_inset
@@ -544,16 +526,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CWellLog.h},
- label={CWellLog-h}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Core/CWellLog.h
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CWellLog-h}]{../../src/Core/CWellLog.h}
 \end_layout
 
 \end_inset
@@ -592,16 +568,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CWellLog.cpp},
- label={CWellLog-cpp}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Core/CWellLog.cpp
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CWellLog-cpp}]{../../src/Core/CWellLog.cpp}
 \end_layout
 
 \end_inset
@@ -624,7 +594,7 @@ status open
 
 
 \backslash
-ref{CFormationZone-cpp}
+ref{CFormationZone-h}
 \end_layout
 
 \end_inset
@@ -640,16 +610,10 @@ status open
 
 
 \backslash
-lstinputlisting[caption={Arquivo CFormationZone.cpp},
- label={CFormationZone-cpp}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Interpretation/CFormationZone.cpp
-\begin_inset Quotes erd
-\end_inset
-
-}
+lstset{language=C++}
+\backslash
+lstinputlisting[caption={Arquivo CFormationZone.h},
+ label={CFormationZone-h}]{../../src/Interpretation/CFormationZone.h}
 \end_layout
 
 \end_inset
@@ -688,16 +652,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CInterpreter.h},
- label={CInterpreter-h}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Interpretation/CInterpreter.h
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CInterpreter-h}]{../../src/Interpretation/CInterpreter.h}
 \end_layout
 
 \end_inset
@@ -736,16 +694,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CInterpreter.cpp},
- label={CInterpreter-cpp}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Interpretation/CInterpreter.cpp
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CInterpreter-cpp}]{../../src/Interpretation/CInterpreter.cpp}
 \end_layout
 
 \end_inset
@@ -784,16 +736,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CPetrophysicsCalculator.h},
- label={CPetrophysicsCalculator-h}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/petrophysics/CPetrophysicsCalculator.h
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CPetrophysicsCalculator-h}]{../../src/petrophysics/CPetrophysicsCalculator.h}
 \end_layout
 
 \end_inset
@@ -832,16 +778,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CPetrophysicsCalculator.cpp},
- label={CPetrophysicsCalculator-cpp}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/petrophysics/CPetrophysicsCalculator.cpp
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CPetrophysicsCalculator-cpp}]{../../src/petrophysics/CPetrophysicsCalculator.cpp}
 \end_layout
 
 \end_inset
@@ -880,16 +820,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CGnuplot.h},
- label={CGnuplot-h}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Plotting/CGnuplot.h
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CGnuplot-h}]{../../src/Plotting/CGnuplot.h}
 \end_layout
 
 \end_inset
@@ -928,16 +862,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CGnuplot.cpp},
- label={CGnuplot-cpp}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Plotting/CGnuplot.cpp
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CGnuplot-cpp}]{../../src/Plotting/CGnuplot.cpp}
 \end_layout
 
 \end_inset
@@ -976,16 +904,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CPlotter.h},
- label={CPlotter-h}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Plotting/CPlotter.h
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CPlotter-h}]{../../src/Plotting/CPlotter.h}
 \end_layout
 
 \end_inset
@@ -1024,16 +946,10 @@ status open
 
 
 \backslash
+lstset{language=C++}
+\backslash
 lstinputlisting[caption={Arquivo CPlotter.cpp},
- label={CPlotter-cpp}]{
-\begin_inset Quotes eld
-\end_inset
-
-C:/Projeto_C++/GeoLogViewer-FerramentaDeLeituraEVisualizacaoDeDadosGeof-sicosDeArquivos-LAS/4-Execucao-Detalhamento-Construcao-Versao-1/src/Plotting/CPlotter.cpp
-\begin_inset Quotes erd
-\end_inset
-
-}
+ label={CPlotter-cpp}]{../../src/Plotting/CPlotter.cpp}
 \end_layout
 
 \end_inset
@@ -1048,11 +964,87 @@ Fonte:
 \end_layout
 
 \begin_layout Standard
+Apresenta-se na listagem 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ref{CLogCurveUtilities-h}
+\end_layout
+
+\end_inset
+
+ a implementação da classe CLogCurveUtilities.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset{language=C++}
+\backslash
+lstinputlisting[caption={Arquivo CLogCurveUtilities.h},
+ label={CLogCurveUtilities-h}]{../../src/util/CLogCurveUtilities.h}
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
 \begin_layout Standard
+\align center
+Fonte:
+ produzido pelo autor.
+\end_layout
 
+\begin_layout Standard
+Apresenta-se na listagem 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ref{CLogCurveUtilities-cpp}
+\end_layout
+
+\end_inset
+
+ a implementação da classe CLogCurveUtilities.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset{language=C++}
+\backslash
+lstinputlisting[caption={Arquivo CLogCurveUtilities.cpp},
+ label={CLogCurveUtilities-cpp}]{../../src/util/CLogCurveUtilities.cpp}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Fonte:
+ produzido pelo autor.
 \end_layout
 
 \end_body

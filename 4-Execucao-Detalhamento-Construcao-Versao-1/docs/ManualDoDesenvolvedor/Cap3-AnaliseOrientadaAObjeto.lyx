@@ -318,8 +318,8 @@ CPlotter:
 
 \begin_layout Itemize
 CGnuplot:
- Classe que encapsula chamadas para o software externo Gnuplot,
- permitindo a construção efetiva dos gráficos.
+ Classe responsável por realizar a comunicação entre o software e o programa Gnuplot,
+ enviando comandos e dados para gerar e exibir os gráficos das curvas.
 \end_layout
 
 \begin_layout Itemize

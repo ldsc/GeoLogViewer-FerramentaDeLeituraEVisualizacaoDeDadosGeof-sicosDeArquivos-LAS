@@ -69,7 +69,7 @@ void CGeoLogViewerApp::AcaoCarregarLAS() {
     std::cout << "Caminho do arquivo LAS: ";
     std::cin >> mUltimoLAS;
 
-    CWellLog& wellRef = Well(); // referência ao storage
+    CWellLog& wellRef = Well(); // referencia ao storage
 
     const bool ok = mpReader->LoadFromFile(mUltimoLAS, wellRef);
     if (!ok) {

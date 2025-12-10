@@ -6,11 +6,11 @@
 
 namespace CLogCurveUtilities {
 
-    // estatísticas ignorando NaN
+    // estatisticas ignorando NaN
     bool MinMax(const std::vector<double>& v, double& vmin, double& vmax);
     double Mean(const std::vector<double>& v);
 
-    // média móvel simples (janela w amostras; NaN-safe)
+    // media movel simples (janela w amostras; NaN-safe)
     void SmoothMA(std::vector<double>& v, int w);
 
     // normaliza para [0,1] ignorando NaN

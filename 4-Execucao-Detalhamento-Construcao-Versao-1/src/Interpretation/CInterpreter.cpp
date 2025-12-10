@@ -45,7 +45,7 @@ double Percentile(std::vector<double> v, double p)
         return v[i0];
 }
 
-// média móvel simples, NaN-safe
+// media movel simples, NaN-safe
 void SmoothMA(std::vector<double>& v, int w)
 {
     if (w <= 1 || v.empty())

@@ -8,11 +8,11 @@
 // Historico de versoes:
 // 0. Interface para linguagem C
 //    por N. Devillard (27/01/03)
-// 1. Interface para C++: tradu��o direta da versao em C
+// 1. Interface para C++: traducao direta da versao em C
 //    por Rajarshi Guha (07/03/03)
 // 2. Correcoes para compatibilidadde com Win32 
 //    por V. Chyzhdzenka (20/05/03)
-// 3. Novos m�todos membros, correcoes para compatibilidade com Win32 e Linux 
+// 3. Novos metodos membros, correcoes para compatibilidade com Win32 e Linux 
 //    por M. Burgis (10/03/08)
 // 4. Traducao para Portugues, documentacao - javadoc/doxygen, 
 //    e modificacoes na interface (adicao de interface alternativa)
@@ -20,12 +20,12 @@
 //   Tarefas: 
 //   (v1)
 //   Documentar toda classe
-//   Adicionar novos m�todos, criando atributos adicionais se necessario.
+//   Adicionar novos metodos, criando atributos adicionais se necessario.
 //   Adotar padrao C++, isto e, usar sobrecarga nas chamadas.
 //   (v2)
 //   Criar classe herdeira CGnuplot, que inclui somente a nova interface.
 //   como e herdeira, o usuario vai poder usar nome antigos.
-//   Vantagem: preserva classe original, cria nova interface, fica a crit�rio do usu�rio
+//   Vantagem: preserva classe original, cria nova interface, fica a criterio do usuario
 //   qual interface utilizar.
 ////////////////////////////////////////////////////////////////////////////////////////
 // Requisitos:
@@ -36,7 +36,7 @@
 // - Para um melhor uso, consulte o manual do gnuplot,
 //   no GNU/Linux digite: man gnuplot ou info gnuplot.
 //   
-// - Veja aula em http://www.lenep.uenf.br/~bueno/DisciplinaSL/  
+// - Veja aula em http://www.lenep.uenf.br/bueno/DisciplinaSL/  
 //   
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -98,7 +98,7 @@ private:
   static std::string terminal_std;	///< Terminal padrao (standart), usado para visualizacoes.
   
   //------------------------------------------------------------------------------------- Metodos
-  // Funcoes membro (m�todos membro) (funcoes auxiliares)
+  // Funcoes membro (metodos membro) (funcoes auxiliares)
   /// @brief Cria arquivo temporario e retorna seu nome.
   /// Usa get_program_path(); e popen();
   void  init ();		        
@@ -350,18 +350,18 @@ public:
 						  else 
 						      return unset_surface();
 						}
-  /// @brief Ativa a legenda (a legenda � setada por padrao).
+  /// @brief Ativa a legenda (a legenda eh setada por padrao).
   /// Posicao: inside/outside, left/center/right, top/center/bottom, nobox/box
   Gnuplot &  set_legend (const std::string & position = "default");	
 
-  /// @brief Desativa a legenda (a legenda � setada por padrao).
+  /// @brief Desativa a legenda (a legenda eh setada por padrao).
   Gnuplot &  unset_legend ();
 
-  /// @brief Ativa/Desativa a legenda (a legenda � setada por padrao).
+  /// @brief Ativa/Desativa a legenda (a legenda eh setada por padrao).
   Gnuplot &  Legend(const std::string & position = "default") 
                                                 { return set_legend(position); }
 
-  /// @brief Ativa/Desativa a legenda (a legenda � setada por padrao).
+  /// @brief Ativa/Desativa a legenda (a legenda eh setada por padrao).
   Gnuplot &  Legend(int _flegend) 
 						{ if(flegend = _flegend) 
 						      return set_legend(); 
@@ -664,22 +664,22 @@ public:
 
   //----------------------------------------------------------------------------------
   // Repete o ultimo comando de plotagem, seja plot (2D) ou splot (3D)
-  // Usado para visualizar plotagens, ap�s mudar algumas opcoes de plotagem
+  // Usado para visualizar plotagens, apos mudar algumas opcoes de plotagem
   // ou quando gerando o mesmo grafico para diferentes dispositivos (showonscreen, savetops)
   Gnuplot &  replot ();
 
   // Repete o ultimo comando de plotagem, seja plot (2D) ou splot (3D)
-  // Usado para visualizar plotagens, ap�s mudar algumas opcoes de plotagem
+  // Usado para visualizar plotagens, apos mudar algumas opcoes de plotagem
   // ou quando gerando o mesmo grafico para diferentes dispositivos (showonscreen, savetops)
   Gnuplot &  Replot() 				{ return replot(); }
 
-  // Reseta uma sessao do gnuplot (pr�xima plotagem apaga definicoes previas)
+  // Reseta uma sessao do gnuplot (proxima plotagem apaga definicoes previas)
   Gnuplot &  reset_plot ();
 
-  // Reseta uma sessao do gnuplot (pr�xima plotagem apaga definicoes previas)
+  // Reseta uma sessao do gnuplot (proxima plotagem apaga definicoes previas)
   Gnuplot &  ResetPlot() 			{ return reset_plot(); }
 
-  // Chama fun��o reset do gnuplot
+  // Chama funcao reset do gnuplot
   Gnuplot &  Reset()        		{ this->cmd("reset"); return *this; }
 
   // Reseta uma sessao do gnuplot e seta todas as variaveis para o default

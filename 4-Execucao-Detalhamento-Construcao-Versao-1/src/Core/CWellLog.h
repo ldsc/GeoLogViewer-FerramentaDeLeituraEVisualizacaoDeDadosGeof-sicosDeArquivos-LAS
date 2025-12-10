@@ -4,7 +4,7 @@
 #include "CLogCurve.h"
 #include <map>
 #include <string>
-#include <limits>      // std::numeric_limits
+#include <limits>      // std::numeric-limits
 #include <cmath>       // std::isnan
 
 struct SWellInfo {

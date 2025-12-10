@@ -16,7 +16,7 @@ public:
     void SetTop(double z){ mTop = z; }
     void SetBase(double z){ mBase = z; }
 
-    // propriedades médias por nome (ex.: "VSH", "PHIE", "Sw", "Rdeep")
+    // propriedades medias por nome (ex.: "VSH", "PHIE", "Sw", "Rdeep")
     void SetProp(const std::string& name, double value){ mProps[name]=value; }
     bool GetProp(const std::string& name, double& out) const {
         auto it=mProps.find(name); if (it==mProps.end()) return false; out=it->second; return true;

@@ -15,15 +15,15 @@
 #include <cmath>     // std::isnan
 
 // Util: trim simples
-static inline std::string Trim(const std::string& s) {
+static inline std::string Trim(const std::string& s) {      //remove espacos da linha
     size_t b = 0, e = s.size();
     while (b < e && std::isspace((unsigned char)s[b])) ++b;
     while (e > b && std::isspace((unsigned char)s[e - 1])) --e;
     return s.substr(b, e - b);
 }
 
-// Util: upper sem espaços
-static inline std::string UpperNoSpace(std::string s) {
+// Util: upper sem espacos
+static inline std::string UpperNoSpace(std::string s) {      //remove espacos entre a palavra e torna tudo maiusculo
     s.erase(std::remove_if(s.begin(), s.end(), ::isspace), s.end());
     std::transform(s.begin(), s.end(), s.begin(), ::toupper);
     return s;
@@ -39,9 +39,9 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
 
     std::string line;
     std::string currentSection;
-    std::vector<std::string> curveNames; // ordem das colunas em ~ASCII
+    std::vector<std::string> curveNames; // ordem das colunas em ASCII
 
-    // zera info do ~WELL (mantendo NaN por padrão)
+    // zera info do WELL (mantendo NaN por padrao)
     SWellInfo info = WellLog.Info();
 
     while (std::getline(in, line)) {
@@ -52,17 +52,17 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
         line = Trim(line);
         if (line.empty()) continue;
 
-        // Troca de seção (~WELL, ~CURVE, ~ASCII, etc.)
+        // Troca de secao (WELL, CURVE, ASCII, etc.)
         if (line.size() > 0 && line[0] == '~') {
-            currentSection = UpperNoSpace(line); // garante ~WELL, ~CURVE, etc. em upper
+            currentSection = UpperNoSpace(line); // garante WELL, CURVE, etc. em upper
             continue;
         }
 
-        // Ignora comentários iniciando por '#'
+        // Ignora comentarios iniciando por '#'
         if (line[0] == '#') continue;
 
         // =========================
-        // Seção ~WELL: NULL/STRT/STOP/STEP
+        // Secao WELL: NULL/STRT/STOP/STEP
         // =========================
         if (currentSection == "~WELL") {
             // Formatos comuns:
@@ -76,7 +76,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
             if (posDot != std::string::npos) {
                 std::string key = UpperNoSpace(line.substr(0, posDot));
 
-                // captura o primeiro número da linha
+                // captura o primeiro numero da linha
                 double val = std::numeric_limits<double>::quiet_NaN();
                 {
                     std::istringstream iss(line);
@@ -100,7 +100,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
         }
 
         // =========================
-        // Seção ~CURVE: mnemonic e unidade
+        // Secao CURVE: mnemonic e unidade
         // =========================
         if (currentSection == "~CURVE") {
             // Exemplos de linha:
@@ -108,7 +108,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
             //  GR.API        : GAMMA RAY
             //  RPD2.OHM-M    : RES 2MHz (Deep)
             //  ROP.M/HR
-            // Regra: texto antes do '.' é o mnemonic; após o '.' até espaço/':' é a unidade
+            // Regra: texto antes do '.' eh o mnemonic; apos o '.' ate espaco/':' eh a unidade
             std::string mnemonic, unit;
 
             auto posDot = line.find('.');
@@ -118,7 +118,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
                 size_t endu = rest.find_first_of(" \t:");
                 unit = (endu == std::string::npos) ? rest : rest.substr(0, endu);
             } else {
-                // sem ponto → sem unidade explícita
+                // sem ponto -> sem unidade explicita
                 size_t endm = line.find_first_of(" \t:");
                 mnemonic = (endm == std::string::npos) ? line : line.substr(0, endm);
                 unit.clear();
@@ -126,7 +126,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
 
             mnemonic = UpperNoSpace(mnemonic);
 
-            // DEPT/DEPTH é tratado como índice de profundidade
+            // DEPT/DEPTH eh tratado como indice de profundidade
             if (mnemonic == "DEPT" || mnemonic == "DEPTH") {
                 curveNames.push_back(mnemonic);
             } else {
@@ -137,10 +137,10 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
         }
 
         // =========================
-        // Seção ~ASCII: dados (DEPT + curvas na ordem de curveNames)
+        // Secao ASCII: dados (DEPT + curvas na ordem de curveNames)
         // =========================
         if (currentSection == "~ASCII") {
-            // separa tokens por espaço/abas
+            // separa tokens por espaco/abas
             std::vector<std::string> toks;
             {
                 std::istringstream iss(line);
@@ -150,13 +150,13 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
             if (toks.empty()) continue;
 
             if (toks.size() != curveNames.size()) {
-                // linha malformada — loga e continua
+                // linha malformada - loga e continua
                 std::cerr << "[CLASReader] Linha ~ASCII com colunas " << toks.size()
                           << " mas esperado " << curveNames.size() << " : '" << raw << "'\n";
                 continue;
             }
 
-            // primeiro token → profundidade
+            // primeiro token -> profundidade
             {
                 char* endp = nullptr;
                 double d = std::strtod(toks[0].c_str(), &endp);
@@ -167,13 +167,13 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
                 WellLog.AddDepth(d);
             }
 
-            // demais tokens → valores de curvas
+            // demais tokens -> valores de curvas
             for (size_t i = 1; i < toks.size(); ++i) {
                 const std::string& name = UpperNoSpace(curveNames[i]);
                 char* endp = nullptr;
                 double v = std::strtod(toks[i].c_str(), &endp);
                 if (!(endp && *endp == '\0')) {
-                    // valor inválido; registra NaN? aqui optamos por pular
+                    // valor invalido; registra NaN aqui optamos por pular
                     continue;
                 }
                 WellLog.AddCurveValue(name, static_cast<float>(v));
@@ -181,7 +181,7 @@ bool CLASReader::LoadFromFile(const std::string& path, CWellLog& WellLog)
             continue;
         }
 
-        // Outras seções: ignoradas por enquanto (mantemos o que já funciona)
+        // Outras secoes: ignoradas por enquanto (mantemos o que ja funciona)
     }
 
     return true;
